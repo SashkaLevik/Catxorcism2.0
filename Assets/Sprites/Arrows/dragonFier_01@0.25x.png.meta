@@ -1,0 +1,696 @@
+fileFormatVersion: 2
+guid: d55891e11a6e6c143bf3a98a153cdeb0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5499576665568975255
+    second: dragonFier_01@0.25x_0
+  - first:
+      213: 7909485713050471227
+    second: dragonFier_01@0.25x_1
+  - first:
+      213: -2257714081421353950
+    second: dragonFier_01@0.25x_2
+  - first:
+      213: -124567468790655913
+    second: dragonFier_01@0.25x_3
+  - first:
+      213: 4664666898967362778
+    second: dragonFier_01@0.25x_4
+  - first:
+      213: -8255077375116016640
+    second: dragonFier_01@0.25x_5
+  - first:
+      213: 5433974487938067628
+    second: dragonFier_01@0.25x_6
+  - first:
+      213: -4777809118771289469
+    second: dragonFier_01@0.25x_7
+  - first:
+      213: 3885747536577439750
+    second: dragonFier_01@0.25x_8
+  - first:
+      213: -6021048475067501137
+    second: dragonFier_01@0.25x_9
+  - first:
+      213: -4599891689138927900
+    second: dragonFier_01@0.25x_10
+  - first:
+      213: -6030852890258680119
+    second: dragonFier_01@0.25x_11
+  - first:
+      213: -4351542148092672992
+    second: dragonFier_01@0.25x_12
+  - first:
+      213: -2805059541040782927
+    second: dragonFier_01@0.25x_13
+  - first:
+      213: -1363347289712130322
+    second: dragonFier_01@0.25x_14
+  - first:
+      213: 8368692223679018339
+    second: dragonFier_01@0.25x_15
+  - first:
+      213: -7686123630843024045
+    second: dragonFier_01@0.25x_16
+  - first:
+      213: -5233993082798239562
+    second: dragonFier_01@0.25x_17
+  - first:
+      213: 5669913729637600643
+    second: dragonFier_01@0.25x_18
+  - first:
+      213: -3281537372802289489
+    second: dragonFier_01@0.25x_19
+  - first:
+      213: 5785564364703340194
+    second: dragonFier_01@0.25x_20
+  - first:
+      213: -1960236197770529236
+    second: dragonFier_01@0.25x_21
+  - first:
+      213: -2046481990889096235
+    second: dragonFier_01@0.25x_22
+  - first:
+      213: 5194815964062580147
+    second: dragonFier_01@0.25x_23
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: dragonFier_01@0.25x_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 375
+        width: 69
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 966ebb129249da3b0800000000000000
+      internalID: -5499576665568975255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonFier_01@0.25x_1
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 376
+        width: 69
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3b866a895324cd60800000000000000
+      internalID: 7909485713050471227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonFier_01@0.25x_2
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 376
+        width: 68
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22c9b7c310dfaa0e0800000000000000
+      internalID: -2257714081421353950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonFier_01@0.25x_3
+      rect:
+        serializedVersion: 2
+        x: 301
+        y: 376
+        width: 69
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 754d9201c82754ef0800000000000000
+      internalID: -124567468790655913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonFier_01@0.25x_4
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 301
+        width: 69
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adcf87484d93cb040800000000000000
+      internalID: 4664666898967362778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonFier_01@0.25x_5
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 301
+        width: 70
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00488d65dd2107d80800000000000000
+      internalID: -8255077375116016640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonFier_01@0.25x_6
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 301
+        width: 70
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cac6510a10b596b40800000000000000
+      internalID: 5433974487938067628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonFier_01@0.25x_7
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 301
+        width: 69
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 382e30f9befc1bdb0800000000000000
+      internalID: -4777809118771289469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonFier_01@0.25x_8
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 226
+        width: 69
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6082c840cc2fce530800000000000000
+      internalID: 3885747536577439750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonFier_01@0.25x_9
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 226
+        width: 69
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa5b1341050f07ca0800000000000000
+      internalID: -6021048475067501137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonFier_01@0.25x_10
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 226
+        width: 69
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e64a9741e6e920c0800000000000000
+      internalID: -4599891689138927900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonFier_01@0.25x_11
+      rect:
+        serializedVersion: 2
+        x: 301
+        y: 226
+        width: 70
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c65e77cf3b1e4ca0800000000000000
+      internalID: -6030852890258680119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonFier_01@0.25x_12
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 150
+        width: 70
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 024cbc5c8773c93c0800000000000000
+      internalID: -4351542148092672992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonFier_01@0.25x_13
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 150
+        width: 71
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b1a172953d6219d0800000000000000
+      internalID: -2805059541040782927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonFier_01@0.25x_14
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 150
+        width: 71
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee687330dda641de0800000000000000
+      internalID: -1363347289712130322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonFier_01@0.25x_15
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 150
+        width: 71
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36536fafc31932470800000000000000
+      internalID: 8368692223679018339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonFier_01@0.25x_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 75
+        width: 71
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35dadd3d747655590800000000000000
+      internalID: -7686123630843024045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonFier_01@0.25x_17
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 75
+        width: 70
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b095f6a50f1d57b0800000000000000
+      internalID: -5233993082798239562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonFier_01@0.25x_18
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 75
+        width: 70
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38dc8222f749fae40800000000000000
+      internalID: 5669913729637600643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonFier_01@0.25x_19
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 75
+        width: 69
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa073f05523a572d0800000000000000
+      internalID: -3281537372802289489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonFier_01@0.25x_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 69
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a61d4fe2247a4050800000000000000
+      internalID: 5785564364703340194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonFier_01@0.25x_21
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 0
+        width: 69
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c26760c5097dbc4e0800000000000000
+      internalID: -1960236197770529236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonFier_01@0.25x_22
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 0
+        width: 69
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5db32d5d87f6993e0800000000000000
+      internalID: -2046481990889096235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragonFier_01@0.25x_23
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 0
+        width: 69
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bd7a739891b71840800000000000000
+      internalID: 5194815964062580147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

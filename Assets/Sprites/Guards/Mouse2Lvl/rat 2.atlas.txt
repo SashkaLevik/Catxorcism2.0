@@ -1,0 +1,167 @@
+
+rat 2.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bag
+  rotate: true
+  xy: 203, 2
+  size: 72, 84
+  orig: 72, 84
+  offset: 0, 0
+  index: -1
+belt
+  rotate: true
+  xy: 132, 351
+  size: 158, 105
+  orig: 158, 105
+  offset: 0, 0
+  index: -1
+body
+  rotate: false
+  xy: 2, 289
+  size: 128, 220
+  orig: 128, 220
+  offset: 0, 0
+  index: -1
+crossbow
+  rotate: true
+  xy: 2, 13
+  size: 274, 99
+  orig: 274, 99
+  offset: 0, 0
+  index: -1
+ear
+  rotate: false
+  xy: 207, 298
+  size: 39, 51
+  orig: 39, 51
+  offset: 0, 0
+  index: -1
+eye
+  rotate: false
+  xy: 295, 104
+  size: 27, 27
+  orig: 27, 27
+  offset: 0, 0
+  index: -1
+eye_blik
+  rotate: true
+  xy: 2, 6
+  size: 5, 4
+  orig: 5, 4
+  offset: 0, 0
+  index: -1
+eye_clouse
+  rotate: true
+  xy: 324, 112
+  size: 19, 11
+  orig: 19, 11
+  offset: 0, 0
+  index: -1
+fin2_1
+  rotate: true
+  xy: 299, 366
+  size: 11, 21
+  orig: 11, 21
+  offset: 0, 0
+  index: -1
+fin2_2
+  rotate: true
+  xy: 272, 363
+  size: 14, 25
+  orig: 14, 25
+  offset: 0, 0
+  index: -1
+fin2_3
+  rotate: true
+  xy: 295, 86
+  size: 16, 27
+  orig: 16, 27
+  offset: 0, 0
+  index: -1
+hand1_1
+  rotate: true
+  xy: 210, 85
+  size: 88, 83
+  orig: 88, 83
+  offset: 0, 0
+  index: -1
+hand1_2
+  rotate: false
+  xy: 248, 300
+  size: 68, 61
+  orig: 68, 61
+  offset: 0, 0
+  index: -1
+hand1_3
+  rotate: true
+  xy: 295, 133
+  size: 40, 36
+  orig: 40, 36
+  offset: 0, 0
+  index: -1
+hand2_2
+  rotate: true
+  xy: 132, 296
+  size: 53, 73
+  orig: 53, 73
+  offset: 0, 0
+  index: -1
+hand2_3
+  rotate: false
+  xy: 289, 37
+  size: 43, 46
+  orig: 43, 46
+  offset: 0, 0
+  index: -1
+head
+  rotate: true
+  xy: 103, 76
+  size: 211, 105
+  orig: 211, 105
+  offset: 0, 0
+  index: -1
+leg1
+  rotate: false
+  xy: 239, 379
+  size: 114, 130
+  orig: 114, 130
+  offset: 0, 0
+  index: -1
+leg2
+  rotate: false
+  xy: 210, 175
+  size: 84, 121
+  orig: 84, 121
+  offset: 0, 0
+  index: -1
+neck_back
+  rotate: false
+  xy: 289, 5
+  size: 48, 30
+  orig: 48, 30
+  offset: 0, 0
+  index: -1
+pup
+  rotate: false
+  xy: 324, 97
+  size: 13, 13
+  orig: 13, 13
+  offset: 0, 0
+  index: -1
+snur
+  rotate: true
+  xy: 239, 363
+  size: 14, 31
+  orig: 14, 31
+  offset: 0, 0
+  index: -1
+tail
+  rotate: false
+  xy: 103, 3
+  size: 98, 71
+  orig: 98, 71
+  offset: 0, 0
+  index: -1

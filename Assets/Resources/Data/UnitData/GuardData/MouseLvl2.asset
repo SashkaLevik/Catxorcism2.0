@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058bb5fbab967f445b0eb34481014120, type: 3}
+  m_Name: MouseLvl2
+  m_EditorClassIdentifier: 
+  CardPrefab: {fileID: 5635210381480608347, guid: 6adc867d6982a9442b8a22e15786fec6, type: 3}
+  Damage: 3
+  Health: 6
+  AP: 0
+  Price: 60
+  SummonPrice: 20
+  UpgradePrice: 20
+  Level: 2
+  ItemValue: 0

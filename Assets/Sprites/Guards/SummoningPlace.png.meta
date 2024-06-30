@@ -1,0 +1,684 @@
+fileFormatVersion: 2
+guid: a2c0ef2d84316e04ba671ce480bae71a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4238781288042070782
+    second: SummoningPlace_0
+  - first:
+      213: -6476476488472387694
+    second: SummoningPlace_1
+  - first:
+      213: 394875571613250695
+    second: SummoningPlace_2
+  - first:
+      213: -7330219372749455718
+    second: SummoningPlace_3
+  - first:
+      213: 7287736059782666751
+    second: SummoningPlace_4
+  - first:
+      213: -5589390984597556829
+    second: SummoningPlace_5
+  - first:
+      213: -3143952452832192683
+    second: SummoningPlace_6
+  - first:
+      213: -7394657660503559360
+    second: SummoningPlace_7
+  - first:
+      213: 3664671395652216188
+    second: SummoningPlace_8
+  - first:
+      213: 3316086489697061753
+    second: SummoningPlace_9
+  - first:
+      213: 5354452188721024711
+    second: SummoningPlace_10
+  - first:
+      213: -1389099269788367417
+    second: SummoningPlace_11
+  - first:
+      213: -3357081836485199147
+    second: SummoningPlace_12
+  - first:
+      213: -1044025991748096047
+    second: SummoningPlace_13
+  - first:
+      213: -7337520539180878237
+    second: SummoningPlace_14
+  - first:
+      213: -8965539248195859026
+    second: SummoningPlace_15
+  - first:
+      213: -2477144209878551274
+    second: SummoningPlace_16
+  - first:
+      213: -4066045454816591433
+    second: SummoningPlace_17
+  - first:
+      213: 2230848417512637957
+    second: SummoningPlace_18
+  - first:
+      213: 2591722729464376063
+    second: SummoningPlace_19
+  - first:
+      213: 7667420873384893137
+    second: SummoningPlace_20
+  - first:
+      213: 3154631027529210003
+    second: SummoningPlace_21
+  - first:
+      213: 2213259462319536994
+    second: SummoningPlace_22
+  - first:
+      213: 1806443338852662209
+    second: SummoningPlace_23
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SummoningPlace_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 350
+        width: 146
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20dfda560e2dc25c0800000000000000
+      internalID: -4238781288042070782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummoningPlace_1
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 350
+        width: 146
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29f1f6492feee16a0800000000000000
+      internalID: -6476476488472387694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummoningPlace_2
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 350
+        width: 146
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 784bc708d31ea7500800000000000000
+      internalID: 394875571613250695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummoningPlace_3
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 350
+        width: 146
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9ef4915154d54a90800000000000000
+      internalID: -7330219372749455718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummoningPlace_4
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 281
+        width: 146
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff99624955d332560800000000000000
+      internalID: 7287736059782666751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummoningPlace_5
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 267
+        width: 146
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a1ba4c638e7e62b0800000000000000
+      internalID: -5589390984597556829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummoningPlace_6
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 281
+        width: 146
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 557183ac6ef6e54d0800000000000000
+      internalID: -3143952452832192683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummoningPlace_7
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 279
+        width: 146
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 043701e4906e06990800000000000000
+      internalID: -7394657660503559360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummoningPlace_8
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 211
+        width: 146
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c75a264d7378bd230800000000000000
+      internalID: 3664671395652216188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummoningPlace_9
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 211
+        width: 146
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97b8ddec71b150e20800000000000000
+      internalID: 3316086489697061753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummoningPlace_10
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 211
+        width: 146
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ce878385e5de4a40800000000000000
+      internalID: 5354452188721024711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummoningPlace_11
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 211
+        width: 146
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c5828ae29de8bce0800000000000000
+      internalID: -1389099269788367417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummoningPlace_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 141
+        width: 146
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5da32663bdf3961d0800000000000000
+      internalID: -3357081836485199147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummoningPlace_13
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 140
+        width: 146
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1df649954efd281f0800000000000000
+      internalID: -1044025991748096047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummoningPlace_14
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 141
+        width: 146
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 366bdf902f3eb2a90800000000000000
+      internalID: -7337520539180878237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummoningPlace_15
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 140
+        width: 146
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ead86732e81049380800000000000000
+      internalID: -8965539248195859026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummoningPlace_16
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 71
+        width: 146
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 615f5c0377a6f9dd0800000000000000
+      internalID: -2477144209878551274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummoningPlace_17
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 71
+        width: 146
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b1c011a3318297c0800000000000000
+      internalID: -4066045454816591433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummoningPlace_18
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 71
+        width: 147
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5064591f0d095fe10800000000000000
+      internalID: 2230848417512637957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummoningPlace_19
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 71
+        width: 146
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffaa7064716a7f320800000000000000
+      internalID: 2591722729464376063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummoningPlace_20
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 146
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1da958d19a6286a60800000000000000
+      internalID: 7667420873384893137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummoningPlace_21
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 0
+        width: 146
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 398dd41a43087cb20800000000000000
+      internalID: 3154631027529210003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummoningPlace_22
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 1
+        width: 146
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26bf35f21c317be10800000000000000
+      internalID: 2213259462319536994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummoningPlace_23
+      rect:
+        serializedVersion: 2
+        x: 525
+        y: 1
+        width: 146
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cbfe2f45a6c11910800000000000000
+      internalID: 1806443338852662209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

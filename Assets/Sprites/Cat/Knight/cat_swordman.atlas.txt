@@ -1,0 +1,279 @@
+
+cat_swordman.png
+size: 2048,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+belt
+  rotate: false
+  xy: 817, 162
+  size: 151, 92
+  orig: 151, 92
+  offset: 0, 0
+  index: -1
+body
+  rotate: true
+  xy: 2, 35
+  size: 219, 178
+  orig: 219, 178
+  offset: 0, 0
+  index: -1
+body_armor_back
+  rotate: false
+  xy: 177, 15
+  size: 46, 18
+  orig: 46, 18
+  offset: 0, 0
+  index: -1
+body_armor_top
+  rotate: false
+  xy: 692, 127
+  size: 123, 127
+  orig: 123, 127
+  offset: 0, 0
+  index: -1
+body_back
+  rotate: false
+  xy: 603, 74
+  size: 85, 40
+  orig: 85, 40
+  offset: 0, 0
+  index: -1
+eye1
+  rotate: true
+  xy: 690, 80
+  size: 34, 22
+  orig: 34, 22
+  offset: 0, 0
+  index: -1
+eye1_clouse
+  rotate: false
+  xy: 254, 38
+  size: 26, 17
+  orig: 26, 17
+  offset: 0, 0
+  index: -1
+eye2
+  rotate: true
+  xy: 842, 137
+  size: 23, 22
+  orig: 23, 22
+  offset: 0, 0
+  index: -1
+eye2_clouse
+  rotate: false
+  xy: 282, 39
+  size: 23, 16
+  orig: 23, 16
+  offset: 0, 0
+  index: -1
+hand2_1
+  rotate: true
+  xy: 661, 7
+  size: 65, 92
+  orig: 65, 92
+  offset: 0, 0
+  index: -1
+hand2_2
+  rotate: false
+  xy: 855, 85
+  size: 73, 50
+  orig: 73, 50
+  offset: 0, 0
+  index: -1
+hand2_3
+  rotate: false
+  xy: 312, 5
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+hand2_3_top
+  rotate: true
+  xy: 143, 3
+  size: 30, 32
+  orig: 30, 32
+  offset: 0, 0
+  index: -1
+hand2_shdw
+  rotate: false
+  xy: 223, 36
+  size: 29, 19
+  orig: 29, 19
+  offset: 0, 0
+  index: -1
+handel_shdw
+  rotate: true
+  xy: 307, 42
+  size: 13, 27
+  orig: 13, 27
+  offset: 0, 0
+  index: -1
+handle
+  rotate: true
+  xy: 182, 41
+  size: 14, 39
+  orig: 14, 39
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 970, 164
+  size: 105, 90
+  orig: 105, 90
+  offset: 0, 0
+  index: -1
+head1_2
+  rotate: false
+  xy: 930, 85
+  size: 69, 75
+  orig: 69, 75
+  offset: 0, 0
+  index: -1
+head1_3_top
+  rotate: false
+  xy: 271, 4
+  size: 39, 32
+  orig: 39, 32
+  offset: 0, 0
+  index: -1
+head1_armor_top
+  rotate: true
+  xy: 1001, 59
+  size: 103, 85
+  orig: 103, 85
+  offset: 0, 0
+  index: -1
+head2_armor_top
+  rotate: true
+  xy: 714, 77
+  size: 48, 81
+  orig: 48, 81
+  offset: 0, 0
+  index: -1
+hend1_1
+  rotate: true
+  xy: 561, 4
+  size: 67, 98
+  orig: 67, 98
+  offset: 0, 0
+  index: -1
+hend1_3_btm
+  rotate: false
+  xy: 817, 129
+  size: 23, 31
+  orig: 23, 31
+  offset: 0, 0
+  index: -1
+leg1_1
+  rotate: true
+  xy: 755, 2
+  size: 73, 93
+  orig: 73, 93
+  offset: 0, 0
+  index: -1
+leg1_2
+  rotate: true
+  xy: 797, 81
+  size: 44, 56
+  orig: 44, 56
+  offset: 0, 0
+  index: -1
+leg1_3
+  rotate: false
+  xy: 2, 5
+  size: 40, 28
+  orig: 40, 28
+  offset: 0, 0
+  index: -1
+leg2_1
+  rotate: true
+  xy: 850, 3
+  size: 76, 91
+  orig: 76, 91
+  offset: 0, 0
+  index: -1
+leg2_2
+  rotate: false
+  xy: 943, 29
+  size: 45, 54
+  orig: 45, 54
+  offset: 0, 0
+  index: -1
+leg2_3
+  rotate: false
+  xy: 225, 2
+  size: 44, 32
+  orig: 44, 32
+  offset: 0, 0
+  index: -1
+pup_blik
+  rotate: false
+  xy: 93, 6
+  size: 4, 4
+  orig: 4, 4
+  offset: 0, 0
+  index: -1
+pupil
+  rotate: false
+  xy: 177, 4
+  size: 9, 9
+  orig: 9, 9
+  offset: 0, 0
+  index: -1
+red_fabric
+  rotate: true
+  xy: 458, 73
+  size: 41, 143
+  orig: 41, 143
+  offset: 0, 0
+  index: -1
+shield_back
+  rotate: true
+  xy: 437, 116
+  size: 138, 253
+  orig: 138, 253
+  offset: 0, 0
+  index: -1
+shield_front
+  rotate: true
+  xy: 182, 112
+  size: 142, 253
+  orig: 142, 253
+  offset: 0, 0
+  index: -1
+sword
+  rotate: false
+  xy: 182, 57
+  size: 274, 53
+  orig: 274, 53
+  offset: 0, 0
+  index: -1
+tail
+  rotate: true
+  xy: 349, 13
+  size: 42, 210
+  orig: 42, 210
+  offset: 0, 0
+  index: -1
+toe1
+  rotate: false
+  xy: 44, 10
+  size: 46, 23
+  orig: 46, 23
+  offset: 0, 0
+  index: -1
+toe2
+  rotate: false
+  xy: 92, 12
+  size: 49, 21
+  orig: 49, 21
+  offset: 0, 0
+  index: -1
+us
+  rotate: true
+  xy: 44, 3
+  size: 5, 47
+  orig: 5, 47
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,174 @@
+
+dog_3.png
+size: 1024,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Layer 5
+  rotate: false
+  xy: 333, 34
+  size: 48, 92
+  orig: 48, 92
+  offset: 0, 0
+  index: -1
+body
+  rotate: true
+  xy: 143, 28
+  size: 98, 140
+  orig: 98, 140
+  offset: 0, 0
+  index: -1
+bodyBack
+  rotate: true
+  xy: 2, 12
+  size: 114, 139
+  orig: 114, 139
+  offset: 0, 0
+  index: -1
+calfR
+  rotate: true
+  xy: 756, 13
+  size: 46, 174
+  orig: 46, 174
+  offset: 0, 0
+  index: -1
+coat
+  rotate: true
+  xy: 477, 48
+  size: 78, 125
+  orig: 78, 125
+  offset: 0, 0
+  index: -1
+coat_sholder
+  rotate: false
+  xy: 285, 32
+  size: 46, 94
+  orig: 46, 94
+  offset: 0, 0
+  index: -1
+ear1
+  rotate: false
+  xy: 720, 8
+  size: 34, 51
+  orig: 34, 51
+  offset: 0, 0
+  index: -1
+eye
+  rotate: true
+  xy: 368, 2
+  size: 11, 9
+  orig: 11, 9
+  offset: 0, 0
+  index: -1
+eye1_btn
+  rotate: true
+  xy: 368, 15
+  size: 17, 13
+  orig: 17, 13
+  offset: 0, 0
+  index: -1
+eye1_top
+  rotate: true
+  xy: 822, 61
+  size: 17, 13
+  orig: 17, 13
+  offset: 0, 0
+  index: -1
+eye_clouce
+  rotate: false
+  xy: 2, 2
+  size: 11, 8
+  orig: 11, 8
+  offset: 0, 0
+  index: -1
+footL
+  rotate: true
+  xy: 652, 61
+  size: 65, 168
+  orig: 65, 168
+  offset: 0, 0
+  index: -1
+hand1_1
+  rotate: true
+  xy: 383, 6
+  size: 38, 61
+  orig: 38, 61
+  offset: 0, 0
+  index: -1
+hand1_2
+  rotate: false
+  xy: 604, 48
+  size: 46, 78
+  orig: 46, 78
+  offset: 0, 0
+  index: -1
+hand2_1
+  rotate: false
+  xy: 822, 80
+  size: 38, 46
+  orig: 38, 46
+  offset: 0, 0
+  index: -1
+hand2_2
+  rotate: true
+  xy: 383, 46
+  size: 80, 40
+  orig: 80, 40
+  offset: 0, 0
+  index: -1
+hand2_3
+  rotate: true
+  xy: 191, 3
+  size: 23, 30
+  orig: 23, 30
+  offset: 0, 0
+  index: -1
+head
+  rotate: true
+  xy: 425, 47
+  size: 79, 50
+  orig: 79, 50
+  offset: 0, 0
+  index: -1
+mouth
+  rotate: false
+  xy: 837, 66
+  size: 34, 12
+  orig: 34, 12
+  offset: 0, 0
+  index: -1
+neck
+  rotate: false
+  xy: 446, 2
+  size: 48, 43
+  orig: 48, 43
+  offset: 0, 0
+  index: -1
+neckBack
+  rotate: false
+  xy: 143, 2
+  size: 46, 24
+  orig: 46, 24
+  offset: 0, 0
+  index: -1
+pika
+  rotate: true
+  xy: 496, 2
+  size: 44, 222
+  orig: 44, 222
+  offset: 0, 0
+  index: -1
+pup
+  rotate: false
+  xy: 15, 3
+  size: 7, 7
+  orig: 7, 7
+  offset: 0, 0
+  index: -1
+tail
+  rotate: true
+  xy: 223, 7
+  size: 19, 143
+  orig: 19, 143
+  offset: 0, 0
+  index: -1

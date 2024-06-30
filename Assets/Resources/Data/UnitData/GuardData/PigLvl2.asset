@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058bb5fbab967f445b0eb34481014120, type: 3}
+  m_Name: PigLvl2
+  m_EditorClassIdentifier: 
+  CardPrefab: {fileID: 1003202658727545870, guid: c11fa72e3bee07b44bf8c75d2ed474a1, type: 3}
+  Damage: 0
+  Health: 0
+  AP: 0
+  Price: 0
+  SummonPrice: 0
+  UpgradePrice: 0
+  Level: 2
+  ItemValue: 0
