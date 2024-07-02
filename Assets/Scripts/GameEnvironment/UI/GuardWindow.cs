@@ -20,6 +20,7 @@ namespace Assets.Scripts.GameEnvironment.UI
         [SerializeField] private BuyButton _upgradeButton;
         [SerializeField] private Button _closeGuards;
         [SerializeField] private Button _closeUpgrades;
+        [SerializeField] private Warning _warning;
         [SerializeField] private List<CardData> _guards;
         [SerializeField] private List<RectTransform> _slots;
         [SerializeField] private List<BuyButton> _buyButtons;
@@ -50,7 +51,7 @@ namespace Assets.Scripts.GameEnvironment.UI
                 button.GetComponent<Button>().onClick.AddListener(() => SummonGuard(button));
 
             _upgradeButton.GetComponent<Button>().onClick.AddListener(() => SummonUpgraded(_upgradeButton));
-            _closeGuards.onClick.AddListener(CloseGuards);
+            _closeGuards.onClick.AddListener(CloseGuardWindow);
             _closeUpgrades.onClick.AddListener(CloseUpgrades);
         }
 
@@ -63,7 +64,7 @@ namespace Assets.Scripts.GameEnvironment.UI
                 button.GetComponent<Button>().onClick.RemoveListener(() => SummonGuard(button));
 
             _upgradeButton.GetComponent<Button>().onClick.RemoveListener(() => SummonUpgraded(_upgradeButton));
-            _closeGuards.onClick.RemoveListener(CloseGuards);
+            _closeGuards.onClick.RemoveListener(CloseGuardWindow);
             _closeUpgrades.onClick.RemoveListener(CloseUpgrades);
         }
 
@@ -82,6 +83,8 @@ namespace Assets.Scripts.GameEnvironment.UI
                 _upgradeWindow.SetActive(false);
                 _spawnedGuard.Activate();
             }
+            else
+                _warning.Show();
         }
 
         private void SummonGuard(BuyButton button)
@@ -94,9 +97,11 @@ namespace Assets.Scripts.GameEnvironment.UI
                 _spawnedGuard = (Guard)Instantiate(_choosedGuard.CardPrefab, _currentSpawner.transform);
                 _spawnedGuard.OnGuardPressed += ShowUpgrades;
                 _player.AddGuard(_spawnedGuard);
-                _guardWindow.SetActive(false);
                 _spawnedGuard.Activate();
-            }                   
+                CloseGuardWindow();
+            }
+            else
+                _warning.Show();
         }
 
         private void ShowUpgrades(Guard guard, GuardSpawner spawner)
@@ -129,7 +134,7 @@ namespace Assets.Scripts.GameEnvironment.UI
             }
         }
 
-        private void CloseGuards()
+        private void CloseGuardWindow()
         {
             _guardWindow.SetActive(false);
             _deckSpawner.ActivateRaw();

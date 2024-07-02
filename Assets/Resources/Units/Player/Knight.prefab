@@ -363,16 +363,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6b757f559761a41ae8e84db54e55e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 40
   _cardData: {fileID: 11400000, guid: 5714a348b198a5c4d8bd2d009ce3991c, type: 2}
   _healthAmount: {fileID: 2225280604786257574}
   _defenceAmount: {fileID: 2225280606736318814}
   _damageAmount: {fileID: 2225280606808530333}
   _attackType: 0
-  _clickSound: {fileID: 0}
   _firePos: {fileID: 0}
-  _minValue: 0
-  _maxValue: 0
+  _playerType: 0
+  _discription: {fileID: 0}
 --- !u!114 &757858309821252701
 MonoBehaviour:
   m_ObjectHideFlags: 0

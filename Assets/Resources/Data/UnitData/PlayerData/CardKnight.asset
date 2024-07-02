@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: CardKnight
   m_EditorClassIdentifier: 
   CardPrefab: {fileID: 3617381006276775103, guid: 39d5624807595834386146f3bb90a82d, type: 3}
-  Damage: 1
-  Health: 5
-  AP: 2
-  Price: 1
+  RuName: "\u0420\u044B\u0446\u0430\u0440\u044C"
+  EnName: Knight
+  RuDescription: "\u041C\u043E\u0436\u0435\u0442 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u044C
+    \u0449\u0438\u0442\u044B"
+  EnDescription: Can use shield
+  Damage: 4
+  Health: 8
+  ActivatePrice: 0
   SummonPrice: 0
   UpgradePrice: 0
   Level: 0
-  ItemValue: 0

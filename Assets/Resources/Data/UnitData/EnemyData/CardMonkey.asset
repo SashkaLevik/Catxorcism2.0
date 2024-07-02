@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: CardMonkey
   m_EditorClassIdentifier: 
   CardPrefab: {fileID: 6972020234370939322, guid: 0c38bb7ff06769b4dbd672777e2d1f1f, type: 3}
+  RuName: 
+  EnName: 
+  RuDescription: 
+  EnDescription: 
   Damage: 0
-  Health: 6
-  AP: 0
+  Health: 2
   ActivatePrice: 0
   SummonPrice: 0
   UpgradePrice: 0

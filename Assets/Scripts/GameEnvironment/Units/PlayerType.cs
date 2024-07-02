@@ -3,6 +3,7 @@
     public enum PlayerType
     {
         Knight,
+        Barbarian,
         Mage
     }
 }

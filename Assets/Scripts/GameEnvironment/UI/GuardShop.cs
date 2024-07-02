@@ -10,7 +10,7 @@ namespace Assets.Scripts.GameEnvironment.UI
 {
     public class GuardShop : MonoBehaviour, ISaveProgress
     {
-        [SerializeField] private TMP_Text _coins;
+        [SerializeField] private TMP_Text _crystal;
         [SerializeField] private MenuHud _menuHud;
         [SerializeField] private List<CardData> _guardData;
         [SerializeField] private List<RectTransform> _slots;
@@ -18,6 +18,7 @@ namespace Assets.Scripts.GameEnvironment.UI
         [SerializeField] private Warning _warning;
 
         private TMP_Text _priceText;
+        private TMP_Text _description;
         private PlayerProgress _progress;
         private CardData _choosedGuard;
         private List<CardData> _activeGuard = new List<CardData>();
@@ -26,7 +27,7 @@ namespace Assets.Scripts.GameEnvironment.UI
         private void Start()
         {
             SpawnGuards();
-            _coins.text = _menuHud.PlayerMoney.Coins.ToString();
+            //_crystal.text = _menuHud.PlayerMoney.Crystals.ToString();
 
             if (_progress.WorldData.IsNewGame == true)
             {
@@ -57,6 +58,8 @@ namespace Assets.Scripts.GameEnvironment.UI
                 Instantiate(_guardData[i].CardPrefab, _slots[i]);
                 _buyButtons[i].GetCard(_guardData[i]);
                 _priceText = _buyButtons[i].GetComponentInChildren<TMP_Text>();
+                _description = _slots[i].GetComponentInChildren<TMP_Text>();
+                _description.text = GetLocalizedDescription(_guardData[i]);
                 _priceText.text = _guardData[i].ActivatePrice.ToString();
             }
         }
@@ -65,11 +68,11 @@ namespace Assets.Scripts.GameEnvironment.UI
         {
             _choosedGuard = button.Guard;
 
-            if (_menuHud.PlayerMoney.Coins >= _choosedGuard.ActivatePrice)
+            if (_menuHud.PlayerMoney.Crystals >= _choosedGuard.ActivatePrice)
             {
                 _activeGuard.Add(_choosedGuard);
                 _closeGuard.Remove(_choosedGuard);
-                _menuHud.PlayerMoney.RemoveCoin(_choosedGuard.ActivatePrice, _coins);
+                _menuHud.PlayerMoney.RemoveCrystal(_choosedGuard.ActivatePrice, _crystal);
                 button.GetComponent<Button>().interactable = false;
             }
             else
@@ -80,8 +83,22 @@ namespace Assets.Scripts.GameEnvironment.UI
         {
             _activeGuard.Add(_closeGuard[0]);
             _closeGuard.Remove(_closeGuard[0]);
-        }       
-       
+        }
+
+        private string GetLocalizedDescription(CardData cardData)
+        {
+            if (Application.systemLanguage == SystemLanguage.Russian)
+                return cardData.RuDescription;
+            else
+                return cardData.EnDescription;
+        }
+
+        public void Save(PlayerProgress progress)
+        {
+            progress.CloseGuards = _closeGuard.ToList();
+            progress.OpenedGuards = _activeGuard.ToList();
+        }
+
         public void Load(PlayerProgress progress)
         {
             _progress = progress;
@@ -91,12 +108,6 @@ namespace Assets.Scripts.GameEnvironment.UI
                 _closeGuard = progress.CloseGuards.ToList();
                 _activeGuard = progress.OpenedGuards.ToList();
             }
-        }
-
-        public void Save(PlayerProgress progress)
-        {
-            progress.CloseGuards = _closeGuard.ToList();
-            progress.OpenedGuards = _activeGuard.ToList();
-        }
+        }       
     }
 }

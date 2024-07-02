@@ -32,7 +32,7 @@ namespace Assets.Scripts.GameEnvironment.UI
             _toMenu.onClick.AddListener(ShowAdd);
 
         private void OnDestroy()=>
-            _toMenu.onClick.AddListener(ShowAdd);
+            _toMenu.onClick.RemoveListener(ShowAdd);
 
         private void ShowAdd()=>
             CrazySDK.Ad.RequestAd(CrazyAdType.Midgame, null, OnAdError, OnAdFinished);

@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 2225280606753028952}
   - component: {fileID: 2225280606753028955}
   - component: {fileID: 1003202658727545870}
-  - component: {fileID: 1088939110189751006}
+  - component: {fileID: 975241599243197369}
   - component: {fileID: 2242438288830863590}
   - component: {fileID: 2983225673298861665}
   - component: {fileID: 586586648538115554}
@@ -364,22 +364,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a3168a808bc8340aa510abfe09e717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 40
   _cardData: {fileID: 11400000, guid: 97e737a1fbbba2c43bbfdf4e1d8f84aa, type: 2}
   _healthAmount: {fileID: 2225280604786257574}
   _defenceAmount: {fileID: 2225280606736318814}
   _damageAmount: {fileID: 2225280606808530333}
   _attackType: 0
-  _attackSound: {fileID: 586586648538115554}
-  _clickSound: {fileID: 0}
-  _projectile: {fileID: 0}
   _firePos: {fileID: 0}
-  _minValue: 0
-  _maxValue: 0
   _guardUpgrade: {fileID: 11400000, guid: 861127752ceb803419efae56e177a1ae, type: 2}
   _guardButton: {fileID: 2242438288830863590}
   _enemy: {fileID: 0}
---- !u!114 &1088939110189751006
+--- !u!114 &975241599243197369
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -388,7 +382,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2225280606753027236}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa5119e39dcb07141862703736f874a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 6795faf56678d3b4994e1b10eafd053c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2242438288830863590

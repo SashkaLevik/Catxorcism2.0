@@ -3,8 +3,6 @@ using Assets.Scripts.GameEnvironment.Units;
 using Assets.Scripts.Infrastructure.Services;
 using Assets.Scripts.States;
 using CrazyGames;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -17,7 +15,8 @@ namespace Assets.Scripts.GameEnvironment.UI
     {
         private const string BattleScene = "BattleScene";
 
-        [SerializeField] private TMP_Text _coins;
+        [SerializeField] private TMP_Text _name;
+        [SerializeField] private TMP_Text _description;
         [SerializeField] private TMP_Text _crystals;
         [SerializeField] private Canvas _canvas;
         [SerializeField] private AudioSource _mainTheme;
@@ -59,7 +58,6 @@ namespace Assets.Scripts.GameEnvironment.UI
         private void Start()
         {
             _rewardAd.interactable = true;
-            _coins.text = _playerMoney.Coins.ToString();
             _crystals.text = _playerMoney.Crystals.ToString();
 
             if (_progress.WorldData.IsNewGame == true)
@@ -69,7 +67,7 @@ namespace Assets.Scripts.GameEnvironment.UI
             }
 
             _currentData = _openPlayers[0];
-            _player = (Player)Instantiate(_currentData.CardPrefab, _playerPos);
+            SetPlayer(_currentData);
             _mainTheme.Play();
         }
        
@@ -112,6 +110,13 @@ namespace Assets.Scripts.GameEnvironment.UI
             _closePlayers.Remove(_closePlayers[0]);
         }
 
+        private void SetPlayer(CardData cardData)
+        {
+            _player = (Player)Instantiate(cardData.CardPrefab, _playerPos);
+            _description.text = GetLocalizedDescription(cardData);
+            _name.text = GetLocalizedName(cardData);
+        }
+
         private void ChooseNext()
         {
             _currentPlayerIndex++;
@@ -134,7 +139,7 @@ namespace Assets.Scripts.GameEnvironment.UI
             if (_player != null)
                 Destroy(_player.gameObject);
 
-            _player = (Player)Instantiate(_currentData.CardPrefab, _playerPos);
+            SetPlayer(_currentData);
         }        
 
         private void ChoosePrevious()
@@ -159,7 +164,7 @@ namespace Assets.Scripts.GameEnvironment.UI
             if (_player != null)
                 Destroy(_player.gameObject);
 
-            _player = (Player)Instantiate(_currentData.CardPrefab, _playerPos);
+            SetPlayer(_currentData);
         }
 
         private void BuyPlayer()
@@ -208,7 +213,23 @@ namespace Assets.Scripts.GameEnvironment.UI
             OnRewardedFinished();
 
         private void OnRewardedFinished()=>
-            _playerMoney.AddCoin(20, _coins);
+            _playerMoney.AddCrystal(10, _crystals);
+
+        private string GetLocalizedDescription(CardData cardData)
+        {
+            if (Application.systemLanguage == SystemLanguage.English)
+                return cardData.EnDescription;
+            else
+                return cardData.RuDescription;
+        }
+
+        private string GetLocalizedName(CardData cardData)
+        {
+            if (Application.systemLanguage == SystemLanguage.English)
+                return cardData.EnName;
+            else
+                return cardData.RuName;
+        }
 
         public void Save(PlayerProgress progress)
         {
@@ -224,6 +245,11 @@ namespace Assets.Scripts.GameEnvironment.UI
             {
                 _closePlayers = progress.ClosePlayers.ToList();
                 _openPlayers = progress.OpenPlayers.ToList();
+
+                //foreach (var player in progress.OpenPlayers)
+                //{
+                //    Debug.Log(player);
+                //}
             }
         }
     }

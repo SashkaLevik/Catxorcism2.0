@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using UnityEngine;
-
-namespace Assets.Scripts.GameEnvironment.Units
+﻿namespace Assets.Scripts.GameEnvironment.Units
 {
-    public class Boss : Card
+    public class Boss : Enemy
     {       
     }
 }

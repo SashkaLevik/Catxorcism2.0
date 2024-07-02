@@ -27,13 +27,25 @@ namespace Assets.Scripts.GameEnvironment.Units
             _health.HealthChanged += UpdateHealth;
             _health.DefenceChanged += UpdateDefence;
             _startPosition = transform.position;
-        }        
+        }                
 
         private void OnDestroy()
         {
             _health.HealthChanged -= UpdateHealth;
             _health.DefenceChanged -= UpdateDefence;
         }
+
+        public void RiseDamage(int value)
+        {
+            _damage += value;
+            _damageAmount.text = _damage.ToString();
+        }
+
+        public void ReduceDamage()
+        {
+            _damage = _cardData.Damage;
+            _damageAmount.text = _damage.ToString();
+        } 
 
         public void RemoveGuard(Guard guard)=>
             _guards.Remove(guard);

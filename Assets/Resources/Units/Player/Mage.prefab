@@ -305,6 +305,7 @@ RectTransform:
   - {fileID: 1078492722755107227}
   - {fileID: 1078492722825766238}
   - {fileID: 3172901348864062142}
+  - {fileID: 4017043664006071960}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -363,16 +364,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6b757f559761a41ae8e84db54e55e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 40
   _cardData: {fileID: 11400000, guid: 86a71338629ec594f955473e76fefb33, type: 2}
   _healthAmount: {fileID: 1078492722196977252}
   _defenceAmount: {fileID: 1078492722755107228}
   _damageAmount: {fileID: 1078492722825766239}
   _attackType: 1
-  _clickSound: {fileID: 0}
-  _firePos: {fileID: 0}
-  _minValue: 0
-  _maxValue: 0
+  _firePos: {fileID: 4017043664006071960}
+  _playerType: 2
+  _discription: {fileID: 0}
 --- !u!114 &3477824192629547733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -721,3 +720,38 @@ MonoBehaviour:
       calculateTangents: 0
       addNormals: 0
       immutableTriangles: 0
+--- !u!1 &3744587458231231775
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4017043664006071960}
+  m_Layer: 5
+  m_Name: FirePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4017043664006071960
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3744587458231231775}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1078492722771823719}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 70.7, y: 9.5}
+  m_SizeDelta: {x: 55, y: 54.9544}
+  m_Pivot: {x: 0.5, y: 0.5}

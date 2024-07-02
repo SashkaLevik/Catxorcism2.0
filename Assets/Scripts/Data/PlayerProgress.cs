@@ -20,8 +20,8 @@ namespace Assets.Scripts.Data
         public PlayerProgress(string initialLevel)
         {
             WorldData = new WorldData(initialLevel);
-            Coins = 0;
-            Crystals = 0;
+            Coins = 100;
+            Crystals = 100;
             //PlayerStats = new PlayerStats();
             //PlayerParts = new PlayerParts();
             OpenPlayers = new List<CardData>();

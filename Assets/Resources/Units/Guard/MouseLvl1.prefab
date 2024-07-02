@@ -367,16 +367,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a3168a808bc8340aa510abfe09e717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 40
   _cardData: {fileID: 11400000, guid: 9c0d6b73b39f25a42947dec2d02b249f, type: 2}
   _healthAmount: {fileID: 2225280604786257574}
   _defenceAmount: {fileID: 2225280606736318814}
   _damageAmount: {fileID: 2225280606808530333}
   _attackType: 1
-  _clickSound: {fileID: 0}
   _firePos: {fileID: 3167201212533242578}
-  _minValue: 0
-  _maxValue: 0
   _guardUpgrade: {fileID: 11400000, guid: d24d5ac35d8772141b5a86b24c6cdc96, type: 2}
   _guardButton: {fileID: 6168793550591252661}
   _enemy: {fileID: 0}
@@ -755,14 +751,14 @@ RectTransform:
   m_GameObject: {fileID: 5987279240924219329}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_Children: []
   m_Father: {fileID: 2225280606753027237}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.9, y: -20.7}
   m_SizeDelta: {x: 612.6737, y: 782.69476}
   m_Pivot: {x: 0.4765269, y: 0.48806822}
 --- !u!222 &1382554141585471937
@@ -851,6 +847,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 117.910034, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 83.845, y: 0.000005722}
+  m_SizeDelta: {x: 55.3093, y: 55.3093}
   m_Pivot: {x: 0.5, y: 0.5}

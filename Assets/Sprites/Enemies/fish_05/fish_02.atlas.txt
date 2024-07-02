@@ -1,0 +1,55 @@
+
+fish_02.png
+size: 512,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+fi1/eye
+  rotate: true
+  xy: 2, 658
+  size: 18, 19
+  orig: 18, 19
+  offset: 0, 0
+  index: -1
+fi1/fisch
+  rotate: false
+  xy: 2, 326
+  size: 479, 262
+  orig: 479, 262
+  offset: 0, 0
+  index: -1
+fi1/flipper
+  rotate: false
+  xy: 75, 609
+  size: 70, 67
+  orig: 70, 67
+  offset: 0, 0
+  index: -1
+fi1/mouth_clouse
+  rotate: false
+  xy: 307, 590
+  size: 106, 86
+  orig: 106, 86
+  offset: 0, 0
+  index: -1
+fi2/eye
+  rotate: true
+  xy: 23, 632
+  size: 44, 50
+  orig: 44, 50
+  offset: 0, 0
+  index: -1
+fi2/fisch
+  rotate: false
+  xy: 2, 2
+  size: 496, 322
+  orig: 496, 322
+  offset: 0, 0
+  index: -1
+fi2/mouth_clouse
+  rotate: false
+  xy: 147, 593
+  size: 158, 83
+  orig: 158, 83
+  offset: 0, 0
+  index: -1

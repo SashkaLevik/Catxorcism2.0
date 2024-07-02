@@ -6,14 +6,13 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using Assets.Scripts.GameEnvironment.UI;
+using UnityEngine.Events;
 
 namespace Assets.Scripts.GameEnvironment.GameLogic
 {
     public class DeckSpawner : MonoBehaviour
     {
-        private const string FirstWaveDeck = "Deck/FirstWave";
-        private const string Shields = "Deck/Shields";
-
+        [SerializeField] DeckCreator _deckCreator;
         [SerializeField] private BattleHud _battleHud;
         [SerializeField] private RectTransform _deckSpawnPos;
         [SerializeField] private List<RectTransform> _firstRaw;
@@ -21,45 +20,50 @@ namespace Assets.Scripts.GameEnvironment.GameLogic
         [SerializeField] private TMP_Text _remainingCards;
         [SerializeField] private Button _endTurn;
         [SerializeField] private float _moveSpeed;
-        [SerializeField] private RectTransform _pos; 
+        [SerializeField] private RectTransform _pos;
 
-        private int _waveCount;
-        private List<Card> _firstWaveDeck = new List<Card>();
+        private int _waveNumber;
+        private int _maxWave = 2;
+        private Boss _bossCard;
+        private Card _spawnedCard;
+        private Card _movedCard;
         private List<Card> _currentDeck = new List<Card>();
         private List<Card> _spawnedCards = new List<Card>();
-        private Card _spawnedCard;
-        private Card _bossCard;
-        private Card _movedCard;
 
-        public List<RectTransform> FirstRaw => _firstRaw;
-
-        private void Awake()
-        {
-            _firstWaveDeck = Resources.LoadAll<Card>(FirstWaveDeck).OrderBy(x=>Random.value).ToList();
-            SetBossPosition(_firstWaveDeck);
-        }
+        public event UnityAction<int> BossDied;
 
         private void Start()
-        {          
-            SpawnDeck(_firstWaveDeck);
-            Spawn();
+        {
+            SetDeckToSpawn(_waveNumber);
+            SpawnCards();
             _endTurn.onClick.AddListener(Attack);
         }
 
         private void OnDestroy()
         {
             _endTurn.onClick.RemoveListener(Attack);
+        }        
+
+        public void ActivateRaw()
+        {
+            foreach (var pos in _firstRaw)
+            {
+                if (pos.GetComponentInChildren<Card>() != null)
+                    pos.GetComponentInChildren<Card>().Activate();
+            }
         }
 
-        public void CreateDeck()
+        public void DisactivateRaw()
         {
-
+            foreach (var pos in _firstRaw)
+            {
+                if (pos.GetComponentInChildren<Card>() != null)
+                    pos.GetComponentInChildren<Card>().Disactivate();
+            }
         }
 
-        public void Attack()
-        {
+        public void Attack()=>
             StartCoroutine(StartAttack());
-        }
 
         private IEnumerator StartAttack()
         {
@@ -78,11 +82,12 @@ namespace Assets.Scripts.GameEnvironment.GameLogic
 
             MoveOnFirst();
             yield return new WaitForSeconds(0.3f);
-            Spawn();
+            SpawnCards();
             yield return new WaitForSeconds(0.3f);
             MoveOnFirst();            
             ActivateRaw();
-        }
+            _battleHud.ResetCooldown();
+        }        
 
         private void MoveOnFirst()
         {
@@ -99,61 +104,74 @@ namespace Assets.Scripts.GameEnvironment.GameLogic
             }
         }
 
-        public void ActivateRaw()
+        private void SetDeckToSpawn(int value)
         {
-            foreach (var pos in _firstRaw)
-            {
-                if (pos.GetComponentInChildren<Card>() != null)
-                    pos.GetComponentInChildren<Card>().Activate();
-            }
-        }
-
-        public void DisactivateRaw()
-        {
-            foreach (var pos in _firstRaw)
-            {
-                if (pos.GetComponentInChildren<Card>() != null)
-                    pos.GetComponentInChildren<Card>().Disactivate();
-            }
-        }     
-
-        private void Spawn()
-        {
-            if (IsFirstRawFree())
-            {
-                SpawnCards(_firstRaw);
-                UpdateActivation();
-            }
-            else
-                SpawnCards(_secondRaw);
+            if (value == 0)
+                SpawnDeck(_deckCreator.PortDeck);
+            else if (value == 1)
+                SpawnDeck(_deckCreator.MarketDeck);
         }
 
         private void SpawnDeck(List<Card> cards)
         {
-            _waveCount = cards.Count;
-            //_remainingCards.text = _waveCount.ToString();
-
             for (int i = 0; i < cards.Count; i++)
             {
                 _spawnedCard = Instantiate(cards[i], _deckSpawnPos);
                 _currentDeck.Add(_spawnedCard);
 
-                if (_battleHud.Player.Type == PlayerType.Knight)
+                if (_spawnedCard.GetComponent<Boss>())
                 {
-                    foreach (var card in _currentDeck)
-                    {
-                        if (card.GetComponent<Shield>())
-                            card.GetComponent<Shield>().ChangeSprite();
-                    }
+                    _bossCard = _spawnedCard.GetComponent<Boss>();
+                    _bossCard.GetComponent<Health>().Died += OnBossDie;
                 }
-                //if (_spawnedCard.GetComponent<Item>())
-                //{
-                //    _spawnedCard.GetComponent<Item>().Init(_battleHud.Player);
-                //}
+
+                foreach (var card in _currentDeck)
+                {
+                    if (card.GetComponent<Shield>())
+                        card.GetComponent<Shield>().ChangeSprite(_battleHud.Player.Type);
+                }               
             }
         }
 
-        private void SpawnCards(List<RectTransform> positions)
+        private void OnBossDie()
+        {
+            _waveNumber++;
+            BossDied?.Invoke(_waveNumber);
+            _bossCard.GetComponent<Health>().Died -= OnBossDie;
+            ClearRaw(_firstRaw);
+            ClearRaw(_secondRaw);
+
+            if (_waveNumber != _maxWave)
+            {
+                SetDeckToSpawn(_waveNumber);
+                Invoke(nameof(SpawnCards), 1f);
+            }                
+        }
+
+        private void ClearRaw(List<RectTransform> raw)
+        {
+            foreach (var pos in raw)
+            {
+                if (pos.GetComponentInChildren<Card>() != null)
+                {
+                    var card = pos.GetComponentInChildren<Card>();
+                    Destroy(card.gameObject);
+                }                    
+            }
+        }
+
+        private void SpawnCards()
+        {
+            if (IsFirstRawFree())
+            {
+                Spawn(_firstRaw);
+                UpdateActivation();
+            }
+            else
+                Spawn(_secondRaw);
+        }
+
+        private void Spawn(List<RectTransform> positions)
         {
             var cardsToSpawn = 3;
 
@@ -161,35 +179,26 @@ namespace Assets.Scripts.GameEnvironment.GameLogic
                 cardsToSpawn = _currentDeck.Count;
 
             for (int i = 0; i < cardsToSpawn; i++)
-            {               
+            {
                 _spawnedCard = _currentDeck[i];
 
                 if (_spawnedCard.GetComponent<Enemy>())
                     _spawnedCard.GetComponent<Enemy>().InitPlayer(_battleHud.Player);
 
-                StartCoroutine(DrawCards(_currentDeck[i], GetCardPosition(positions).transform.position));
-                _spawnedCard.transform.SetParent(GetCardPosition(positions));
-                //_spawnedCard.transform.SetParent(positions[i]);
-                //StartCoroutine(DrawCards(_currentDeck[i], positions[i].transform.position));
-                _spawnedCards.Add(_spawnedCard);                               
+                if (GetCardPosition(positions) != null)
+                {
+                    StartCoroutine(DrawCards(_spawnedCard, GetCardPosition(positions).transform.position));
+                    _spawnedCard.transform.SetParent(GetCardPosition(positions));
+                    _spawnedCards.Add(_spawnedCard);
+                }
             }
 
             foreach (var card in _spawnedCards)
-            {
                 _currentDeck.Remove(card);
-            }
-            _spawnedCards.Clear();
-        }       
 
-        private RectTransform GetCardPosition(List<RectTransform> positions)
-        {
-            foreach (var pos in positions)
-            {
-                if (pos.GetComponentInChildren<Card>() == null)
-                    return pos;
-            }
-            return null;
-        }
+            _spawnedCards.Clear();
+            _remainingCards.text = _currentDeck.Count.ToString();
+        }               
 
         private IEnumerator DrawCards(Card card, Vector3 newPos)
         {            
@@ -203,6 +212,16 @@ namespace Assets.Scripts.GameEnvironment.GameLogic
                 card.GetComponent<Enemy>().SetPosition();
         }
 
+        private RectTransform GetCardPosition(List<RectTransform> positions)
+        {
+            foreach (var pos in positions)
+            {
+                if (pos.GetComponentInChildren<Card>() == null)
+                    return pos;
+            }
+            return null;
+        }
+
         private void UpdateActivation()
         {
             foreach (var pos in _firstRaw)
@@ -211,22 +230,7 @@ namespace Assets.Scripts.GameEnvironment.GameLogic
                 if (card != null)
                     card.Activate();
             }
-        }
-
-        private void SetBossPosition(List<Card> cards)
-        {
-            foreach (var card in cards)
-            {
-                if (card.GetComponent<Boss>() != null)
-                    _bossCard = card;
-            }
-
-            if (_bossCard != null)
-            {
-                cards.Remove(_bossCard);
-                cards.Add(_bossCard);
-            }            
-        }
+        }       
 
         private bool IsFirstRawFree()
         {

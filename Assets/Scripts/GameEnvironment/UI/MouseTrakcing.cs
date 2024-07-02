@@ -51,7 +51,11 @@ public class MouseTrakcing : MonoBehaviour
                 }
                 else if (hit.transform.TryGetComponent(out HealPotion potion))
                 {
-                    _playerHealth.Heal(potion.Amount);
+                    if (_player.Type == PlayerType.Barbarian)
+                        _playerHealth.HealBarbarian(potion.Amount);
+                    else
+                        _playerHealth.Heal(potion.Amount);
+
                     potion.Sound.Play();
                     Destroy(potion.gameObject, _animationDelay);
                 }
@@ -59,8 +63,8 @@ public class MouseTrakcing : MonoBehaviour
                 {
                     if (_player.Type == PlayerType.Knight)
                         _playerHealth.RiseDefence(shield.Amount);
-                    else
-                        _playerMoney.AddCoin(shield.Amount, _battleHud.Coins);
+                    else if (_player.Type == PlayerType.Mage)
+                        _player.RiseDamage(shield.Amount);
 
                     shield.Sound.Play();
                     Destroy(shield.gameObject, _animationDelay);

@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 16, y: -16}
+  m_AnchoredPosition: {x: 12, y: -22.9}
   m_SizeDelta: {x: 885.5498, y: 787.83185}
   m_Pivot: {x: 0.53956175, y: 0.4964608}
 --- !u!222 &8752855101354030614
@@ -371,6 +371,7 @@ GameObject:
   - component: {fileID: 2225280606753028952}
   - component: {fileID: 2225280606753028955}
   - component: {fileID: 5635210381480608347}
+  - component: {fileID: 182719932734515051}
   - component: {fileID: 1258771295190502405}
   - component: {fileID: 6168793550591252661}
   - component: {fileID: 709836020115606270}
@@ -457,19 +458,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a3168a808bc8340aa510abfe09e717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 40
   _cardData: {fileID: 11400000, guid: f9ba2daa49c46b4499cc3869b8814ee1, type: 2}
   _healthAmount: {fileID: 2225280604786257574}
   _defenceAmount: {fileID: 2225280606736318814}
   _damageAmount: {fileID: 2225280606808530333}
   _attackType: 1
-  _clickSound: {fileID: 0}
   _firePos: {fileID: 931411022906355073}
-  _minValue: 0
-  _maxValue: 0
   _guardUpgrade: {fileID: 0}
   _guardButton: {fileID: 6168793550591252661}
   _enemy: {fileID: 0}
+--- !u!114 &182719932734515051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2225280606753027236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e81721d2536f4f4bb619e8e6eb23362, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackSound: {fileID: 709836020115606270}
+  _moveSpeed: 40
+  _projectile: {fileID: 6651965110157006113, guid: 78cc7083ece8e144eb9a16d788cbef87, type: 3}
 --- !u!114 &1258771295190502405
 MonoBehaviour:
   m_ObjectHideFlags: 0

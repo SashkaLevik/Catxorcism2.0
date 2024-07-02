@@ -14,8 +14,11 @@ namespace Assets.Scripts.GameEnvironment.Units
             if (player.AttackType == AttackType.Melee)
                 StartCoroutine(MeleeAttack(player, enemy));
             else if (player.AttackType == AttackType.Range)
+            {
                 RangeAttack(player, enemy);
-
+                player.GetComponent<Player>().ReduceDamage();
+            }
+                
             _attackSound.Play();
         }
 

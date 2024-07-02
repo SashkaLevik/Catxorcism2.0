@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: MouseLvl1
   m_EditorClassIdentifier: 
   CardPrefab: {fileID: 5635210381480608347, guid: cbab845f523f9a74c928f5d981ec13cb, type: 3}
+  RuName: 
+  EnName: 
+  RuDescription: "\u0410\u0442\u0430\u043A\u0443\u0435\u0442 \u0438\u0437\u0434\u0430\u043B\u0435\u043A\u0430
+    \u0438\u0437\u0431\u0435\u0433\u0430\u044F \u043A\u043E\u043D\u0442\u0440\u0430\u0442\u0430\u043A\u0438"
+  EnDescription: Range attack allows avoiding a counterattack
   Damage: 2
   Health: 5
-  AP: 0
   ActivatePrice: 30
   SummonPrice: 10
   UpgradePrice: 10
   Level: 1
-  ItemValue: 0

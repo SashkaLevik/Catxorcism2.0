@@ -78,6 +78,12 @@ namespace Assets.Scripts.GameEnvironment.Units
             HealthChanged?.Invoke(CurrentHP);
         }
 
+        public void HealBarbarian(int value)
+        {
+            CurrentHP += value;          
+            HealthChanged?.Invoke(CurrentHP);
+        }          
+
         public void RiseDefence(int amount)
         {
             Defence += amount;
@@ -87,7 +93,7 @@ namespace Assets.Scripts.GameEnvironment.Units
         protected virtual void Die()
         {
             Died?.Invoke();
-            Destroy(gameObject);
+            Destroy(gameObject, 0.2f);
         }
     }
 }

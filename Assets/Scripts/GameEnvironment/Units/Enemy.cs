@@ -33,7 +33,7 @@ namespace Assets.Scripts.GameEnvironment.Units
         {
             if (_guard != null)
                 _attackSystem.Attack(this, _guard);
-            else
+            else if (_player != null)
                 _attackSystem.Attack(this, _player);                       
         }                          
 

@@ -3,7 +3,6 @@ using Assets.Scripts.Infrastructure.Services;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Assets.Scripts.GameEnvironment.Units
 {
@@ -11,9 +10,17 @@ namespace Assets.Scripts.GameEnvironment.Units
     {
         private int _coins;
         private int _crystals;
+        private ISaveLoadService _saveLoadService;
 
         public int Coins => _coins;
-        public int Crystals => _crystals;      
+        public int Crystals => _crystals;
+
+        private void Awake()
+            => _saveLoadService = AllServices.Container.Single<ISaveLoadService>();
+
+
+        public void SaveMoney()
+            => _saveLoadService.SaveProgress();
 
         public void AddCoin(int value, TMP_Text text)
         {
@@ -39,7 +46,7 @@ namespace Assets.Scripts.GameEnvironment.Units
             StartCoroutine(RemoveTreasure(_crystals, text));
         }
 
-        public IEnumerator AddTreasure(int newValue, TMP_Text text)
+        private IEnumerator AddTreasure(int newValue, TMP_Text text)
         {
             int value = int.Parse(text.text);
 
@@ -53,7 +60,7 @@ namespace Assets.Scripts.GameEnvironment.Units
             yield return null;
         }
 
-        public IEnumerator RemoveTreasure(int newValue, TMP_Text text)
+        private IEnumerator RemoveTreasure(int newValue, TMP_Text text)
         {
             int value = int.Parse(text.text);
 
@@ -69,13 +76,13 @@ namespace Assets.Scripts.GameEnvironment.Units
 
         public void Load(PlayerProgress progress)
         {
-            _coins = progress.Coins;
+            //_coins = progress.Coins;
             _crystals = progress.Crystals;
         }
 
         public void Save(PlayerProgress progress)
         {
-            progress.Coins = _coins;
+            //progress.Coins = _coins;
             progress.Crystals = _crystals;
         }
     }

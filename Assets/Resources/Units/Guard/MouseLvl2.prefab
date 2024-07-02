@@ -280,6 +280,7 @@ GameObject:
   - component: {fileID: 2225280606753028952}
   - component: {fileID: 2225280606753028955}
   - component: {fileID: 5635210381480608347}
+  - component: {fileID: 3338676962785305911}
   - component: {fileID: 9065501440699644663}
   - component: {fileID: 6168793550591252661}
   - component: {fileID: 8732928801375395871}
@@ -366,21 +367,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a3168a808bc8340aa510abfe09e717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 40
   _cardData: {fileID: 11400000, guid: d24d5ac35d8772141b5a86b24c6cdc96, type: 2}
   _healthAmount: {fileID: 2225280604786257574}
   _defenceAmount: {fileID: 2225280606736318814}
   _damageAmount: {fileID: 2225280606808530333}
   _attackType: 1
-  _attackSound: {fileID: 5362222988183540443}
-  _clickSound: {fileID: 0}
-  _projectile: {fileID: 6651965110157006113, guid: 4728e988df012bf418902f7f600b683c, type: 3}
   _firePos: {fileID: 1088384656981265708}
-  _minValue: 0
-  _maxValue: 0
   _guardUpgrade: {fileID: 11400000, guid: f9ba2daa49c46b4499cc3869b8814ee1, type: 2}
   _guardButton: {fileID: 6168793550591252661}
   _enemy: {fileID: 0}
+--- !u!114 &3338676962785305911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2225280606753027236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e81721d2536f4f4bb619e8e6eb23362, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackSound: {fileID: 5362222988183540443}
+  _moveSpeed: 40
+  _projectile: {fileID: 6651965110157006113, guid: 4728e988df012bf418902f7f600b683c, type: 3}
 --- !u!114 &9065501440699644663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -741,14 +751,14 @@ RectTransform:
   m_GameObject: {fileID: 4706768248148672216}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_Children: []
   m_Father: {fileID: 2225280606753027237}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.3483, y: -20.1}
   m_SizeDelta: {x: 606.72253, y: 752.8876}
   m_Pivot: {x: 0.49942595, y: 0.5232584}
 --- !u!222 &1374617145510426694
@@ -837,6 +847,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 69, y: 14}
+  m_AnchoredPosition: {x: 69.8, y: -7.7}
   m_SizeDelta: {x: 40.0219, y: 44.306}
   m_Pivot: {x: 0.5, y: 0.5}

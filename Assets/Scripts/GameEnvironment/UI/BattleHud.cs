@@ -1,8 +1,5 @@
-﻿using Assets.Scripts.Data;
-using Assets.Scripts.GameEnvironment.GameLogic;
+﻿using Assets.Scripts.GameEnvironment.GameLogic;
 using Assets.Scripts.GameEnvironment.Units;
-using Assets.Scripts.Infrastructure.Services;
-using Assets.Scripts.States;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,11 +9,10 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.GameEnvironment.UI
 {
-    public class BattleHud : MonoBehaviour, ISaveProgress
+    public class BattleHud : MonoBehaviour//, ISaveProgress
     {
-        [SerializeField] private Player _player;
         [SerializeField] private GameObject _guardWindow;
-        [SerializeField] private Button _closeGuards;
+        [SerializeField] private Button _retreat;
         [SerializeField] private PlayerMoney _playerMoney;
         [SerializeField] private TMP_Text _coinsCount;
         [SerializeField] private TMP_Text _crystalsCount;
@@ -28,9 +24,9 @@ namespace Assets.Scripts.GameEnvironment.UI
         [SerializeField] private Image[] _emptyImages;
         [SerializeField] private List<Button> _summonGuardButtons;
 
-        private int _actionPoints;
-        private int _usePerTurn;
-        private ISaveLoadService _saveLoadService;
+        private int _actionPoints = 2;
+        private int _usePerTurn;        
+        private Player _player;
 
         public Player Player => _player;
         public PlayerMoney PlayerMoney => _playerMoney;
@@ -39,7 +35,6 @@ namespace Assets.Scripts.GameEnvironment.UI
 
         private void Awake()
         {
-            _saveLoadService = AllServices.Container.Single<ISaveLoadService>();
             _canvas.worldCamera = Camera.main;
         }
 
@@ -47,37 +42,28 @@ namespace Assets.Scripts.GameEnvironment.UI
         {
             _coinsCount.text = _playerMoney.Coins.ToString();
             _crystalsCount.text = _playerMoney.Crystals.ToString();
-        }              
+            _usePerTurn = _actionPoints;
+            UpdateCooldown();
+            _retreat.onClick.AddListener(OnPlayerDie);
+        }
 
         private void OnDestroy()
-        {
-            _player.EnemyAttacked -= OnPlayerAttack;
-        }
+        {            
+            _retreat.onClick.RemoveListener(OnPlayerDie);
+        }        
 
         public void Construct(Player player)
         {
             _player = player;
             _player.EnemyAttacked += OnPlayerAttack;
             _player.GetComponent<Health>().Died += OnPlayerDie;
-            _actionPoints = _player.CardData.AP;
+        }
+
+        public void ResetCooldown()
+        {
             _usePerTurn = _actionPoints;
             UpdateCooldown();
-        }
-
-        private void OnPlayerDie()
-        {
-            _saveLoadService.SaveProgress();
-            _dieWindow.gameObject.SetActive(true);
-            _player.GetComponent<Health>().Died -= OnPlayerDie;
-        }
-
-        private void OnPlayerAttack(bool value)
-        {
-            if (value == true)
-                _deck.DisactivateRaw();
-            else
-                _deck.ActivateRaw();
-        }      
+        }             
 
         public void UpdateCooldown()
         {
@@ -104,10 +90,24 @@ namespace Assets.Scripts.GameEnvironment.UI
             if (_usePerTurn == 0) EndPlayerTurn();
         }
 
-        private void EndPlayerTurn()
+        private void OnPlayerDie()
         {
-            StartCoroutine(EnemyTurn());
+            _playerMoney.SaveMoney();
+            _dieWindow.gameObject.SetActive(true);
+            _player.GetComponent<Health>().Died -= OnPlayerDie;
+            _player.EnemyAttacked -= OnPlayerAttack;
         }
+
+        private void OnPlayerAttack(bool value)
+        {
+            if (value == true)
+                _deck.DisactivateRaw();
+            else
+                _deck.ActivateRaw();
+        }
+
+        private void EndPlayerTurn()=>
+            StartCoroutine(EnemyTurn());
 
         private IEnumerator EnemyTurn()
         {
@@ -115,20 +115,14 @@ namespace Assets.Scripts.GameEnvironment.UI
             _deck.Attack();
             yield return new WaitForSeconds(0.5f);
             ResetCooldown();
-        }
+        }        
 
-        public void ResetCooldown()
-        {
-            _usePerTurn = _actionPoints;
-            UpdateCooldown();
-        }
+        //public void Save(PlayerProgress progress)
+        //{
+        //}
 
-        public void Save(PlayerProgress progress)
-        {
-        }
-
-        public void Load(PlayerProgress progress)
-        {
-        }
+        //public void Load(PlayerProgress progress)
+        //{
+        //}
     }
 }

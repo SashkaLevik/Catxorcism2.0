@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: DogLvl3
   m_EditorClassIdentifier: 
   CardPrefab: {fileID: 1003202658727545870, guid: 7b389e86247ea9d429a8e55bc77f0e6e, type: 3}
+  RuName: 
+  EnName: 
+  RuDescription: 
+  EnDescription: 
   Damage: 6
   Health: 9
-  AP: 0
-  Price: 10
+  ActivatePrice: 0
   SummonPrice: 10
-  UpgradePrice: 10
+  UpgradePrice: 20
   Level: 3
-  ItemValue: 0
