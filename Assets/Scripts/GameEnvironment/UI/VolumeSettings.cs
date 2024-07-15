@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.Data;
 using Assets.Scripts.Infrastructure.Services;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -9,7 +8,6 @@ namespace Assets.Scripts.GameEnvironment.UI
 {
     public class VolumeSettings : MonoBehaviour, ISaveProgress
     {
-
         private const string MasterVolume = "MasterVolume";
         private const string MusicVolume = "MusicVolume";
         private const string SFXVolume = "SFXVolume";
@@ -23,12 +21,14 @@ namespace Assets.Scripts.GameEnvironment.UI
         private float _musicVolume;
         private float _SFXVolume;
 
+        public float Volume => _masterVolume;
+
         private void Awake()
         {
             _masterSlider.onValueChanged.AddListener(ChangeMasterVolume);
             _musicSlider.onValueChanged.AddListener(ChangeMusicVolume);
             _SFXSlider.onValueChanged.AddListener(ChangeSoundVolume);
-        }
+        }        
 
         private void OnDestroy()
         {
@@ -53,7 +53,7 @@ namespace Assets.Scripts.GameEnvironment.UI
         {
             _mixer.SetFloat(SFXVolume, Mathf.Log10(volume) * 20);
             _SFXVolume = volume;
-        }
+        }       
 
         public void Load(PlayerProgress progress)
         {

@@ -24,7 +24,7 @@ namespace Assets.Scripts.States
 
         public void Enter()
         {
-            _sceneLoader.Load(Initial, onLoaded: LoadProgress);
+            _sceneLoader.Load(Initial);//, onLoaded: LoadProgress);
         }
 
         public void Exit() { }

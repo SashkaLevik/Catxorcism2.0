@@ -15,27 +15,38 @@ namespace Assets.Scripts.GameEnvironment.Units
                 StartCoroutine(MeleeAttack(player, enemy));
             else if (player.AttackType == AttackType.Range)
             {
-                RangeAttack(player, enemy);
-                player.GetComponent<Player>().ReduceDamage();
-            }
-                
-            _attackSound.Play();
+                StartCoroutine(RangeAttack(player, enemy));                
+            }            
         }
 
-        private void RangeAttack(Unit player, Unit enemy)
+        private IEnumerator RangeAttack(Unit player, Unit enemy)
         {
-            Projectile projectile = Instantiate(_projectile, player.FirePos.transform.position, Quaternion.identity, player.FirePos);
-            projectile.Init(enemy, player.Damage);
-            projectile.Shoot();
+            yield return new WaitForSeconds(0.4f);
+
+            if (enemy != null)
+            {
+                Projectile projectile = Instantiate(_projectile, player.FirePos.transform.position, Quaternion.identity, player.FirePos);
+                projectile.Init(enemy, player.Damage);
+                projectile.Shoot();
+                _attackSound.Play();
+
+                if (player.GetComponent<Player>())
+                    player.GetComponent<Player>().ReduceDamage();
+            }            
         }
 
         private IEnumerator MeleeAttack(Unit player, Unit enemy)
         {
-            yield return StartCoroutine(Move(enemy.transform.position));
-            yield return null;
-            enemy.GetComponent<Health>().TakeDamage(player.Damage);
-            player.GetComponent<Health>().TakeDamage(enemy.Damage);
-            yield return StartCoroutine(Move(player.StartPosition));
+            yield return new WaitForSeconds(0.4f);
+
+            if (enemy != null)
+            {
+                _attackSound.Play();
+                yield return StartCoroutine(Move(enemy.transform.position));
+                enemy.GetComponent<Health>().TakeDamage(player.Damage);
+                player.GetComponent<Health>().TakeDamage(enemy.Damage);
+                yield return StartCoroutine(Move(player.StartPosition));
+            }
         }
 
         private IEnumerator Move(Vector3 newPos)

@@ -65,6 +65,8 @@ public class MouseTrakcing : MonoBehaviour
                         _playerHealth.RiseDefence(shield.Amount);
                     else if (_player.Type == PlayerType.Mage)
                         _player.RiseDamage(shield.Amount);
+                    else if (_player.Type == PlayerType.Barbarian)
+                        _playerHealth.HealBarbarian(shield.Amount);
 
                     shield.Sound.Play();
                     Destroy(shield.gameObject, _animationDelay);

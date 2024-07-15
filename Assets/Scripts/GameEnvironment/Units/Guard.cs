@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.Data;
 using Assets.Scripts.GameEnvironment.UI;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -14,7 +13,6 @@ namespace Assets.Scripts.GameEnvironment.Units
         [SerializeField] private Enemy _enemy;
 
         private Health _health;
-        private Health _enemyHealth;
 
         public Enemy Enemy => _enemy;
         public CardData GuardApgrade => _guardUpgrade;
@@ -33,15 +31,15 @@ namespace Assets.Scripts.GameEnvironment.Units
         private void OnEnable()
         {
             _guardButton.onClick.AddListener(PassGuard);
-        }        
-
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.TryGetComponent(out Enemy enemy))
-            {
-                _enemy = enemy;
-            }
         }
+
+        public void ActivateGuard()
+        {
+            GetComponent<Button>().interactable = true;
+        }
+
+        public void InitEnemy(Enemy enemy) =>
+            _enemy = enemy;        
 
         private void UpdateHealth(int value) =>
             _healthAmount.text = value.ToString();

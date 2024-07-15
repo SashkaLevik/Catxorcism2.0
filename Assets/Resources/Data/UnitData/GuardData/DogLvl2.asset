@@ -18,8 +18,8 @@ MonoBehaviour:
   RuDescription: 
   EnDescription: 
   Damage: 4
-  Health: 8
+  Health: 10
   ActivatePrice: 0
   SummonPrice: 0
-  UpgradePrice: 15
+  UpgradePrice: 14
   Level: 2

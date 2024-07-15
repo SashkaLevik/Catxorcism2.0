@@ -76,13 +76,12 @@ namespace Assets.Scripts.GameEnvironment.Units
 
         public void Load(PlayerProgress progress)
         {
-            //_coins = progress.Coins;
+            _coins = progress.Coins;
             _crystals = progress.Crystals;
         }
 
         public void Save(PlayerProgress progress)
         {
-            //progress.Coins = _coins;
             progress.Crystals = _crystals;
         }
     }

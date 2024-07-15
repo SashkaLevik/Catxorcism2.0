@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: MouseLvl2
   m_EditorClassIdentifier: 
   CardPrefab: {fileID: 5635210381480608347, guid: 6adc867d6982a9442b8a22e15786fec6, type: 3}
+  RuName: 
+  EnName: 
+  RuDescription: 
+  EnDescription: 
   Damage: 3
   Health: 6
-  AP: 0
-  Price: 60
+  ActivatePrice: 0
   SummonPrice: 20
-  UpgradePrice: 20
+  UpgradePrice: 14
   Level: 2
-  ItemValue: 0

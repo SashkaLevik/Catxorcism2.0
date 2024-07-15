@@ -7,7 +7,6 @@ namespace Assets.Scripts.Data
     {
         public string Level;
         public int Stage;
-        public int FirstLvlStages;
         public int LevelNumber;
         public bool IsNewGame;
         public bool IsFirstRun;
@@ -19,7 +18,6 @@ namespace Assets.Scripts.Data
         {
             Level = level;
             Stage = 1;
-            FirstLvlStages = 6;
             LevelNumber = 1;
             IsNewGame = true;
             IsFirstRun = true;

@@ -2,7 +2,6 @@
 using Assets.Scripts.GameEnvironment.Units;
 using Assets.Scripts.Infrastructure.Services;
 using Assets.Scripts.States;
-using CrazyGames;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +12,9 @@ namespace Assets.Scripts.GameEnvironment.UI
     {
         private const string MenuScene = "MenuScene";
 
+        [SerializeField] private Sprite _knight;
+        [SerializeField] private Sprite _barbarian;
+        [SerializeField] private Sprite _mage;
         [SerializeField] private PlayerMoney _playerMoney;
         [SerializeField] private BattleHud _battleHud;
         [SerializeField] private DeckSpawner _deckSpawner;
@@ -25,27 +27,42 @@ namespace Assets.Scripts.GameEnvironment.UI
         private int _crystalsPrize = 10;
         private int _coinsPrize = 20;
         private IGameStateMachine _stateMachine;
+        private Player _player;
 
         private void Awake()=>
             _stateMachine = AllServices.Container.Single<IGameStateMachine>();
 
+        private void Start() =>
+            _player = _battleHud.Player;
+
         private void OnEnable()
         {
-            _toMenu.onClick.AddListener(ShowAdd);
+            _toMenu.onClick.AddListener(ReturnToMenu);
             _nextArea.onClick.AddListener(SetNewWave);
             _deckSpawner.BossDied += OpenWinWindow;
         }
        
         private void OnDestroy()
         {
-            _toMenu.onClick.RemoveListener(ShowAdd);
+            _toMenu.onClick.RemoveListener(ReturnToMenu);
             _nextArea.onClick.AddListener(SetNewWave);
             _deckSpawner.BossDied -= OpenWinWindow;
         }
 
         private void OpenWinWindow(int waveNumber)
         {
+            if (_player == null) return;
+
             _window.SetActive(true);
+            _battleHud.ResetCooldown();
+
+            if (_player.Type == PlayerType.Knight)
+                _window.GetComponent<Image>().sprite = _knight;
+            else if (_player.Type == PlayerType.Barbarian)
+                _window.GetComponent<Image>().sprite = _barbarian;
+            else if (_player.Type == PlayerType.Mage)
+                _window.GetComponent<Image>().sprite = _mage;
+
             _playerMoney.AddCrystal(_crystalsPrize, _battleHud.Crystals);
             _playerMoney.AddCoin(_coinsPrize, _battleHud.Coins);
             _playerMoney.SaveMoney();
@@ -59,16 +76,20 @@ namespace Assets.Scripts.GameEnvironment.UI
 
         private void SetNewWave()
         {
-            _window.SetActive(false);                
+            _window.SetActive(false);
+            _deckSpawner.DrawNextDeck();
         }
 
-        private void ShowAdd() =>
-            CrazySDK.Ad.RequestAd(CrazyAdType.Midgame, null, OnAdError, OnAdFinished);
-
-        private void OnAdFinished() =>
+        private void ReturnToMenu() =>
             _stateMachine.Enter<MenuState, string>(MenuScene);
 
-        private void OnAdError(SdkError obj) =>
-            OnAdFinished();
+        //private void ShowAdd() =>
+        //    CrazySDK.Ad.RequestAd(CrazyAdType.Midgame, null, OnAdError, OnAdFinished);
+
+        //private void OnAdFinished() =>
+        //    _stateMachine.Enter<MenuState, string>(MenuScene);
+
+        //private void OnAdError(SdkError obj) =>
+        //    OnAdFinished();
     }
 }

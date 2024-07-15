@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardPrefab: {fileID: 4517616164310475585, guid: e1e02d7d1f3adab42b76415359a26335, type: 3}
   RuName: 
-  EnName: 
+  EnName: Pig
   RuDescription: "\u041F\u043E\u0432\u044B\u0448\u0435\u043D\u043D\u044B\u0435 \u043F\u043E\u043A\u0430\u0437\u0430\u0442\u0435\u043B\u0438
     \u0437\u0434\u043E\u0440\u043E\u0432\u044C\u044F \u0438 \u0430\u0442\u0430\u043A\u0438"
   EnDescription: Increased health and attack values
-  Damage: 5
-  Health: 5
-  ActivatePrice: 0
-  SummonPrice: 0
+  Damage: 4
+  Health: 6
+  ActivatePrice: 40
+  SummonPrice: 10
   UpgradePrice: 0
   Level: 1

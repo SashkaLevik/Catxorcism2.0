@@ -1,0 +1,55 @@
+
+book_01.png
+size: 1024,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Layer 3 copy 3
+  rotate: false
+  xy: 2, 2
+  size: 209, 121
+  orig: 209, 121
+  offset: 0, 0
+  index: -1
+flover
+  rotate: true
+  xy: 213, 20
+  size: 103, 138
+  orig: 103, 138
+  offset: 0, 0
+  index: -1
+fog
+  rotate: true
+  xy: 576, 8
+  size: 43, 38
+  orig: 43, 38
+  offset: 0, 0
+  index: -1
+list1
+  rotate: false
+  xy: 438, 26
+  size: 81, 97
+  orig: 81, 97
+  offset: 0, 0
+  index: -1
+list2
+  rotate: false
+  xy: 353, 25
+  size: 83, 98
+  orig: 83, 98
+  offset: 0, 0
+  index: -1
+tarelka
+  rotate: true
+  xy: 521, 36
+  size: 87, 53
+  orig: 87, 53
+  offset: 0, 0
+  index: -1
+zakladka
+  rotate: true
+  xy: 576, 53
+  size: 70, 51
+  orig: 70, 51
+  offset: 0, 0
+  index: -1

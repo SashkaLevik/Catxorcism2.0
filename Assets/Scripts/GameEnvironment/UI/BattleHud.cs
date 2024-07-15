@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.GameEnvironment.GameLogic;
 using Assets.Scripts.GameEnvironment.Units;
-using System;
+using Assets.Scripts.Infrastructure.GameManegment;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,9 +9,11 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.GameEnvironment.UI
 {
-    public class BattleHud : MonoBehaviour//, ISaveProgress
+    public class BattleHud : MonoBehaviour
     {
+        [SerializeField] private AudioSource _battleMusic;
         [SerializeField] private GameObject _guardWindow;
+        [SerializeField] private Button _endTurn;
         [SerializeField] private Button _retreat;
         [SerializeField] private PlayerMoney _playerMoney;
         [SerializeField] private TMP_Text _coinsCount;
@@ -33,10 +35,8 @@ namespace Assets.Scripts.GameEnvironment.UI
         public TMP_Text Coins => _coinsCount;
         public TMP_Text Crystals => _crystalsCount;
 
-        private void Awake()
-        {
-            _canvas.worldCamera = Camera.main;
-        }
+        private void Awake() =>
+            _canvas.worldCamera = Camera.main;        
 
         private void Start()
         {
@@ -44,11 +44,14 @@ namespace Assets.Scripts.GameEnvironment.UI
             _crystalsCount.text = _playerMoney.Crystals.ToString();
             _usePerTurn = _actionPoints;
             UpdateCooldown();
+            _endTurn.onClick.AddListener(EndPlayerTurn);
             _retreat.onClick.AddListener(OnPlayerDie);
+            _battleMusic.Play();            
         }
 
         private void OnDestroy()
-        {            
+        {
+            _endTurn.onClick.RemoveListener(EndPlayerTurn);
             _retreat.onClick.RemoveListener(OnPlayerDie);
         }        
 
@@ -100,29 +103,38 @@ namespace Assets.Scripts.GameEnvironment.UI
 
         private void OnPlayerAttack(bool value)
         {
+            GetEnemies();
+
             if (value == true)
                 _deck.DisactivateRaw();
             else
                 _deck.ActivateRaw();
         }
 
-        private void EndPlayerTurn()=>
+        private void EndPlayerTurn() =>
             StartCoroutine(EnemyTurn());
 
         private IEnumerator EnemyTurn()
         {
-            yield return new WaitForSeconds(0.5f);
+            GetEnemies();
+            yield return new WaitWhile(() => _player.IsAttacking);
+            yield return new WaitForSeconds(0.2f);
             _deck.Attack();
-            yield return new WaitForSeconds(0.5f);
-            ResetCooldown();
         }        
 
-        //public void Save(PlayerProgress progress)
-        //{
-        //}
+        private void GetEnemies()
+        {
+            for (int i = 0; i < _summonGuardButtons.Count; i++)
+            {
+                var guard = _summonGuardButtons[i].GetComponentInChildren<Guard>();
+                var enemy = _deck.FirstRaw[i].GetComponentInChildren<Enemy>();
 
-        //public void Load(PlayerProgress progress)
-        //{
-        //}
+                if (guard != null && enemy != null)
+                {
+                    guard.InitEnemy(enemy);
+                    enemy.InitGuard(guard);
+                }
+            }
+        }        
     }
 }

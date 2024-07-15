@@ -23,7 +23,9 @@ namespace Assets.Scripts.GameEnvironment.GameLogic
             _portDeck = Resources.LoadAll<Card>(PortDeckShaffled).OrderBy(x => Random.value).ToList();
             _marketDeck = Resources.LoadAll<Card>(MarketDeckShaffled).OrderBy(x => Random.value).ToList();
             SetBossPosition(_portDeck);
+            SetFirstItems(_portDeck);
             SetBossPosition(_marketDeck);
+            SetFirstItems(_marketDeck);
         }
 
         private void SetBossPosition(List<Card> cards)
@@ -40,5 +42,28 @@ namespace Assets.Scripts.GameEnvironment.GameLogic
                 cards.Add(_bossCard);
             }
         }       
+
+        private void SetFirstItems(List<Card> cards)
+        {            
+            foreach (var card in cards)
+            {
+                if (card.GetComponent<Coin>())
+                {
+                    cards.Remove(card);
+                    cards.Insert(0, card);
+                    break;
+                }
+            }
+
+            foreach (var card in cards)
+            {
+                if (card.GetComponent<Shield>())
+                {
+                    cards.Remove(card);
+                    cards.Insert(1, card);
+                    break;
+                }
+            }
+        }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using Assets.Scripts.Data;
 using Assets.Scripts.Infrastructure.GameManegment;
 using Assets.Scripts.Infrastructure.Services;
-using CrazyGames;
-using System;
 
 namespace Assets.Scripts.States
 {
@@ -14,7 +12,7 @@ namespace Assets.Scripts.States
         private readonly GameStateMachine _gameStateMachine;
         private readonly IPersistentProgressService _progressService;
         private readonly ISaveLoadService _saveLoadService;
-        private readonly SceneLoader _sceneLoader;
+        private readonly SceneLoader _sceneLoader;        
 
         public ProgressState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, IPersistentProgressService progressService, ISaveLoadService saveLoadService)
         {
@@ -27,10 +25,9 @@ namespace Assets.Scripts.States
         public void Enter()
         {
             LoadProgressOrInitNew();
-            //_sceneLoader.Load(Intro);
-            CrazySDK.Init(OnInitialize);
-            //_gameStateMachine.Enter<MenuState, string>(MenuScene);
-        }
+            _gameStateMachine.Enter<MenuState, string>(MenuScene);
+            //CrazySDK.Init(OnInitialize);
+        }        
 
         private void OnInitialize()=>
             _gameStateMachine.Enter<MenuState, string>(MenuScene);
@@ -46,9 +43,7 @@ namespace Assets.Scripts.States
 
         private PlayerProgress NewProgress()
         {
-
             var progress = new PlayerProgress(initialLevel: MenuScene);
-            //progress.HeroState.ResetHP();
 
             return progress;
         }

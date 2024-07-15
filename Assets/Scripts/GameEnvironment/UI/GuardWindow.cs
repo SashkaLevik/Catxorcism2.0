@@ -26,20 +26,27 @@ namespace Assets.Scripts.GameEnvironment.UI
         [SerializeField] private List<BuyButton> _buyButtons;
         [SerializeField] private List<GuardSpawner> _spawners;
 
+        private int _maxLevel = 3;
         private Player _player;
-        private PlayerMoney _playerMoney;
         private CardData _choosedGuard;
         private Guard _spawnedGuard;
         private Guard _currentGuard;
         private TMP_Text _priceText;
         private TMP_Text _upgradeText;
         private GuardSpawner _currentSpawner;
-        private int _maxLevel = 3;
+        private List<CardData> _guardsToSpawn = new List<CardData>();
+        private List<string> _openedGuards = new List<string>();
 
         private void Start()
         {
             _player = _battleHud.Player;
-            _playerMoney = _player.GetComponent<PlayerMoney>(); 
+            _player.InitSlots(_spawners);
+
+            for (int i = 0; i < _guards.Count; i++)
+            {
+                if (IsOpen(_guards[i]))
+                    _guardsToSpawn.Add(_guards[i]);
+            }
         }
 
         private void OnEnable()
@@ -74,18 +81,16 @@ namespace Assets.Scripts.GameEnvironment.UI
 
             if (_battleHud.PlayerMoney.Coins >= _choosedGuard.UpgradePrice)
             {
-                _player.RemoveGuard(_currentGuard);
                 Destroy(_currentGuard.gameObject);
                 _battleHud.PlayerMoney.RemoveCoin(_choosedGuard.UpgradePrice, _battleHud.Coins);
                 _spawnedGuard = (Guard)Instantiate(_choosedGuard.CardPrefab, _currentSpawner.transform);
                 _spawnedGuard.OnGuardPressed += ShowUpgrades;
-                _player.AddGuard(_spawnedGuard);
                 _upgradeWindow.SetActive(false);
-                _spawnedGuard.Activate();
+                _spawnedGuard.ActivateGuard();
             }
             else
                 _warning.Show();
-        }
+        }        
 
         private void SummonGuard(BuyButton button)
         {
@@ -96,8 +101,7 @@ namespace Assets.Scripts.GameEnvironment.UI
                 _battleHud.PlayerMoney.RemoveCoin(_choosedGuard.SummonPrice, _battleHud.Coins);
                 _spawnedGuard = (Guard)Instantiate(_choosedGuard.CardPrefab, _currentSpawner.transform);
                 _spawnedGuard.OnGuardPressed += ShowUpgrades;
-                _player.AddGuard(_spawnedGuard);
-                _spawnedGuard.Activate();
+                _spawnedGuard.ActivateGuard();
                 CloseGuardWindow();
             }
             else
@@ -122,15 +126,15 @@ namespace Assets.Scripts.GameEnvironment.UI
         {
             _guardWindow.SetActive(true);
             _deckSpawner.DisactivateRaw();
-            _currentSpawner = spawner;
+            _currentSpawner = spawner;            
 
-            for (int i = 0; i < _guards.Count; i++)
+            for (int i = 0; i < _guardsToSpawn.Count; i++)
             {
-                Instantiate(_guards[i].CardPrefab, _slots[i]);
+                Instantiate(_guardsToSpawn[i].CardPrefab, _slots[i]);
                 _buyButtons[i].GetComponent<Button>().interactable = true;
                 _buyButtons[i].GetCard(_guards[i]);
                 _priceText = _buyButtons[i].GetComponentInChildren<TMP_Text>();
-                _priceText.text = _guards[i].SummonPrice.ToString();
+                _priceText.text = _guardsToSpawn[i].SummonPrice.ToString();
             }
         }
 
@@ -138,15 +142,22 @@ namespace Assets.Scripts.GameEnvironment.UI
         {
             _guardWindow.SetActive(false);
             _deckSpawner.ActivateRaw();
-        }
-            
+        }            
 
         private void CloseUpgrades() =>
             _upgradeWindow.SetActive(false);
 
+        private bool IsOpen(CardData data)
+        {
+            foreach (var name in _openedGuards)
+                if (data.EnName == name) return true;
+
+            return false;
+        }
+
         public void Load(PlayerProgress progress)
         {
-            _guards = progress.OpenedGuards.ToList();
+            _openedGuards = progress.OpenedGuards.ToList();
         }
 
         public void Save(PlayerProgress progress)

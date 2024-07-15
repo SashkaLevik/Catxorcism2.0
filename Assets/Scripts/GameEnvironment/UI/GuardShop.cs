@@ -12,7 +12,7 @@ namespace Assets.Scripts.GameEnvironment.UI
     {
         [SerializeField] private TMP_Text _crystal;
         [SerializeField] private MenuHud _menuHud;
-        [SerializeField] private List<CardData> _guardData;
+        [SerializeField] private List<CardData> _guardDatas;
         [SerializeField] private List<RectTransform> _slots;
         [SerializeField] private List<BuyButton> _buyButtons;
         [SerializeField] private Warning _warning;
@@ -21,22 +21,14 @@ namespace Assets.Scripts.GameEnvironment.UI
         private TMP_Text _description;
         private PlayerProgress _progress;
         private CardData _choosedGuard;
-        private List<CardData> _activeGuard = new List<CardData>();
-        private List<CardData> _closeGuard = new List<CardData>();
+        private List<string> _openedGuards = new List<string>();
 
         private void Start()
         {
-            SpawnGuards();
-            //_crystal.text = _menuHud.PlayerMoney.Crystals.ToString();
-
             if (_progress.WorldData.IsNewGame == true)
-            {
-                _closeGuard = _guardData.ToList();
-                OpenFirstGuard();
-            }
+                _openedGuards.Add(_guardDatas[0].EnName);
 
-            for (int i = 0; i < _activeGuard.Count; i++)
-                _buyButtons[i].GetComponent<Button>().interactable = false;            
+            SpawnGuards();                   
         }
 
         private void OnEnable()
@@ -55,12 +47,19 @@ namespace Assets.Scripts.GameEnvironment.UI
         {
             for (int i = 0; i < _slots.Count; i++)
             {
-                Instantiate(_guardData[i].CardPrefab, _slots[i]);
-                _buyButtons[i].GetCard(_guardData[i]);
+                Instantiate(_guardDatas[i].CardPrefab, _slots[i]);
+                _buyButtons[i].GetCard(_guardDatas[i]);
+
+                foreach (var guard in _openedGuards)
+                {
+                    if (_buyButtons[i].Guard.EnName == guard)
+                        _buyButtons[i].GetComponent<Button>().interactable = false;
+                }
+
                 _priceText = _buyButtons[i].GetComponentInChildren<TMP_Text>();
+                _priceText.text = _guardDatas[i].ActivatePrice.ToString();
                 _description = _slots[i].GetComponentInChildren<TMP_Text>();
-                _description.text = GetLocalizedDescription(_guardData[i]);
-                _priceText.text = _guardData[i].ActivatePrice.ToString();
+                _description.text = GetLocalizedDescription(_guardDatas[i]);
             }
         }
 
@@ -70,21 +69,14 @@ namespace Assets.Scripts.GameEnvironment.UI
 
             if (_menuHud.PlayerMoney.Crystals >= _choosedGuard.ActivatePrice)
             {
-                _activeGuard.Add(_choosedGuard);
-                _closeGuard.Remove(_choosedGuard);
+                _openedGuards.Add(_choosedGuard.EnName);
                 _menuHud.PlayerMoney.RemoveCrystal(_choosedGuard.ActivatePrice, _crystal);
                 button.GetComponent<Button>().interactable = false;
             }
             else
                 _warning.Show();
         }
-
-        private void OpenFirstGuard()
-        {
-            _activeGuard.Add(_closeGuard[0]);
-            _closeGuard.Remove(_closeGuard[0]);
-        }
-
+       
         private string GetLocalizedDescription(CardData cardData)
         {
             if (Application.systemLanguage == SystemLanguage.Russian)
@@ -95,8 +87,7 @@ namespace Assets.Scripts.GameEnvironment.UI
 
         public void Save(PlayerProgress progress)
         {
-            progress.CloseGuards = _closeGuard.ToList();
-            progress.OpenedGuards = _activeGuard.ToList();
+            progress.OpenedGuards = _openedGuards.ToList();
         }
 
         public void Load(PlayerProgress progress)
@@ -104,10 +95,7 @@ namespace Assets.Scripts.GameEnvironment.UI
             _progress = progress;
 
             if (progress.WorldData.IsNewGame == false)
-            {
-                _closeGuard = progress.CloseGuards.ToList();
-                _activeGuard = progress.OpenedGuards.ToList();
-            }
+                _openedGuards = progress.OpenedGuards.ToList();
         }       
     }
 }

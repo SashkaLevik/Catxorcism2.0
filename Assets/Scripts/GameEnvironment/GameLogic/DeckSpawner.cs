@@ -1,11 +1,9 @@
-﻿using Assets.Scripts.GameEnvironment.Units;
+﻿using Assets.Scripts.GameEnvironment.UI;
+using Assets.Scripts.GameEnvironment.Units;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
-using Assets.Scripts.GameEnvironment.UI;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace Assets.Scripts.GameEnvironment.GameLogic
@@ -18,31 +16,41 @@ namespace Assets.Scripts.GameEnvironment.GameLogic
         [SerializeField] private List<RectTransform> _firstRaw;
         [SerializeField] private List<RectTransform> _secondRaw;
         [SerializeField] private TMP_Text _remainingCards;
-        [SerializeField] private Button _endTurn;
         [SerializeField] private float _moveSpeed;
         [SerializeField] private RectTransform _pos;
+        [SerializeField] private AudioSource _tossCard;
 
+        private float _tossDelay = 0.2f;
+        private float _attackDelay = 0.4f;
         private int _waveNumber;
         private int _maxWave = 2;
         private Boss _bossCard;
         private Card _spawnedCard;
         private Card _movedCard;
+        private Player _player;
         private List<Card> _currentDeck = new List<Card>();
         private List<Card> _spawnedCards = new List<Card>();
+        private Coroutine _moveCoroutine;
+
+        public List<RectTransform> FirstRaw => _firstRaw;
 
         public event UnityAction<int> BossDied;
 
         private void Start()
         {
             SetDeckToSpawn(_waveNumber);
-            SpawnCards();
-            _endTurn.onClick.AddListener(Attack);
+            StartCoroutine(SpawnCards(_firstRaw));
+            _player = _battleHud.Player;
         }
 
-        private void OnDestroy()
+        public void DrawNextDeck()
         {
-            _endTurn.onClick.RemoveListener(Attack);
-        }        
+            if (_waveNumber != _maxWave)
+            {
+                SetDeckToSpawn(_waveNumber);
+                StartCoroutine(SpawnCards(_firstRaw));
+            }
+        }          
 
         public void ActivateRaw()
         {
@@ -68,28 +76,28 @@ namespace Assets.Scripts.GameEnvironment.GameLogic
         private IEnumerator StartAttack()
         {
             DisactivateRaw();
-            yield return new WaitForSeconds(0.3f);
 
             foreach (var pos in _firstRaw)
             {                
                 if (pos.GetComponentInChildren<Enemy>() != null)
                 {
                     pos.GetComponentInChildren<Enemy>().Attack();
-                    yield return new WaitForSeconds(0.3f);
+                    yield return new WaitForSeconds(_attackDelay);
                 }
                 yield return null;
             }
 
-            MoveOnFirst();
-            yield return new WaitForSeconds(0.3f);
-            SpawnCards();
-            yield return new WaitForSeconds(0.3f);
-            MoveOnFirst();            
+            yield return new WaitForSeconds(_tossDelay);
+            yield return StartCoroutine(MoveOnFirst());
+            yield return new WaitForSeconds(_tossDelay);
+            yield return StartCoroutine(SpawnCards(_secondRaw));
+            yield return new WaitForSeconds(_tossDelay);
+            yield return StartCoroutine(MoveOnFirst());
             ActivateRaw();
             _battleHud.ResetCooldown();
         }        
 
-        private void MoveOnFirst()
+        private IEnumerator MoveOnFirst()
         {
             for (int i = 0; i < _secondRaw.Count; i++)
             {
@@ -98,8 +106,8 @@ namespace Assets.Scripts.GameEnvironment.GameLogic
                 {
                     _movedCard = _secondRaw[i].GetComponentInChildren<Card>();
                     _movedCard.transform.SetParent(_firstRaw[i]);
-                    StartCoroutine(DrawCards(_movedCard, _firstRaw[i].transform.position));
-                    UpdateActivation();
+                    StartCoroutine(MoveCards(_movedCard, _firstRaw[i].transform.position));
+                    yield return new WaitForSeconds(0.2f);
                 }
             }
         }
@@ -135,43 +143,19 @@ namespace Assets.Scripts.GameEnvironment.GameLogic
 
         private void OnBossDie()
         {
-            _waveNumber++;
-            BossDied?.Invoke(_waveNumber);
-            _bossCard.GetComponent<Health>().Died -= OnBossDie;
-            ClearRaw(_firstRaw);
-            ClearRaw(_secondRaw);
-
-            if (_waveNumber != _maxWave)
+            if (_player != null)
             {
-                SetDeckToSpawn(_waveNumber);
-                Invoke(nameof(SpawnCards), 1f);
-            }                
-        }
-
-        private void ClearRaw(List<RectTransform> raw)
-        {
-            foreach (var pos in raw)
-            {
-                if (pos.GetComponentInChildren<Card>() != null)
-                {
-                    var card = pos.GetComponentInChildren<Card>();
-                    Destroy(card.gameObject);
-                }                    
+                _waveNumber++;
+                ClearRaw(_firstRaw);
+                ClearRaw(_secondRaw);                
+                Invoke(nameof(DelayBossDeath), 1f);
             }
         }
 
-        private void SpawnCards()
-        {
-            if (IsFirstRawFree())
-            {
-                Spawn(_firstRaw);
-                UpdateActivation();
-            }
-            else
-                Spawn(_secondRaw);
-        }
+        private void DelayBossDeath() =>
+            BossDied?.Invoke(_waveNumber);        
 
-        private void Spawn(List<RectTransform> positions)
+        private IEnumerator SpawnCards(List<RectTransform> positions)
         {
             var cardsToSpawn = 3;
 
@@ -187,20 +171,23 @@ namespace Assets.Scripts.GameEnvironment.GameLogic
 
                 if (GetCardPosition(positions) != null)
                 {
-                    StartCoroutine(DrawCards(_spawnedCard, GetCardPosition(positions).transform.position));
+                    StartCoroutine(MoveCards(_spawnedCard, GetCardPosition(positions).transform.position));
                     _spawnedCard.transform.SetParent(GetCardPosition(positions));
                     _spawnedCards.Add(_spawnedCard);
+                    _tossCard.Play();
+                    yield return new WaitForSeconds(_tossDelay);
                 }
             }
 
             foreach (var card in _spawnedCards)
                 _currentDeck.Remove(card);
 
+            ActivateRaw();
             _spawnedCards.Clear();
             _remainingCards.text = _currentDeck.Count.ToString();
-        }               
+        }                          
 
-        private IEnumerator DrawCards(Card card, Vector3 newPos)
+        private IEnumerator MoveCards(Card card, Vector3 newPos)
         {            
             while (card.transform.position != newPos)
             {
@@ -220,26 +207,18 @@ namespace Assets.Scripts.GameEnvironment.GameLogic
                     return pos;
             }
             return null;
-        }
+        }        
 
-        private void UpdateActivation()
+        private void ClearRaw(List<RectTransform> raw)
         {
-            foreach (var pos in _firstRaw)
-            {
-                var card = pos.GetComponentInChildren<Card>();
-                if (card != null)
-                    card.Activate();
-            }
-        }       
-
-        private bool IsFirstRawFree()
-        {
-            foreach (var pos in _firstRaw)
+            foreach (var pos in raw)
             {
                 if (pos.GetComponentInChildren<Card>() != null)
-                    return false;
+                {
+                    var card = pos.GetComponentInChildren<Card>();
+                    Destroy(card.gameObject);
+                }
             }
-            return true;
-        }        
+        }              
     }
 }

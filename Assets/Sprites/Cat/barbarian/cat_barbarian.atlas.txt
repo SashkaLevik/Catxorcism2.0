@@ -1,0 +1,209 @@
+
+cat_barbarian.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+axe
+  rotate: false
+  xy: 339, 72
+  size: 79, 182
+  orig: 79, 182
+  offset: 0, 0
+  index: -1
+belt
+  rotate: true
+  xy: 461, 100
+  size: 154, 72
+  orig: 154, 72
+  offset: 0, 0
+  index: -1
+body
+  rotate: false
+  xy: 2, 47
+  size: 196, 207
+  orig: 196, 207
+  offset: 0, 0
+  index: -1
+corona
+  rotate: true
+  xy: 535, 130
+  size: 124, 60
+  orig: 124, 60
+  offset: 0, 0
+  index: -1
+corona_shdw
+  rotate: true
+  xy: 605, 105
+  size: 62, 36
+  orig: 62, 36
+  offset: 0, 0
+  index: -1
+eye
+  rotate: false
+  xy: 131, 3
+  size: 99, 42
+  orig: 99, 42
+  offset: 0, 0
+  index: -1
+eye1_clouse
+  rotate: false
+  xy: 561, 105
+  size: 42, 23
+  orig: 42, 23
+  offset: 0, 0
+  index: -1
+eye2_clouse
+  rotate: true
+  xy: 535, 99
+  size: 29, 24
+  orig: 29, 24
+  offset: 0, 0
+  index: -1
+hand1_1
+  rotate: false
+  xy: 589, 10
+  size: 64, 93
+  orig: 64, 93
+  offset: 0, 0
+  index: -1
+hand1_2
+  rotate: false
+  xy: 655, 33
+  size: 67, 73
+  orig: 67, 73
+  offset: 0, 0
+  index: -1
+hand1_3
+  rotate: true
+  xy: 715, 214
+  size: 40, 37
+  orig: 40, 37
+  offset: 0, 0
+  index: -1
+hand2_2
+  rotate: false
+  xy: 232, 4
+  size: 68, 56
+  orig: 68, 56
+  offset: 0, 0
+  index: -1
+hand2_3
+  rotate: false
+  xy: 709, 133
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+hand_open
+  rotate: false
+  xy: 2, 2
+  size: 53, 43
+  orig: 53, 43
+  offset: 0, 0
+  index: -1
+head
+  rotate: true
+  xy: 200, 62
+  size: 192, 137
+  orig: 192, 137
+  offset: 0, 0
+  index: -1
+leg1
+  rotate: false
+  xy: 597, 169
+  size: 72, 85
+  orig: 72, 85
+  offset: 0, 0
+  index: -1
+leg2
+  rotate: true
+  xy: 358, 2
+  size: 68, 95
+  orig: 68, 95
+  offset: 0, 0
+  index: -1
+neck
+  rotate: true
+  xy: 302, 7
+  size: 53, 31
+  orig: 53, 31
+  offset: 0, 0
+  index: -1
+pup_blik
+  rotate: false
+  xy: 200, 55
+  size: 5, 5
+  orig: 5, 5
+  offset: 0, 0
+  index: -1
+pupil
+  rotate: false
+  xy: 420, 78
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+scarf
+  rotate: false
+  xy: 455, 4
+  size: 132, 88
+  orig: 132, 88
+  offset: 0, 0
+  index: -1
+scarf_back
+  rotate: true
+  xy: 685, 110
+  size: 65, 22
+  orig: 65, 22
+  offset: 0, 0
+  index: -1
+scarf_shdw
+  rotate: true
+  xy: 643, 108
+  size: 59, 40
+  orig: 59, 40
+  offset: 0, 0
+  index: -1
+shold_arm_shdw
+  rotate: false
+  xy: 655, 15
+  size: 44, 16
+  orig: 44, 16
+  offset: 0, 0
+  index: -1
+sholder_armor1
+  rotate: true
+  xy: 671, 177
+  size: 77, 42
+  orig: 77, 42
+  offset: 0, 0
+  index: -1
+sholder_armor2
+  rotate: true
+  xy: 57, 2
+  size: 43, 51
+  orig: 43, 51
+  offset: 0, 0
+  index: -1
+tail
+  rotate: true
+  xy: 420, 94
+  size: 160, 39
+  orig: 160, 39
+  offset: 0, 0
+  index: -1
+toe1
+  rotate: true
+  xy: 335, 16
+  size: 44, 21
+  orig: 44, 21
+  offset: 0, 0
+  index: -1
+toe2
+  rotate: true
+  xy: 110, 2
+  size: 43, 19
+  orig: 43, 19
+  offset: 0, 0
+  index: -1

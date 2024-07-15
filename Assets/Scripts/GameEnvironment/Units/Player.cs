@@ -1,20 +1,25 @@
 ﻿using Assets.Scripts.Data;
+using Assets.Scripts.GameEnvironment.UI;
 using Assets.Scripts.Infrastructure.Services;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Assets.Scripts.GameEnvironment.Units
 {
-    public class Player : Unit, ISaveProgress
+    public class Player : Unit
     {
         [SerializeField] private PlayerType _playerType;
 
+        private bool _isAttacking;
+        private float _animationDelay = 0.3f;
         private Health _health;
-        private List<Guard> _guards = new List<Guard>();
+        private List<GuardSpawner> _guardSlots;
 
         public PlayerType Type => _playerType;
+        public bool IsAttacking => _isAttacking;
 
         public event UnityAction<bool> EnemyAttacked;        
 
@@ -35,6 +40,9 @@ namespace Assets.Scripts.GameEnvironment.Units
             _health.DefenceChanged -= UpdateDefence;
         }
 
+        public void InitSlots(List<GuardSpawner> guardSlots) =>
+            _guardSlots = guardSlots.ToList();
+
         public void RiseDamage(int value)
         {
             _damage += value;
@@ -45,13 +53,7 @@ namespace Assets.Scripts.GameEnvironment.Units
         {
             _damage = _cardData.Damage;
             _damageAmount.text = _damage.ToString();
-        } 
-
-        public void RemoveGuard(Guard guard)=>
-            _guards.Remove(guard);
-
-        public void AddGuard(Guard guard)=>
-            _guards.Add(guard);
+        }                        
 
         public void Attack(Enemy enemy)
         {
@@ -60,37 +62,37 @@ namespace Assets.Scripts.GameEnvironment.Units
 
         private IEnumerator AttackEnemy(Enemy enemy)
         {
-            EnemyAttacked?.Invoke(true);
-            
-            foreach (var guard in _guards)
+            _isAttacking = true;
+            EnemyAttacked?.Invoke(_isAttacking);
+
+            foreach (var pos in _guardSlots)
             {
-                if (guard.Enemy != null && guard.Enemy == enemy)
+                if (pos.GetComponentInChildren<Guard>() != null)
                 {
-                    guard.GetComponent<AttackSystem>().Attack(guard, enemy);
-                    yield return new WaitForSeconds(0.5f);
+                    var guard = pos.GetComponentInChildren<Guard>();
+
+                    if (guard.Enemy != null && guard.Enemy == enemy)
+                    {
+                        guard.GetComponent<AttackSystem>().Attack(guard, enemy);
+                        yield return new WaitForSeconds(_animationDelay);
+                    }
                 }
             }
 
+            yield return new WaitForSeconds(_animationDelay);
+
             if (enemy != null)
-            {
-                _attackSystem.Attack(this, enemy);                
-            }
-            
-            EnemyAttacked?.Invoke(false);
+                _attackSystem.Attack(this, enemy);
+
+            yield return new WaitForSeconds(_animationDelay);
+            _isAttacking = false;
+            EnemyAttacked?.Invoke(_isAttacking);           
         }      
 
         private void UpdateDefence(int value)=>
             _defenceAmount.text = value.ToString();
 
         private void UpdateHealth(int value)=>
-            _healthAmount.text = value.ToString();
-
-        public void Load(PlayerProgress progress)
-        {
-        }
-
-        public void Save(PlayerProgress progress)
-        {
-        }
+            _healthAmount.text = value.ToString();       
     }
 }

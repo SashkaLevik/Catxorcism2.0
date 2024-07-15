@@ -15,11 +15,13 @@ MonoBehaviour:
   CardPrefab: {fileID: 5044840973196803102, guid: 0e73108ca441bb94784629216d592657, type: 3}
   RuName: "\u0412\u0430\u0440\u0432\u0430\u0440"
   EnName: Barbarian
-  RuDescription: "\u041D\u0435\u0442 \u043F\u0440\u0435\u0434\u0435\u043B\u0430 \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E\u043C\u0443
+  RuDescription: "\u0412\u044B\u043F\u0430\u0434\u0430\u0435\u0442 \u0431\u043E\u043B\u044C\u0448\u0435
+    \u0437\u0435\u043B\u0438\u0439. \u041D\u0435\u0442 \u043F\u0440\u0435\u0434\u0435\u043B\u0430
+    \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E\u043C\u0443
     \u0437\u0434\u043E\u0440\u043E\u0432\u044C\u044E"
-  EnDescription: There is no limit to maximum health
-  Damage: 3
-  Health: 3
+  EnDescription: More potions on the level. No maxHP limit
+  Damage: 5
+  Health: 8
   ActivatePrice: 60
   SummonPrice: 0
   UpgradePrice: 0

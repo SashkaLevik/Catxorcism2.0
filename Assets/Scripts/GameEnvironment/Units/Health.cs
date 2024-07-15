@@ -8,6 +8,7 @@ namespace Assets.Scripts.GameEnvironment.Units
     {
         protected int _currentHealth;
         protected int _maxHealth;
+        protected int _maxDefence;
         protected int _defence;
         protected int _defendingDamage;
         protected bool _isDefending;
@@ -20,6 +21,7 @@ namespace Assets.Scripts.GameEnvironment.Units
         private void Start()
         {
             _unit = GetComponent<Unit>();
+            _maxDefence = _unit.CardData.Health;
             CurrentHP = _unit.CardData.Health;
             MaxHP = _unit.CardData.Health;
         }
@@ -87,12 +89,16 @@ namespace Assets.Scripts.GameEnvironment.Units
         public void RiseDefence(int amount)
         {
             Defence += amount;
+
+            if (Defence > _maxDefence)
+                Defence = _maxDefence;
+
             DefenceChanged?.Invoke(Defence);
         }            
 
         protected virtual void Die()
         {
-            Died?.Invoke();
+            Died?.Invoke();            
             Destroy(gameObject, 0.2f);
         }
     }

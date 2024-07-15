@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.GameEnvironment.Units
 {
     public class Enemy : Unit
     {
-        private Health _health;
+        protected Health _health;
         private Player _player;
         private Guard _guard;
 
@@ -23,6 +22,9 @@ namespace Assets.Scripts.GameEnvironment.Units
             _health.HealthChanged -= UpdateHealth;
         }
 
+        public void InitGuard(Guard guard) =>
+            _guard = guard;
+
         public void SetPosition() =>
             _startPosition = transform.position;
 
@@ -38,14 +40,6 @@ namespace Assets.Scripts.GameEnvironment.Units
         }                          
 
         private void UpdateHealth(int value)=>
-            _healthAmount.text = value.ToString();
-
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.TryGetComponent(out Guard guard))
-            {
-                _guard = guard;
-            }
-        }
+            _healthAmount.text = value.ToString();        
     }
 }

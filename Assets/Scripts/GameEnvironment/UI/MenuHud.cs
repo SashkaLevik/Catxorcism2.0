@@ -2,12 +2,13 @@
 using Assets.Scripts.GameEnvironment.Units;
 using Assets.Scripts.Infrastructure.Services;
 using Assets.Scripts.States;
-using CrazyGames;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Agava.YandexGames;
+using Assets.Scripts.Infrastructure.GameManegment;
 
 namespace Assets.Scripts.GameEnvironment.UI
 {
@@ -34,17 +35,16 @@ namespace Assets.Scripts.GameEnvironment.UI
         [SerializeField] private GameObject _settingsWindow;
         [SerializeField] private GameObject _guardShop;
         [SerializeField] private BuyButton _buyButton;
-        [SerializeField] private List<CardData> _playerDatas;
         [SerializeField] private Warning _warning;
+        [SerializeField] private WebFocus _webFocus;
+        [SerializeField] private List<CardData> _playerDatas;
 
         private int _currentPlayerIndex;
         private CardData _currentData;
-        private Player _currentPlayer;
         private IGameStateMachine _stateMachine;
         private ISaveLoadService _saveLoadService;
         private PlayerProgress _progress;
-        private List<CardData> _openPlayers = new List<CardData>();
-        private List<CardData> _closePlayers = new List<CardData>();
+        private List<string> _openPlayers = new List<string>();
 
         public PlayerMoney PlayerMoney => _playerMoney;
 
@@ -53,24 +53,22 @@ namespace Assets.Scripts.GameEnvironment.UI
             _saveLoadService = AllServices.Container.Single<ISaveLoadService>();
             _stateMachine = AllServices.Container.Single<IGameStateMachine>();
             _canvas.worldCamera = Camera.main;
+            YandexGamesSdk.GameReady();
         }
 
         private void Start()
         {
             _rewardAd.interactable = true;
-            _crystals.text = _playerMoney.Crystals.ToString();
+            _crystals.text = _playerMoney.Crystals.ToString();            
 
             if (_progress.WorldData.IsNewGame == true)
-            {
-                _closePlayers = _playerDatas.ToList();
-                OpenFirstPlayer();
-            }
+                _openPlayers.Add(_playerDatas[0].EnName);
 
-            _currentData = _openPlayers[0];
+            _currentData = _playerDatas[0];
             SetPlayer(_currentData);
             _mainTheme.Play();
         }
-       
+
         private void OnEnable()
         {
             _rewardAd.onClick.AddListener(ShowRewarded);
@@ -81,8 +79,8 @@ namespace Assets.Scripts.GameEnvironment.UI
             _openGuardShop.onClick.AddListener(OpenGuardShop);
             _closeGuardShop.onClick.AddListener(CloseGuardShop);
             _buyButton.GetComponent<Button>().onClick.AddListener(BuyPlayer);
-            _play.onClick.AddListener(()=> EnterGame(BattleScene, _currentData));
-        }        
+            _play.onClick.AddListener(() => EnterGame(BattleScene, _currentData));
+        }
 
         private void OnDestroy()
         {
@@ -102,19 +100,13 @@ namespace Assets.Scripts.GameEnvironment.UI
             _progress.WorldData.IsNewGame = false;
             _saveLoadService.SaveProgress();
             _stateMachine.Enter<LevelState, string>(sceneName, cardData);
-        }        
+        }     
 
-        private void OpenFirstPlayer()
+        private void SetPlayer(CardData data)
         {
-            _openPlayers.Add(_closePlayers[0]);
-            _closePlayers.Remove(_closePlayers[0]);
-        }
-
-        private void SetPlayer(CardData cardData)
-        {
-            _player = (Player)Instantiate(cardData.CardPrefab, _playerPos);
-            _description.text = GetLocalizedDescription(cardData);
-            _name.text = GetLocalizedName(cardData);
+            _player = (Player)Instantiate(data.CardPrefab, _playerPos);
+            _description.text = GetLocalizedDescription(data);
+            _name.text = GetLocalizedName(data);
         }
 
         private void ChooseNext()
@@ -140,7 +132,7 @@ namespace Assets.Scripts.GameEnvironment.UI
                 Destroy(_player.gameObject);
 
             SetPlayer(_currentData);
-        }        
+        }
 
         private void ChoosePrevious()
         {
@@ -171,8 +163,8 @@ namespace Assets.Scripts.GameEnvironment.UI
         {
             if (_playerMoney.Crystals >= _currentData.ActivatePrice)
             {
-                _openPlayers.Add(_currentData);
-                _closePlayers.Remove(_currentData);
+                _openPlayers.Add(_currentData.EnName);
+
                 _playerMoney.RemoveCrystal(_currentData.ActivatePrice, _crystals);
                 _buyButton.gameObject.SetActive(false);
                 _play.interactable = true;
@@ -183,19 +175,17 @@ namespace Assets.Scripts.GameEnvironment.UI
 
         private bool IsOpen(CardData data)
         {
-            foreach (var player in _openPlayers)
-            {
-                if (data == player) return true;
-            }
+            foreach (var name in _openPlayers)
+                if (data.EnName == name) return true;
 
             return false;
-        }        
-
-        private void CloseSettings() =>
-            _settingsWindow.SetActive(false);
+        }
 
         private void OpenSettings() =>
             _settingsWindow.SetActive(true);
+
+        private void CloseSettings() =>
+            _settingsWindow.SetActive(false);
 
         private void OpenGuardShop() =>
             _guardShop.SetActive(true);
@@ -205,14 +195,23 @@ namespace Assets.Scripts.GameEnvironment.UI
 
         private void ShowRewarded()
         {
-            CrazySDK.Ad.RequestAd(CrazyAdType.Rewarded, null, OnRewardedError, OnRewardedFinished);
+            Agava.YandexGames.VideoAd.Show(OnOpenCallback, OnRewardedCallback, OnCloseCallback);
             _rewardAd.interactable = false;
         }
 
-        private void OnRewardedError(SdkError obj)=>
-            OnRewardedFinished();
+        private void OnOpenCallback()
+        {
+            _webFocus.MuteAudio(true);
+            _webFocus.PauseGame(true);
+        }
 
-        private void OnRewardedFinished()=>
+        private void OnCloseCallback()
+        {
+            _webFocus.MuteAudio(false);
+            _webFocus.PauseGame(false);
+        }
+
+        private void OnRewardedCallback() =>
             _playerMoney.AddCrystal(10, _crystals);
 
         private string GetLocalizedDescription(CardData cardData)
@@ -233,7 +232,6 @@ namespace Assets.Scripts.GameEnvironment.UI
 
         public void Save(PlayerProgress progress)
         {
-            progress.ClosePlayers = _closePlayers.ToList();
             progress.OpenPlayers = _openPlayers.ToList();
         }
 
@@ -242,15 +240,7 @@ namespace Assets.Scripts.GameEnvironment.UI
             _progress = progress;
 
             if (progress.WorldData.IsNewGame == false)
-            {
-                _closePlayers = progress.ClosePlayers.ToList();
                 _openPlayers = progress.OpenPlayers.ToList();
-
-                //foreach (var player in progress.OpenPlayers)
-                //{
-                //    Debug.Log(player);
-                //}
-            }
         }
     }
 }

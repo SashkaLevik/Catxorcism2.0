@@ -6,7 +6,7 @@ namespace Assets.Scripts.Infrastructure.Services
 {
     public class SaveLoadService : ISaveLoadService
     {
-        private const string ProgressKey = "Progress";
+        private const string ProgressKey = "CatProgress";
 
         private readonly IPersistentProgressService _progressService;
         private readonly IGameFactory _gameFactory;

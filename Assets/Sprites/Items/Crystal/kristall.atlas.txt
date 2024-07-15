@@ -1,0 +1,27 @@
+
+kristall.png
+size: 256,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Layer 1 copy 3
+  rotate: false
+  xy: 2, 21
+  size: 192, 224
+  orig: 192, 224
+  offset: 0, 0
+  index: -1
+Layer 3
+  rotate: true
+  xy: 196, 120
+  size: 125, 37
+  orig: 125, 37
+  offset: 0, 0
+  index: -1
+Layer 4
+  rotate: true
+  xy: 196, 2
+  size: 116, 32
+  orig: 116, 32
+  offset: 0, 0
+  index: -1

@@ -8,7 +8,7 @@ namespace Assets.Scripts.GameEnvironment.Units
         [SerializeField] private TMP_Text _shieldAmount;
         [SerializeField] private GameObject _shield;
         [SerializeField] private GameObject _scroll;
-        [SerializeField] private GameObject _coin;
+        [SerializeField] private GameObject _potion;
 
         private int _randomAmount;
 
@@ -22,12 +22,16 @@ namespace Assets.Scripts.GameEnvironment.Units
 
         public void ChangeSprite(PlayerType playerType)
         {
+            _scroll.SetActive(false);
+            _shield.SetActive(false);
+            _potion.SetActive(false);
+
             if (playerType == PlayerType.Knight)
                 _shield.SetActive(true);
             else if (playerType == PlayerType.Mage)
                 _scroll.SetActive(true);
             else if (playerType == PlayerType.Barbarian)
-                _coin.SetActive(true);
+                _potion.SetActive(true);
         }
     }
 }

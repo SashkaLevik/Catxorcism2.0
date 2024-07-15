@@ -42,9 +42,12 @@ namespace Assets.Scripts.GameEnvironment.UI
 
         public void OnClick()
         {
-            _animator.SetBool(IsOpen, false);
-            Invoke(nameof(ShowTitle), 0.5f);
-            _doorClose.Play();
+            if (GetComponent<Button>().interactable == true)
+            {
+                _animator.SetBool(IsOpen, false);
+                Invoke(nameof(ShowTitle), 0.5f);
+                _doorClose.Play();
+            }
         }
 
         private void ShowTitle() =>

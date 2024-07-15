@@ -9,25 +9,17 @@ namespace Assets.Scripts.Data
         public WorldData WorldData;
         public int Coins;
         public int Crystals;
-        //public PlayerStats PlayerStats;
-        //public PlayerParts PlayerParts;
-        public List<CardData> OpenPlayers;
-        public List<CardData> ClosePlayers;
-        public List<CardData> OpenedGuards;
-        public List<CardData> CloseGuards;
+        public List<string> OpenPlayers;
+        public List<string> OpenedGuards;
         public bool IsPlayerCreated;
 
         public PlayerProgress(string initialLevel)
         {
             WorldData = new WorldData(initialLevel);
-            Coins = 100;
-            Crystals = 100;
-            //PlayerStats = new PlayerStats();
-            //PlayerParts = new PlayerParts();
-            OpenPlayers = new List<CardData>();
-            ClosePlayers = new List<CardData>();
-            OpenedGuards = new List<CardData>();
-            CloseGuards = new List<CardData>();
+            Coins = 10;
+            Crystals = 0;
+            OpenPlayers = new List<string>();
+            OpenedGuards = new List<string>();
             IsPlayerCreated = false;
         }
     }

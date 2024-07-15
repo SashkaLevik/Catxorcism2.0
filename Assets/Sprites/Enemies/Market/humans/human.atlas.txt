@@ -1,0 +1,671 @@
+
+human.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+eye
+  rotate: false
+  xy: 90, 221
+  size: 10, 10
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
+hum_01/armL
+  rotate: false
+  xy: 865, 3
+  size: 69, 102
+  orig: 69, 102
+  offset: 0, 0
+  index: -1
+hum_01/armR
+  rotate: false
+  xy: 1557, 184
+  size: 44, 90
+  orig: 44, 90
+  offset: 0, 0
+  index: -1
+hum_01/body
+  rotate: false
+  xy: 630, 32
+  size: 167, 237
+  orig: 167, 237
+  offset: 0, 0
+  index: -1
+hum_01/calfL
+  rotate: false
+  xy: 1368, 155
+  size: 84, 115
+  orig: 84, 115
+  offset: 0, 0
+  index: -1
+hum_01/calfR
+  rotate: false
+  xy: 1045, 2
+  size: 91, 116
+  orig: 91, 116
+  offset: 0, 0
+  index: -1
+hum_01/collar
+  rotate: true
+  xy: 983, 359
+  size: 151, 94
+  orig: 151, 94
+  offset: 0, 0
+  index: -1
+hum_01/footL
+  rotate: false
+  xy: 1408, 6
+  size: 71, 29
+  orig: 71, 29
+  offset: 0, 0
+  index: -1
+hum_01/footR
+  rotate: true
+  xy: 1481, 2
+  size: 63, 34
+  orig: 63, 34
+  offset: 0, 0
+  index: -1
+hum_01/forearmL
+  rotate: false
+  xy: 1643, 194
+  size: 56, 80
+  orig: 56, 80
+  offset: 0, 0
+  index: -1
+hum_01/forearmR
+  rotate: true
+  xy: 1805, 357
+  size: 69, 42
+  orig: 69, 42
+  offset: 0, 0
+  index: -1
+hum_01/handL
+  rotate: true
+  xy: 917, 355
+  size: 155, 64
+  orig: 155, 64
+  offset: 0, 0
+  index: -1
+hum_01/handR
+  rotate: false
+  xy: 233, 235
+  size: 67, 275
+  orig: 67, 275
+  offset: 0, 0
+  index: -1
+hum_01/head
+  rotate: false
+  xy: 1192, 130
+  size: 126, 140
+  orig: 126, 140
+  offset: 0, 0
+  index: -1
+hum_01/mouth
+  rotate: false
+  xy: 1841, 312
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hum_01/thighL
+  rotate: false
+  xy: 1385, 275
+  size: 72, 112
+  orig: 72, 112
+  offset: 0, 0
+  index: -1
+hum_01/thightR
+  rotate: true
+  xy: 965, 271
+  size: 82, 117
+  orig: 82, 117
+  offset: 0, 0
+  index: -1
+hum_02/armL
+  rotate: false
+  xy: 1079, 361
+  size: 93, 149
+  orig: 93, 149
+  offset: 0, 0
+  index: -1
+hum_02/armR
+  rotate: false
+  xy: 1320, 154
+  size: 46, 116
+  orig: 46, 116
+  offset: 0, 0
+  index: -1
+hum_02/body
+  rotate: false
+  xy: 90, 233
+  size: 141, 277
+  orig: 141, 277
+  offset: 0, 0
+  index: -1
+hum_02/calfL
+  rotate: false
+  xy: 1245, 2
+  size: 86, 126
+  orig: 86, 126
+  offset: 0, 0
+  index: -1
+hum_02/calfR
+  rotate: true
+  xy: 826, 271
+  size: 56, 137
+  orig: 56, 137
+  offset: 0, 0
+  index: -1
+hum_02/footL
+  rotate: true
+  xy: 1744, 279
+  size: 60, 43
+  orig: 60, 43
+  offset: 0, 0
+  index: -1
+hum_02/footR
+  rotate: false
+  xy: 1333, 2
+  size: 73, 33
+  orig: 73, 33
+  offset: 0, 0
+  index: -1
+hum_02/foreamL
+  rotate: false
+  xy: 1632, 103
+  size: 41, 82
+  orig: 41, 82
+  offset: 0, 0
+  index: -1
+hum_02/forearmR
+  rotate: false
+  xy: 1552, 276
+  size: 78, 46
+  orig: 78, 46
+  offset: 0, 0
+  index: -1
+hum_02/handL
+  rotate: true
+  xy: 1759, 69
+  size: 59, 43
+  orig: 59, 43
+  offset: 0, 0
+  index: -1
+hum_02/handR
+  rotate: false
+  xy: 23, 221
+  size: 65, 289
+  orig: 65, 289
+  offset: 0, 0
+  index: -1
+hum_02/head
+  rotate: true
+  xy: 1757, 207
+  size: 70, 69
+  orig: 70, 69
+  offset: 0, 0
+  index: -1
+hum_02/headBack
+  rotate: true
+  xy: 1778, 8
+  size: 59, 41
+  orig: 59, 41
+  offset: 0, 0
+  index: -1
+hum_02/mouth
+  rotate: false
+  xy: 1821, 2
+  size: 45, 34
+  orig: 45, 34
+  offset: 0, 0
+  index: -1
+hum_02/neck
+  rotate: true
+  xy: 297, 7
+  size: 21, 28
+  orig: 21, 28
+  offset: 0, 0
+  index: -1
+hum_02/thighL
+  rotate: false
+  xy: 1311, 388
+  size: 54, 122
+  orig: 54, 122
+  offset: 0, 0
+  index: -1
+hum_02/thighR
+  rotate: false
+  xy: 1604, 420
+  size: 51, 90
+  orig: 51, 90
+  offset: 0, 0
+  index: -1
+hum_03/armL
+  rotate: false
+  xy: 1435, 41
+  size: 43, 112
+  orig: 43, 112
+  offset: 0, 0
+  index: -1
+hum_03/armR
+  rotate: false
+  xy: 1603, 187
+  size: 38, 87
+  orig: 38, 87
+  offset: 0, 0
+  index: -1
+hum_03/body
+  rotate: false
+  xy: 2, 4
+  size: 189, 211
+  orig: 189, 211
+  offset: 0, 0
+  index: -1
+hum_03/calfL
+  rotate: false
+  xy: 1675, 117
+  size: 49, 75
+  orig: 49, 75
+  offset: 0, 0
+  index: -1
+hum_03/calfR
+  rotate: true
+  xy: 1565, 6
+  size: 60, 69
+  orig: 60, 69
+  offset: 0, 0
+  index: -1
+hum_03/footL
+  rotate: true
+  xy: 1771, 149
+  size: 56, 55
+  orig: 56, 55
+  offset: 0, 0
+  index: -1
+hum_03/footR
+  rotate: true
+  xy: 1701, 203
+  size: 74, 54
+  orig: 74, 54
+  offset: 0, 0
+  index: -1
+hum_03/forearmL
+  rotate: false
+  xy: 1789, 282
+  size: 50, 69
+  orig: 50, 69
+  offset: 0, 0
+  index: -1
+hum_03/forearmR
+  rotate: false
+  xy: 1731, 2
+  size: 45, 38
+  orig: 45, 38
+  offset: 0, 0
+  index: -1
+hum_03/handL
+  rotate: false
+  xy: 1484, 413
+  size: 64, 97
+  orig: 64, 97
+  offset: 0, 0
+  index: -1
+hum_03/handR
+  rotate: false
+  xy: 1231, 388
+  size: 78, 122
+  orig: 78, 122
+  offset: 0, 0
+  index: -1
+hum_03/hat
+  rotate: true
+  xy: 193, 4
+  size: 227, 102
+  orig: 227, 102
+  offset: 0, 0
+  index: -1
+hum_03/head
+  rotate: true
+  xy: 721, 313
+  size: 197, 98
+  orig: 197, 98
+  offset: 0, 0
+  index: -1
+hum_03/mouth
+  rotate: true
+  xy: 1763, 353
+  size: 73, 40
+  orig: 73, 40
+  offset: 0, 0
+  index: -1
+hum_03/thighL
+  rotate: true
+  xy: 721, 271
+  size: 40, 103
+  orig: 40, 103
+  offset: 0, 0
+  index: -1
+hum_03/thighR
+  rotate: false
+  xy: 1174, 387
+  size: 55, 123
+  orig: 55, 123
+  offset: 0, 0
+  index: -1
+hum_04/armL
+  rotate: true
+  xy: 799, 107
+  size: 162, 141
+  orig: 162, 141
+  offset: 0, 0
+  index: -1
+hum_04/armR
+  rotate: true
+  xy: 1552, 324
+  size: 90, 84
+  orig: 90, 84
+  offset: 0, 0
+  index: -1
+hum_04/body
+  rotate: false
+  xy: 525, 271
+  size: 194, 239
+  orig: 194, 239
+  offset: 0, 0
+  index: -1
+hum_04/calfL
+  rotate: true
+  xy: 1459, 282
+  size: 105, 91
+  orig: 105, 91
+  offset: 0, 0
+  index: -1
+hum_04/calfR
+  rotate: true
+  xy: 1757, 428
+  size: 82, 81
+  orig: 82, 81
+  offset: 0, 0
+  index: -1
+hum_04/footL
+  rotate: false
+  xy: 1084, 272
+  size: 66, 87
+  orig: 66, 87
+  offset: 0, 0
+  index: -1
+hum_04/footR
+  rotate: true
+  xy: 1315, 272
+  size: 114, 68
+  orig: 114, 68
+  offset: 0, 0
+  index: -1
+hum_04/forearmL
+  rotate: false
+  xy: 1638, 332
+  size: 50, 86
+  orig: 50, 86
+  offset: 0, 0
+  index: -1
+hum_04/forearmR
+  rotate: false
+  xy: 1517, 4
+  size: 46, 61
+  orig: 46, 61
+  offset: 0, 0
+  index: -1
+hum_04/handL
+  rotate: true
+  xy: 1550, 416
+  size: 94, 52
+  orig: 94, 52
+  offset: 0, 0
+  index: -1
+hum_04/handR
+  rotate: true
+  xy: 1690, 341
+  size: 83, 71
+  orig: 83, 71
+  offset: 0, 0
+  index: -1
+hum_04/head
+  rotate: true
+  xy: 297, 30
+  size: 203, 184
+  orig: 203, 184
+  offset: 0, 0
+  index: -1
+hum_04/mouth
+  rotate: true
+  xy: 1632, 276
+  size: 46, 58
+  orig: 46, 58
+  offset: 0, 0
+  index: -1
+hum_04/thighL
+  rotate: false
+  xy: 1333, 37
+  size: 100, 115
+  orig: 100, 115
+  offset: 0, 0
+  index: -1
+hum_04/thighR
+  rotate: false
+  xy: 1138, 3
+  size: 105, 117
+  orig: 105, 117
+  offset: 0, 0
+  index: -1
+hum_05/armL
+  rotate: false
+  xy: 1657, 426
+  size: 56, 84
+  orig: 56, 84
+  offset: 0, 0
+  index: -1
+hum_05/armR
+  rotate: false
+  xy: 1636, 23
+  size: 45, 78
+  orig: 45, 78
+  offset: 0, 0
+  index: -1
+hum_05/body
+  rotate: false
+  xy: 302, 255
+  size: 135, 255
+  orig: 135, 255
+  offset: 0, 0
+  index: -1
+hum_05/calfL
+  rotate: false
+  xy: 998, 3
+  size: 45, 102
+  orig: 45, 102
+  offset: 0, 0
+  index: -1
+hum_05/calfR
+  rotate: false
+  xy: 1480, 67
+  size: 48, 94
+  orig: 48, 94
+  offset: 0, 0
+  index: -1
+hum_05/collar
+  rotate: true
+  xy: 821, 329
+  size: 181, 94
+  orig: 181, 94
+  offset: 0, 0
+  index: -1
+hum_05/footL
+  rotate: true
+  xy: 1804, 91
+  size: 56, 42
+  orig: 56, 42
+  offset: 0, 0
+  index: -1
+hum_05/footR
+  rotate: true
+  xy: 1683, 42
+  size: 73, 38
+  orig: 73, 38
+  offset: 0, 0
+  index: -1
+hum_05/forearmL
+  rotate: false
+  xy: 1152, 272
+  size: 51, 87
+  orig: 51, 87
+  offset: 0, 0
+  index: -1
+hum_05/forearmR
+  rotate: true
+  xy: 1692, 279
+  size: 60, 50
+  orig: 60, 50
+  offset: 0, 0
+  index: -1
+hum_05/handL
+  rotate: true
+  xy: 1828, 231
+  size: 49, 36
+  orig: 49, 36
+  offset: 0, 0
+  index: -1
+hum_05/handR
+  rotate: false
+  xy: 1821, 38
+  size: 43, 51
+  orig: 43, 51
+  offset: 0, 0
+  index: -1
+hum_05/head
+  rotate: true
+  xy: 1205, 272
+  size: 113, 108
+  orig: 113, 108
+  offset: 0, 0
+  index: -1
+hum_05/mouth
+  rotate: true
+  xy: 1683, 2
+  size: 38, 46
+  orig: 38, 46
+  offset: 0, 0
+  index: -1
+hum_05/stik
+  rotate: false
+  xy: 2, 217
+  size: 19, 293
+  orig: 19, 293
+  offset: 0, 0
+  index: -1
+hum_05/stik_top
+  rotate: false
+  xy: 1023, 120
+  size: 71, 149
+  orig: 71, 149
+  offset: 0, 0
+  index: -1
+hum_05/thighL
+  rotate: false
+  xy: 1715, 427
+  size: 40, 83
+  orig: 40, 83
+  offset: 0, 0
+  index: -1
+hum_05/thighR
+  rotate: false
+  xy: 1530, 68
+  size: 47, 93
+  orig: 47, 93
+  offset: 0, 0
+  index: -1
+hum_06/armL
+  rotate: false
+  xy: 1367, 389
+  size: 115, 121
+  orig: 115, 121
+  offset: 0, 0
+  index: -1
+hum_06/armR
+  rotate: false
+  xy: 1579, 95
+  size: 51, 87
+  orig: 51, 87
+  offset: 0, 0
+  index: -1
+hum_06/body
+  rotate: false
+  xy: 483, 18
+  size: 145, 244
+  orig: 145, 244
+  offset: 0, 0
+  index: -1
+hum_06/calfL
+  rotate: false
+  xy: 1096, 122
+  size: 94, 148
+  orig: 94, 148
+  offset: 0, 0
+  index: -1
+hum_06/calfR
+  rotate: false
+  xy: 942, 107
+  size: 79, 162
+  orig: 79, 162
+  offset: 0, 0
+  index: -1
+hum_06/footL
+  rotate: true
+  xy: 1726, 130
+  size: 71, 43
+  orig: 71, 43
+  offset: 0, 0
+  index: -1
+hum_06/footR
+  rotate: true
+  xy: 1723, 42
+  size: 73, 34
+  orig: 73, 34
+  offset: 0, 0
+  index: -1
+hum_06/forearmL
+  rotate: false
+  xy: 799, 2
+  size: 64, 103
+  orig: 64, 103
+  offset: 0, 0
+  index: -1
+hum_06/forearmR
+  rotate: true
+  xy: 1840, 445
+  size: 65, 42
+  orig: 65, 42
+  offset: 0, 0
+  index: -1
+hum_06/handL
+  rotate: false
+  xy: 936, 3
+  size: 60, 102
+  orig: 60, 102
+  offset: 0, 0
+  index: -1
+hum_06/handR
+  rotate: false
+  xy: 439, 264
+  size: 84, 246
+  orig: 84, 246
+  offset: 0, 0
+  index: -1
+hum_06/head
+  rotate: false
+  xy: 1454, 163
+  size: 101, 110
+  orig: 101, 110
+  offset: 0, 0
+  index: -1

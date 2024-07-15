@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: PigLvl3
   m_EditorClassIdentifier: 
   CardPrefab: {fileID: 1003202658727545870, guid: 75bf32a50ed7588479c0e21600e63982, type: 3}
-  Damage: 0
-  Health: 0
-  AP: 0
-  Price: 0
+  RuName: 
+  EnName: 
+  RuDescription: 
+  EnDescription: 
+  Damage: 6
+  Health: 12
+  ActivatePrice: 0
   SummonPrice: 0
-  UpgradePrice: 0
+  UpgradePrice: 20
   Level: 3
-  ItemValue: 0
