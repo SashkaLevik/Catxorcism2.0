@@ -1,6 +1,6 @@
 ﻿using UnityEngine.Events;
 
-namespace Assets.Scripts.GameEnvironment.Units
+namespace GameEnvironment.Units
 {
     public interface IHealth
     {

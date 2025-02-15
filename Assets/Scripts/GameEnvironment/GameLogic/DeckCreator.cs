@@ -1,9 +1,10 @@
-﻿using Assets.Scripts.GameEnvironment.Units;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using GameEnvironment.GameLogic.CardFolder;
+using GameEnvironment.Units;
 using UnityEngine;
 
-namespace Assets.Scripts.GameEnvironment.GameLogic
+namespace GameEnvironment.GameLogic
 {
     public class DeckCreator : MonoBehaviour
     {

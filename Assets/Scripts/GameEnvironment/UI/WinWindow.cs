@@ -1,12 +1,13 @@
-﻿using Assets.Scripts.GameEnvironment.GameLogic;
-using Assets.Scripts.GameEnvironment.Units;
-using Assets.Scripts.Infrastructure.Services;
-using Assets.Scripts.States;
+﻿using GameEnvironment.GameLogic;
+using GameEnvironment.GameLogic.CardFolder;
+using GameEnvironment.Units;
+using Infrastructure.Services;
+using Infrastructure.States;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.GameEnvironment.UI
+namespace GameEnvironment.UI
 {
     public class WinWindow : MonoBehaviour
     {

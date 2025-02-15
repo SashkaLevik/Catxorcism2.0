@@ -1,11 +1,11 @@
-﻿using Assets.Scripts.Data;
-using Assets.Scripts.Infrastructure.Factory;
-using Assets.Scripts.Infrastructure.GameManegment;
-using Assets.Scripts.Infrastructure.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Data;
+using Infrastructure.Factory;
+using Infrastructure.GameManegment;
+using Infrastructure.Services;
 
-namespace Assets.Scripts.States
+namespace Infrastructure.States
 {
     public class GameStateMachine : IGameStateMachine
     {

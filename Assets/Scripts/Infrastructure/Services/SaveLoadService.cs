@@ -1,8 +1,8 @@
-﻿using Assets.Scripts.Data;
-using Assets.Scripts.Infrastructure.Factory;
+﻿using Data;
+using Infrastructure.Factory;
 using UnityEngine;
 
-namespace Assets.Scripts.Infrastructure.Services
+namespace Infrastructure.Services
 {
     public class SaveLoadService : ISaveLoadService
     {

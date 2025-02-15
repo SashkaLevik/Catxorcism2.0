@@ -1,10 +1,10 @@
-﻿using Assets.Scripts.Data;
-using Assets.Scripts.Infrastructure.Services;
-using System.Collections;
+﻿using System.Collections;
+using Data;
+using Infrastructure.Services;
 using TMPro;
 using UnityEngine;
 
-namespace Assets.Scripts.GameEnvironment.Units
+namespace GameEnvironment.Units
 {
     public class PlayerMoney : MonoBehaviour, ISaveProgress
     {

@@ -1,7 +1,8 @@
-﻿using Assets.Scripts.GameEnvironment.Units;
+﻿using GameEnvironment.GameLogic.CardFolder;
+using GameEnvironment.Units;
 using UnityEngine;
 
-namespace Assets.Scripts.Data
+namespace Data
 {
     [CreateAssetMenu(fileName = "CardData", menuName = "CardData")]
 

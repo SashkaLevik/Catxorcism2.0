@@ -1,7 +1,8 @@
 ﻿using System.Collections;
+using GameEnvironment.GameLogic.CardFolder;
 using UnityEngine;
 
-namespace Assets.Scripts.GameEnvironment.Units
+namespace GameEnvironment.Units
 {
     public class Projectile : MonoBehaviour
     {

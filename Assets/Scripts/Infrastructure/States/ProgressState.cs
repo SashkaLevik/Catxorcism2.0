@@ -1,8 +1,8 @@
-﻿using Assets.Scripts.Data;
-using Assets.Scripts.Infrastructure.GameManegment;
-using Assets.Scripts.Infrastructure.Services;
+﻿using Data;
+using Infrastructure.GameManegment;
+using Infrastructure.Services;
 
-namespace Assets.Scripts.States
+namespace Infrastructure.States
 {
     public class ProgressState : IState
     {

@@ -1,7 +1,7 @@
-﻿using Assets.Scripts.Data;
-using Assets.Scripts.Infrastructure.Services;
+﻿using Data;
+using Infrastructure.Services;
 
-namespace Assets.Scripts.States
+namespace Infrastructure.States
 {
     public interface IGameStateMachine : IService
     {

@@ -1,12 +1,13 @@
-﻿using Assets.Scripts.GameEnvironment.UI;
-using Assets.Scripts.GameEnvironment.Units;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using GameEnvironment.GameLogic.CardFolder;
+using GameEnvironment.UI;
+using GameEnvironment.Units;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Assets.Scripts.GameEnvironment.GameLogic
+namespace GameEnvironment.GameLogic
 {
     public class DeckSpawner : MonoBehaviour
     {

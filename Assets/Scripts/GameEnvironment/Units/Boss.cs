@@ -1,4 +1,6 @@
-﻿namespace Assets.Scripts.GameEnvironment.Units
+﻿using GameEnvironment.GameLogic.CardFolder;
+
+namespace GameEnvironment.Units
 {
     public class Boss : Enemy
     {

@@ -1,7 +1,7 @@
-﻿using Assets.Scripts.Data;
+﻿using Data;
 using UnityEngine;
 
-namespace Assets.Scripts.GameEnvironment.UI
+namespace GameEnvironment.UI
 {
     public class BuyButton : MonoBehaviour
     {

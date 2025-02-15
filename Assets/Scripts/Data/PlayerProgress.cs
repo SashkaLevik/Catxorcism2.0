@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Assets.Scripts.Data
+namespace Data
 {
     [Serializable]
     public class PlayerProgress

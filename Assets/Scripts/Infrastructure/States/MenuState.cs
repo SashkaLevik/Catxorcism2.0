@@ -1,10 +1,9 @@
-﻿
-using Assets.Scripts.Infrastructure.Factory;
-using Assets.Scripts.Infrastructure.GameManegment;
-using Assets.Scripts.Infrastructure.Services;
+﻿using Infrastructure.Factory;
+using Infrastructure.GameManegment;
+using Infrastructure.Services;
 using UnityEngine;
 
-namespace Assets.Scripts.States
+namespace Infrastructure.States
 {
     public class MenuState : IPayloadedState<string>, IState
     {

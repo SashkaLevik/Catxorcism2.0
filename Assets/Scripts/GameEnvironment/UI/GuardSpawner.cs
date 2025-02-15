@@ -2,7 +2,7 @@
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.GameEnvironment.UI
+namespace GameEnvironment.UI
 {
     public class GuardSpawner : MonoBehaviour
     {

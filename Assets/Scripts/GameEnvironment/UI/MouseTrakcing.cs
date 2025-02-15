@@ -1,79 +1,82 @@
-using Assets.Scripts.GameEnvironment.UI;
-using Assets.Scripts.GameEnvironment.Units;
 using System;
+using GameEnvironment.GameLogic.CardFolder;
+using GameEnvironment.Units;
 using UnityEngine;
 
-public class MouseTrakcing : MonoBehaviour
+namespace GameEnvironment.UI
 {
-    [SerializeField] private BattleHud _battleHud;
-    [SerializeField] private LayerMask _layerMask;
-    [SerializeField] private Enemy _enemy;
-
-    private Camera _camera;
-    private Player _player;
-    private Health _playerHealth;
-    private PlayerMoney _playerMoney;
-    private float _animationDelay = 0.4f;
-
-    private void Start()
+    public class MouseTrakcing : MonoBehaviour
     {
-        _camera = Camera.main;
-        _player = _battleHud.Player;
-        _playerMoney = _battleHud.PlayerMoney;
-        _playerHealth = _player.GetComponent<Health>();
-    }
+        [SerializeField] private BattleHud _battleHud;
+        [SerializeField] private LayerMask _layerMask;
+        [SerializeField] private Enemy _enemy;
 
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
+        private Camera _camera;
+        private Player _player;
+        private Health _playerHealth;
+        private PlayerMoney _playerMoney;
+        private float _animationDelay = 0.4f;
+
+        private void Start()
         {
-            Vector2 clickPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(clickPosition, Vector2.zero, Single.PositiveInfinity, _layerMask);
+            _camera = Camera.main;
+            _player = _battleHud.Player;
+            _playerMoney = _battleHud.PlayerMoney;
+            _playerHealth = _player.GetComponent<Health>();
+        }
 
-            if (hit.collider != null)
+        private void Update()
+        {
+            if (Input.GetMouseButtonDown(0))
             {
-                if (hit.transform.TryGetComponent(out Enemy enemy))
-                {
-                    _enemy = hit.collider.GetComponent<Enemy>();
-                    if (_player != null) _player.Attack(_enemy);                   
-                }
-                else if (hit.transform.TryGetComponent(out Coin coin))
-                {
-                    _playerMoney.AddCoin(coin.Amount, _battleHud.Coins);
-                    coin.Sound.Play();
-                    Destroy(coin.gameObject, _animationDelay);
-                }
-                else if (hit.transform.TryGetComponent(out Crystal crystal))
-                {
-                    _playerMoney.AddCrystal(crystal.Amount, _battleHud.Crystals);
-                    crystal.Sound.Play();
-                    Destroy(crystal.gameObject, _animationDelay);
-                }
-                else if (hit.transform.TryGetComponent(out HealPotion potion))
-                {
-                    if (_player.Type == PlayerType.Barbarian)
-                        _playerHealth.HealBarbarian(potion.Amount);
-                    else
-                        _playerHealth.Heal(potion.Amount);
+                Vector2 clickPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
+                RaycastHit2D hit = Physics2D.Raycast(clickPosition, Vector2.zero, Single.PositiveInfinity, _layerMask);
 
-                    potion.Sound.Play();
-                    Destroy(potion.gameObject, _animationDelay);
-                }
-                else if (hit.transform.TryGetComponent(out Shield shield))
+                if (hit.collider != null)
                 {
-                    if (_player.Type == PlayerType.Knight)
-                        _playerHealth.RiseDefence(shield.Amount);
-                    else if (_player.Type == PlayerType.Mage)
-                        _player.RiseDamage(shield.Amount);
-                    else if (_player.Type == PlayerType.Barbarian)
-                        _playerHealth.HealBarbarian(shield.Amount);
+                    if (hit.transform.TryGetComponent(out Enemy enemy))
+                    {
+                        _enemy = hit.collider.GetComponent<Enemy>();
+                        if (_player != null) _player.Attack(_enemy);                   
+                    }
+                    else if (hit.transform.TryGetComponent(out Coin coin))
+                    {
+                        _playerMoney.AddCoin(coin.Amount, _battleHud.Coins);
+                        coin.Sound.Play();
+                        Destroy(coin.gameObject, _animationDelay);
+                    }
+                    else if (hit.transform.TryGetComponent(out Crystal crystal))
+                    {
+                        _playerMoney.AddCrystal(crystal.Amount, _battleHud.Crystals);
+                        crystal.Sound.Play();
+                        Destroy(crystal.gameObject, _animationDelay);
+                    }
+                    else if (hit.transform.TryGetComponent(out HealPotion potion))
+                    {
+                        if (_player.Type == PlayerType.Barbarian)
+                            _playerHealth.HealBarbarian(potion.Amount);
+                        else
+                            _playerHealth.Heal(potion.Amount);
 
-                    shield.Sound.Play();
-                    Destroy(shield.gameObject, _animationDelay);
+                        potion.Sound.Play();
+                        Destroy(potion.gameObject, _animationDelay);
+                    }
+                    else if (hit.transform.TryGetComponent(out Shield shield))
+                    {
+                        if (_player.Type == PlayerType.Knight)
+                            _playerHealth.RiseDefence(shield.Amount);
+                        else if (_player.Type == PlayerType.Mage)
+                            _player.RiseDamage(shield.Amount);
+                        else if (_player.Type == PlayerType.Barbarian)
+                            _playerHealth.HealBarbarian(shield.Amount);
+
+                        shield.Sound.Play();
+                        Destroy(shield.gameObject, _animationDelay);
+                    }
+
+                    _battleHud.DecreaseAP();
                 }
-
-                _battleHud.DecreaseAP();
-            }
-        }                
+            }                
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.GameEnvironment.Units
+﻿namespace GameEnvironment.Units
 {
     public enum PlayerType
     {

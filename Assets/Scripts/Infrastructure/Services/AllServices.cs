@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Assets.Scripts.Infrastructure.Services
+namespace Infrastructure.Services
 {
     public class AllServices
     {

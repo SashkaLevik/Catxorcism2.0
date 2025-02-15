@@ -1,9 +1,8 @@
-﻿using System.Collections;
+﻿using TMPro;
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.GameEnvironment.UI
+namespace GameEnvironment.UI
 {
     public class Door : MonoBehaviour
     {

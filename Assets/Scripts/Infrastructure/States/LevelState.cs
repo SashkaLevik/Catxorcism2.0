@@ -1,12 +1,13 @@
-﻿using Assets.Scripts.Data;
-using Assets.Scripts.GameEnvironment.UI;
-using Assets.Scripts.GameEnvironment.Units;
-using Assets.Scripts.Infrastructure.Factory;
-using Assets.Scripts.Infrastructure.GameManegment;
-using Assets.Scripts.Infrastructure.Services;
+﻿using Data;
+using GameEnvironment.GameLogic.CardFolder;
+using GameEnvironment.UI;
+using GameEnvironment.Units;
+using Infrastructure.Factory;
+using Infrastructure.GameManegment;
+using Infrastructure.Services;
 using UnityEngine;
 
-namespace Assets.Scripts.States
+namespace Infrastructure.States
 {
     class LevelState : IPayloadedState1<string, CardData>, IState
     {

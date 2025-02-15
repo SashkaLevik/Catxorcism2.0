@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using GameEnvironment.Units;
 
-namespace Assets.Scripts.GameEnvironment.Units
+namespace GameEnvironment.GameLogic.CardFolder
 {
     public class Enemy : Unit
     {

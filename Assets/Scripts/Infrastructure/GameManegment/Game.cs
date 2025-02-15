@@ -1,7 +1,7 @@
-﻿using Assets.Scripts.Infrastructure.Services;
-using Assets.Scripts.States;
+﻿using Infrastructure.Services;
+using Infrastructure.States;
 
-namespace Assets.Scripts.Infrastructure.GameManegment
+namespace Infrastructure.GameManegment
 {
     public class Game
     {

@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Infrastructure.Services
+﻿namespace Infrastructure.Services
 {
     public interface IService
     {

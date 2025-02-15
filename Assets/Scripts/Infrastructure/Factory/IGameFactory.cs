@@ -1,9 +1,9 @@
-﻿using Assets.Scripts.Data;
-using Assets.Scripts.Infrastructure.Services;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Data;
+using Infrastructure.Services;
 using UnityEngine;
 
-namespace Assets.Scripts.Infrastructure.Factory
+namespace Infrastructure.Factory
 {
     public interface IGameFactory : IService
     {

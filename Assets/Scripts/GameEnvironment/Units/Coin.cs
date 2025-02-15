@@ -1,9 +1,7 @@
-﻿using Assets.Scripts.Data;
-using System.Collections;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
-namespace Assets.Scripts.GameEnvironment.Units
+namespace GameEnvironment.Units
 {
     public class Coin : Item
     {

@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace Assets.Scripts.GameEnvironment.Units
+namespace GameEnvironment.Units
 {
     public class Shield : Item
     {

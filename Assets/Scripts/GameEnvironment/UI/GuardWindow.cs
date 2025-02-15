@@ -1,14 +1,15 @@
-﻿using Assets.Scripts.Data;
-using Assets.Scripts.GameEnvironment.GameLogic;
-using Assets.Scripts.GameEnvironment.Units;
-using Assets.Scripts.Infrastructure.Services;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Data;
+using GameEnvironment.GameLogic;
+using GameEnvironment.GameLogic.CardFolder;
+using GameEnvironment.Units;
+using Infrastructure.Services;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.GameEnvironment.UI
+namespace GameEnvironment.UI
 {
     public class GuardWindow : MonoBehaviour, ISaveProgress
     {

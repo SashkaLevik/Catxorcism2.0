@@ -1,15 +1,14 @@
-﻿using Assets.Scripts.Data;
-using Assets.Scripts.Infrastructure.AssetManagment;
-using Assets.Scripts.Infrastructure.Services;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Data;
+using Infrastructure.AssetManagment;
+using Infrastructure.Services;
 using UnityEngine;
 
-namespace Assets.Scripts.Infrastructure.Factory
+namespace Infrastructure.Factory
 {
     public class GameFactory : IGameFactory
     {
         private readonly IAssetProvider _assetProvider;
-        //private readonly IToyDataService _toyDataService;
 
         public List<ISaveProgress> ProgressWriters { get; } = new List<ISaveProgress>();
 
@@ -34,25 +33,11 @@ namespace Assets.Scripts.Infrastructure.Factory
             return battleHud;
         }
 
-        //public GameObject CreateSkillPanel()
-        //{
-        //    GameObject skillPanel = _assetProvider.Instantiate(AssetPath.SkillPanel);
-        //    RegisterProgressWatchers(skillPanel.gameObject);
-        //    return skillPanel;
-        //}
-
-        //public GameObject CreateBattleSystem()
-        //{
-        //    GameObject battleSystem = _assetProvider.Instantiate(AssetPath.BattleSystem);
-        //    RegisterProgressWatchers(battleSystem);
-        //    return battleSystem;
-        //}
-
         public GameObject CreatePlayer(CardData cardData, GameObject at)
         {
-            var Player = Object.Instantiate(cardData.CardPrefab, at.transform);
-            RegisterProgressWatchers(Player.gameObject);
-            return Player.gameObject;
+            var player = Object.Instantiate(cardData.CardPrefab, at.transform);
+            RegisterProgressWatchers(player.gameObject);
+            return player.gameObject;
         }
 
         private void RegisterProgressWatchers(GameObject obj)

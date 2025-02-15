@@ -1,10 +1,11 @@
-﻿using Assets.Scripts.Data;
-using Assets.Scripts.GameEnvironment.UI;
+﻿using Data;
+using GameEnvironment.UI;
+using GameEnvironment.Units;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.GameEnvironment.Units
+namespace GameEnvironment.GameLogic.CardFolder
 {
     public class Guard : Unit
     {

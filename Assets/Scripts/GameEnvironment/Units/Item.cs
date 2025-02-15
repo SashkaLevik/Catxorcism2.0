@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using GameEnvironment.GameLogic.CardFolder;
+using UnityEngine;
 
-namespace Assets.Scripts.GameEnvironment.Units
+namespace GameEnvironment.Units
 {
     public class Item : Card
     {

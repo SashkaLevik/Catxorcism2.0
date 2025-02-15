@@ -1,7 +1,7 @@
-﻿using Assets.Scripts.Infrastructure.Services;
+﻿using Infrastructure.Services;
 using UnityEngine;
 
-namespace Assets.Scripts.Infrastructure.AssetManagment
+namespace Infrastructure.AssetManagment
 {
     public interface IAssetProvider : IService    
     {

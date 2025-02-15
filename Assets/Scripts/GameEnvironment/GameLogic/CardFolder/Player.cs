@@ -1,13 +1,12 @@
-﻿using Assets.Scripts.Data;
-using Assets.Scripts.GameEnvironment.UI;
-using Assets.Scripts.Infrastructure.Services;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using GameEnvironment.UI;
+using GameEnvironment.Units;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Assets.Scripts.GameEnvironment.Units
+namespace GameEnvironment.GameLogic.CardFolder
 {
     public class Player : Unit
     {

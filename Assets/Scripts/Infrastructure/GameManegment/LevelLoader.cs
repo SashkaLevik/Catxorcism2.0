@@ -1,11 +1,10 @@
-﻿using Assets.Scripts.Data;
-using Assets.Scripts.Infrastructure.Services;
-using Assets.Scripts.States;
-using System;
+﻿using Data;
+using Infrastructure.Services;
+using Infrastructure.States;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.Infrastructure.GameManegment
+namespace Infrastructure.GameManegment
 {
     public class LevelLoader : MonoBehaviour, ISaveProgress
     {

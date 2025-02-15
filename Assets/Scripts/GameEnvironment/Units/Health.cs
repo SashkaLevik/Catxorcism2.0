@@ -1,8 +1,8 @@
-﻿using System.Collections;
+﻿using GameEnvironment.GameLogic.CardFolder;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Assets.Scripts.GameEnvironment.Units
+namespace GameEnvironment.Units
 {
     public class Health : MonoBehaviour, IHealth
     {

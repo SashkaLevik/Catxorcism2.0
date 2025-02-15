@@ -1,8 +1,9 @@
-﻿using Assets.Scripts.Data;
+﻿using Data;
+using GameEnvironment.Units;
 using TMPro;
 using UnityEngine;
 
-namespace Assets.Scripts.GameEnvironment.Units
+namespace GameEnvironment.GameLogic.CardFolder
 {
     public class Unit : Card
     {

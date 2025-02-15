@@ -1,12 +1,12 @@
-﻿using Assets.Scripts.Data;
-using Assets.Scripts.Infrastructure.Services;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Data;
+using Infrastructure.Services;
 using UnityEngine;
 using UnityEngine.Video;
 
-namespace Assets.Scripts.GameEnvironment.GameLogic
+namespace GameEnvironment.GameLogic
 {
     public class Tutorial : MonoBehaviour, ISaveProgress
     {

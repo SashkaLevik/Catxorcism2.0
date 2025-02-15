@@ -1,10 +1,10 @@
-﻿using Assets.Scripts.Data;
-using Assets.Scripts.Infrastructure.Services;
+﻿using Data;
+using Infrastructure.Services;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.GameEnvironment.UI
+namespace GameEnvironment.UI
 {
     public class VolumeSettings : MonoBehaviour, ISaveProgress
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.Scripts.Data
+namespace Data
 {
     [Serializable]
     public class WorldData

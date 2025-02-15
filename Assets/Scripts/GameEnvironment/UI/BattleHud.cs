@@ -1,13 +1,13 @@
-﻿using Assets.Scripts.GameEnvironment.GameLogic;
-using Assets.Scripts.GameEnvironment.Units;
-using Assets.Scripts.Infrastructure.GameManegment;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using GameEnvironment.GameLogic;
+using GameEnvironment.GameLogic.CardFolder;
+using GameEnvironment.Units;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.GameEnvironment.UI
+namespace GameEnvironment.UI
 {
     public class BattleHud : MonoBehaviour
     {
