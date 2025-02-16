@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace GameEnvironment.UI
 {
-    public class VolumeSettings : MonoBehaviour, ISaveProgress
+    public class VolumeSettings : BaseWindow, ISaveProgress
     {
         private const string MasterVolume = "MasterVolume";
         private const string MusicVolume = "MusicVolume";
@@ -23,8 +23,9 @@ namespace GameEnvironment.UI
 
         public float Volume => _masterVolume;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _masterSlider.onValueChanged.AddListener(ChangeMasterVolume);
             _musicSlider.onValueChanged.AddListener(ChangeMusicVolume);
             _SFXSlider.onValueChanged.AddListener(ChangeSoundVolume);

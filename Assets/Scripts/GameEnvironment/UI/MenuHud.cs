@@ -17,9 +17,10 @@ namespace GameEnvironment.UI
         [SerializeField] private AudioSource _mainTheme;
         [SerializeField] private PlayerMoney _playerMoney;
         [SerializeField] private Button _openSettings;
-        [SerializeField] private Button _closeSettings;
         [SerializeField] private Button _play;
         [SerializeField] private GameObject _settingsWindow;
+        [SerializeField] private GameObject _playersRoom;
+        [SerializeField] private GameObject _settings;
         [SerializeField] private BuyButton _buyButton;
         [SerializeField] private Warning _warning;
 
@@ -28,6 +29,10 @@ namespace GameEnvironment.UI
         private PlayerProgress _progress;
 
         public PlayerMoney PlayerMoney => _playerMoney;
+
+        public GameObject PlayersRoom => _playersRoom;
+
+        public GameObject Settings => _settings;
 
         private void Awake()
         {
@@ -45,16 +50,17 @@ namespace GameEnvironment.UI
         private void OnEnable()
         {
             _openSettings.onClick.AddListener(OpenSettings);
-            _closeSettings.onClick.AddListener(CloseSettings);
-            //_play.onClick.AddListener(() => EnterGame(BattleScene, _currentData));
+            _play.onClick.AddListener(OpenPlayersRoom);
         }
+
+        private void OpenPlayersRoom() => 
+            _playersRoom.SetActive(true);
 
         private void OnDestroy()
         {
             
             _openSettings.onClick.RemoveListener(OpenSettings);
-            _closeSettings.onClick.RemoveListener(CloseSettings);
-            //_play.onClick.RemoveListener(() => EnterGame(BattleScene, _currentData));
+            _play.onClick.RemoveListener(OpenPlayersRoom);
         }
 
         private void EnterGame(string sceneName, CardData cardData)
@@ -82,9 +88,6 @@ namespace GameEnvironment.UI
 
         private void OpenSettings() =>
             _settingsWindow.SetActive(true);
-
-        private void CloseSettings() =>
-            _settingsWindow.SetActive(false);
 
         public void Save(PlayerProgress progress)
         {

@@ -41,7 +41,6 @@ namespace GameEnvironment.UI
         private void Start()
         {
             _player = _battleHud.Player;
-            _player.InitSlots(_spawners);
 
             for (int i = 0; i < _guards.Count; i++)
             {
@@ -80,7 +79,7 @@ namespace GameEnvironment.UI
         {
             _choosedGuard = button.Guard;
 
-            if (_battleHud.PlayerMoney.Coins >= _choosedGuard.UpgradePrice)
+            /*if (_battleHud.PlayerMoney.Coins >= _choosedGuard.UpgradePrice)
             {
                 Destroy(_currentGuard.gameObject);
                 _battleHud.PlayerMoney.RemoveCoin(_choosedGuard.UpgradePrice, _battleHud.Coins);
@@ -88,25 +87,22 @@ namespace GameEnvironment.UI
                 _spawnedGuard.OnGuardPressed += ShowUpgrades;
                 _upgradeWindow.SetActive(false);
                 _spawnedGuard.ActivateGuard();
-            }
-            else
-                _warning.Show();
+            }*/
+          
         }        
 
         private void SummonGuard(BuyButton button)
         {
             _choosedGuard = button.Guard;
 
-            if (_battleHud.PlayerMoney.Coins >= _choosedGuard.SummonPrice)
+            /*if (_battleHud.PlayerMoney.Coins >= _choosedGuard.SummonPrice)
             {
                 _battleHud.PlayerMoney.RemoveCoin(_choosedGuard.SummonPrice, _battleHud.Coins);
                 _spawnedGuard = (Guard)Instantiate(_choosedGuard.CardPrefab, _currentSpawner.transform);
                 _spawnedGuard.OnGuardPressed += ShowUpgrades;
                 _spawnedGuard.ActivateGuard();
                 CloseGuardWindow();
-            }
-            else
-                _warning.Show();
+            }*/
         }
 
         private void ShowUpgrades(Guard guard, GuardSpawner spawner)
@@ -142,7 +138,6 @@ namespace GameEnvironment.UI
         private void CloseGuardWindow()
         {
             _guardWindow.SetActive(false);
-            _deckSpawner.ActivateRaw();
         }            
 
         private void CloseUpgrades() =>
@@ -158,7 +153,6 @@ namespace GameEnvironment.UI
 
         public void Load(PlayerProgress progress)
         {
-            _openedGuards = progress.OpenedGuards.ToList();
         }
 
         public void Save(PlayerProgress progress)

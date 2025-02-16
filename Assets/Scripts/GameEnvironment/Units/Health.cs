@@ -1,4 +1,6 @@
-﻿using GameEnvironment.GameLogic.CardFolder;
+﻿using System;
+using GameEnvironment.GameLogic.CardFolder;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,11 +8,10 @@ namespace GameEnvironment.Units
 {
     public class Health : MonoBehaviour, IHealth
     {
-        protected int _currentHealth;
-        protected int _maxHealth;
-        protected int _maxDefence;
-        protected int _defence;
-        protected int _defendingDamage;
+        private int _currentHealth;
+        private int _maxHealth;
+        private int _defence;
+        private int _defendingDamage;
         protected bool _isDefending;
         private Unit _unit;
 
@@ -21,7 +22,6 @@ namespace GameEnvironment.Units
         private void Start()
         {
             _unit = GetComponent<Unit>();
-            _maxDefence = _unit.CardData.Health;
             CurrentHP = _unit.CardData.Health;
             MaxHP = _unit.CardData.Health;
         }
@@ -89,10 +89,6 @@ namespace GameEnvironment.Units
         public void RiseDefence(int amount)
         {
             Defence += amount;
-
-            if (Defence > _maxDefence)
-                Defence = _maxDefence;
-
             DefenceChanged?.Invoke(Defence);
         }            
 

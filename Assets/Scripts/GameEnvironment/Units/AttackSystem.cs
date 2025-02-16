@@ -12,12 +12,7 @@ namespace GameEnvironment.Units
 
         public void Attack(Unit player, Unit enemy)
         {
-            if (player.AttackType == AttackType.Melee)
-                StartCoroutine(MeleeAttack(player, enemy));
-            else if (player.AttackType == AttackType.Range)
-            {
-                StartCoroutine(RangeAttack(player, enemy));                
-            }            
+                        
         }
 
         private IEnumerator RangeAttack(Unit player, Unit enemy)
@@ -30,9 +25,6 @@ namespace GameEnvironment.Units
                 projectile.Init(enemy, player.Damage);
                 projectile.Shoot();
                 _attackSound.Play();
-
-                if (player.GetComponent<Player>())
-                    player.GetComponent<Player>().ReduceDamage();
             }            
         }
 

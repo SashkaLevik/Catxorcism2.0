@@ -33,10 +33,7 @@ namespace GameEnvironment.GameLogic.CardFolder
 
         public void Attack()
         {
-            if (_guard != null)
-                _attackSystem.Attack(this, _guard);
-            else if (_player != null)
-                _attackSystem.Attack(this, _player);                       
+                                  
         }                          
 
         private void UpdateHealth(int value)=>

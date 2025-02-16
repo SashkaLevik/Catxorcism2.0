@@ -1,4 +1,5 @@
 ﻿using Data;
+using GameEnvironment.GameLogic;
 using GameEnvironment.GameLogic.CardFolder;
 using GameEnvironment.UI;
 using GameEnvironment.Units;
@@ -33,7 +34,7 @@ namespace Infrastructure.States
         public void Enter(string sceneName)
         {
             _loadingCurtain.Show();
-            _sceneLoader.Load(sceneName);//, onLoaded: OnSceneLoad);
+            _sceneLoader.Load(sceneName);
         }
 
         public void Enter(string sceneName, CardData cardData)
@@ -55,10 +56,9 @@ namespace Infrastructure.States
 
         private void InitGameWorld()
         {
-            //var playerSpawner = spawnPoint.GetComponent<PlayerSpawnPoint>();
-            //playerSpawner.SetPosition(_toyData);
             GameObject battleHud = _gameFactory.CreateBattleHud();
-            GameObject spawnPoint = GameObject.FindWithTag(PlayerSpawner);            
+            GameObject spawnPoint = GameObject.FindWithTag(PlayerSpawner);
+            var playerSpawner = spawnPoint.GetComponent<PlayerSpawnPoint>();
             GameObject player = _gameFactory.CreatePlayer(_cardData, spawnPoint);
             battleHud.GetComponent<BattleHud>().Construct(player.GetComponent<Player>());                       
         }      

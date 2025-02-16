@@ -9,6 +9,7 @@ namespace Data
         public int Stage;
         public int LevelNumber;
         public bool IsNewGame;
+        public bool IsNewRun;
         public bool IsFirstRun;
         public float MasterVolume;
         public float MusicVolume;
@@ -21,6 +22,7 @@ namespace Data
             LevelNumber = 1;
             IsNewGame = true;
             IsFirstRun = true;
+            IsNewRun = true;
             MasterVolume = 1;
             MusicVolume = 1;
             SFXVolume = 1;

@@ -11,15 +11,15 @@ namespace GameEnvironment.GameLogic.CardFolder
         [SerializeField] protected TMP_Text _healthAmount;
         [SerializeField] protected TMP_Text _defenceAmount;
         [SerializeField] protected TMP_Text _damageAmount;
-        [SerializeField] protected AttackType _attackType;
         [SerializeField] protected Transform _firePos;
+        [SerializeField] protected GameObject _shield;
 
         protected int _damage;
         protected AttackSystem _attackSystem;
 
-        public AttackType AttackType => _attackType;
         public CardData CardData => _cardData;
         public Transform FirePos => _firePos;
         public int Damage => _damage;
+        
     }
 }

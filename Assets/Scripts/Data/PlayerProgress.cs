@@ -7,19 +7,17 @@ namespace Data
     public class PlayerProgress
     {
         public WorldData WorldData;
+        public PlayerStats PlayerStats;
         public int Coins;
         public int Crystals;
-        public List<string> OpenPlayers;
-        public List<string> OpenedGuards;
         public bool IsPlayerCreated;
 
         public PlayerProgress(string initialLevel)
         {
             WorldData = new WorldData(initialLevel);
+            PlayerStats = new PlayerStats();
             Coins = 10;
             Crystals = 0;
-            OpenPlayers = new List<string>();
-            OpenedGuards = new List<string>();
             IsPlayerCreated = false;
         }
     }

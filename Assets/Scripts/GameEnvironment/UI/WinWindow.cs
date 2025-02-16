@@ -40,14 +40,12 @@ namespace GameEnvironment.UI
         {
             _toMenu.onClick.AddListener(ReturnToMenu);
             _nextArea.onClick.AddListener(SetNewWave);
-            _deckSpawner.BossDied += OpenWinWindow;
         }
        
         private void OnDestroy()
         {
             _toMenu.onClick.RemoveListener(ReturnToMenu);
             _nextArea.onClick.AddListener(SetNewWave);
-            _deckSpawner.BossDied -= OpenWinWindow;
         }
 
         private void OpenWinWindow(int waveNumber)
@@ -63,9 +61,7 @@ namespace GameEnvironment.UI
                 _window.GetComponent<Image>().sprite = _barbarian;
             else if (_player.Type == PlayerType.Mage)
                 _window.GetComponent<Image>().sprite = _mage;
-
-            _playerMoney.AddCrystal(_crystalsPrize, _battleHud.Crystals);
-            _playerMoney.AddCoin(_coinsPrize, _battleHud.Coins);
+            
             _playerMoney.SaveMoney();
 
             if (_maxWave == waveNumber)

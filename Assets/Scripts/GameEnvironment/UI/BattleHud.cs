@@ -1,64 +1,82 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using GameEnvironment.GameLogic;
+﻿using Data;
 using GameEnvironment.GameLogic.CardFolder;
+using GameEnvironment.GameLogic.DiceFolder;
 using GameEnvironment.Units;
-using TMPro;
+using Infrastructure.Services;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace GameEnvironment.UI
 {
-    public class BattleHud : MonoBehaviour
+    public class BattleHud : MonoBehaviour, ISaveProgress
     {
+        [SerializeField] private Dice _dicePrefab;
+        [SerializeField] private GameObject _settings;
         [SerializeField] private AudioSource _battleMusic;
-        [SerializeField] private GameObject _guardWindow;
-        [SerializeField] private Button _endTurn;
-        [SerializeField] private Button _retreat;
-        [SerializeField] private PlayerMoney _playerMoney;
-        [SerializeField] private TMP_Text _coinsCount;
-        [SerializeField] private TMP_Text _crystalsCount;
-        [SerializeField] private GuardWindow _guardSpawner;
         [SerializeField] private Canvas _canvas;
-        [SerializeField] private DeckSpawner _deck;
         [SerializeField] private DieWindow _dieWindow;
         [SerializeField] private Image[] _fullImages;
         [SerializeField] private Image[] _emptyImages;
-        [SerializeField] private List<Button> _summonGuardButtons;
 
+        
+        private Vector3 _playerFrontDicePos = new Vector3(-1.9f, 4f, -10.6f);
+        private Vector3 _playerBackDicePos = new Vector3(-4.4f, 4f, -10.6f);
+        private Vector3 _enemyFrontDicePos = new Vector3(2f, 4f, -10.6f);
+        private Vector3 _enemyBackDicePos = new Vector3(4.4f, 4f, -10.6f);
+
+        private Dice _playerFrontDice;
+        private Dice _playerBackDice;
+        private Dice _enemyFrontDice;
+        private Dice _enemyBackDice;
         private int _actionPoints = 2;
         private int _usePerTurn;        
         private Player _player;
 
         public Player Player => _player;
-        public PlayerMoney PlayerMoney => _playerMoney;
-        public TMP_Text Coins => _coinsCount;
-        public TMP_Text Crystals => _crystalsCount;
 
+        public GameObject Settings => _settings;
+
+        public Dice PlayerFrontDice => _playerFrontDice;
+
+        public Dice PlayerBackDice => _playerBackDice;
+        
         private void Awake() =>
             _canvas.worldCamera = Camera.main;        
 
         private void Start()
         {
-            _coinsCount.text = _playerMoney.Coins.ToString();
-            _crystalsCount.text = _playerMoney.Crystals.ToString();
             _usePerTurn = _actionPoints;
             UpdateCooldown();
-            _endTurn.onClick.AddListener(EndPlayerTurn);
-            _retreat.onClick.AddListener(OnPlayerDie);
             _battleMusic.Play();            
+            CreateDice();
         }
 
-        private void OnDestroy()
+        private void Update()
         {
-            _endTurn.onClick.RemoveListener(EndPlayerTurn);
-            _retreat.onClick.RemoveListener(OnPlayerDie);
-        }        
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                _playerFrontDice.Roll();
+            }
+        }
 
+        public void RollDices()
+        {
+            _playerFrontDice.Roll();
+            _playerBackDice.Roll();
+            _enemyFrontDice.Roll();
+            _enemyBackDice.Roll();
+        }
+        
+        private void CreateDice()
+        {
+            _playerFrontDice = Instantiate(_dicePrefab, _playerFrontDicePos, Quaternion.identity);
+            _playerBackDice = Instantiate(_dicePrefab, _playerBackDicePos, Quaternion.identity);
+            _enemyFrontDice = Instantiate(_dicePrefab, _enemyFrontDicePos, Quaternion.identity);
+            _enemyBackDice = Instantiate(_dicePrefab, _enemyBackDicePos, Quaternion.identity);
+        }
         public void Construct(Player player)
         {
             _player = player;
-            _player.EnemyAttacked += OnPlayerAttack;
             _player.GetComponent<Health>().Died += OnPlayerDie;
         }
 
@@ -90,41 +108,17 @@ namespace GameEnvironment.UI
 
             _usePerTurn--;
 
-            if (_usePerTurn == 0) EndPlayerTurn();
         }
 
         private void OnPlayerDie()
         {
-            _playerMoney.SaveMoney();
             _dieWindow.gameObject.SetActive(true);
             _player.GetComponent<Health>().Died -= OnPlayerDie;
-            _player.EnemyAttacked -= OnPlayerAttack;
         }
-
-        private void OnPlayerAttack(bool value)
-        {
-            GetEnemies();
-
-            if (value == true)
-                _deck.DisactivateRaw();
-            else
-                _deck.ActivateRaw();
-        }
-
-        private void EndPlayerTurn() =>
-            StartCoroutine(EnemyTurn());
-
-        private IEnumerator EnemyTurn()
-        {
-            GetEnemies();
-            yield return new WaitWhile(() => _player.IsAttacking);
-            yield return new WaitForSeconds(0.2f);
-            _deck.Attack();
-        }        
 
         private void GetEnemies()
         {
-            for (int i = 0; i < _summonGuardButtons.Count; i++)
+            /*for (int i = 0; i < _summonGuardButtons.Count; i++)
             {
                 var guard = _summonGuardButtons[i].GetComponentInChildren<Guard>();
                 var enemy = _deck.FirstRaw[i].GetComponentInChildren<Enemy>();
@@ -134,7 +128,15 @@ namespace GameEnvironment.UI
                     guard.InitEnemy(enemy);
                     enemy.InitGuard(guard);
                 }
-            }
-        }        
+            }*/
+        }
+
+        public void Load(PlayerProgress progress)
+        {
+        }
+
+        public void Save(PlayerProgress progress)
+        {
+        }
     }
 }

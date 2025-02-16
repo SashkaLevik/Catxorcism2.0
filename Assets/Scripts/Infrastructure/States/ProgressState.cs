@@ -26,11 +26,7 @@ namespace Infrastructure.States
         {
             LoadProgressOrInitNew();
             _gameStateMachine.Enter<MenuState, string>(MenuScene);
-            //CrazySDK.Init(OnInitialize);
-        }        
-
-        private void OnInitialize()=>
-            _gameStateMachine.Enter<MenuState, string>(MenuScene);
+        }
 
         public void Exit() { }
 

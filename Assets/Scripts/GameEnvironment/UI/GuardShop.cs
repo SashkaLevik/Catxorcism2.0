@@ -73,8 +73,6 @@ namespace GameEnvironment.UI
                 _menuHud.PlayerMoney.RemoveCrystal(_choosedGuard.ActivatePrice, _crystal);
                 button.GetComponent<Button>().interactable = false;
             }
-            else
-                _warning.Show();
         }
        
         private string GetLocalizedDescription(CardData cardData)
@@ -87,15 +85,13 @@ namespace GameEnvironment.UI
 
         public void Save(PlayerProgress progress)
         {
-            progress.OpenedGuards = _openedGuards.ToList();
         }
 
         public void Load(PlayerProgress progress)
         {
             _progress = progress;
 
-            if (progress.WorldData.IsNewGame == false)
-                _openedGuards = progress.OpenedGuards.ToList();
+            
         }       
     }
 }

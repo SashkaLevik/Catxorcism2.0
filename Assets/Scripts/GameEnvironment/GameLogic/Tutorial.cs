@@ -49,7 +49,6 @@ namespace GameEnvironment.GameLogic
 
             _progress.WorldData.IsFirstRun = false;
             _tutorialWindow.SetActive(false);
-            _deck.ActivateRaw();
         }
 
         private void ShowNext()

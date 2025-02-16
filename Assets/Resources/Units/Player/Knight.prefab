@@ -281,7 +281,6 @@ GameObject:
   - component: {fileID: 2225280606753028955}
   - component: {fileID: 3617381006276775103}
   - component: {fileID: 757858309821252701}
-  - component: {fileID: 5359986038459494738}
   - component: {fileID: 27922557380529305}
   m_Layer: 5
   m_Name: Knight
@@ -363,13 +362,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6b757f559761a41ae8e84db54e55e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rowType: 0
+  _backSprite: {fileID: 0}
   _cardData: {fileID: 11400000, guid: 5714a348b198a5c4d8bd2d009ce3991c, type: 2}
   _healthAmount: {fileID: 2225280604786257574}
   _defenceAmount: {fileID: 2225280606736318814}
   _damageAmount: {fileID: 2225280606808530333}
-  _attackType: 0
   _firePos: {fileID: 0}
+  _shield: {fileID: 0}
+  _suit: 0
   _playerType: 0
+  _startingGuards:
+  - {fileID: 1003202658727545870, guid: af859ceea3f579343ad3e45d6d466981, type: 3}
+  - {fileID: 5635210381480608347, guid: cbab845f523f9a74c928f5d981ec13cb, type: 3}
 --- !u!114 &757858309821252701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,21 +387,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6795faf56678d3b4994e1b10eafd053c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5359986038459494738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2225280606753027236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e81721d2536f4f4bb619e8e6eb23362, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _attackSound: {fileID: 27922557380529305}
-  _moveSpeed: 50
-  _projectile: {fileID: 0}
 --- !u!82 &27922557380529305
 AudioSource:
   m_ObjectHideFlags: 0

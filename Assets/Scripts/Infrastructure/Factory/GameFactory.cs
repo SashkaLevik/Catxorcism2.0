@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Data;
+using GameEnvironment.UI;
 using Infrastructure.AssetManagment;
 using Infrastructure.Services;
 using UnityEngine;
@@ -22,13 +23,20 @@ namespace Infrastructure.Factory
         public GameObject CreateMenuHud()
         {
             GameObject menuHud = _assetProvider.Instantiate(AssetPath.MenuHud);
+            MenuHud menu = menuHud.GetComponent<MenuHud>();
+            GameObject playersRoom = menu.PlayersRoom;
+            GameObject settings = menu.Settings;
             RegisterProgressWatchers(menuHud);
+            RegisterProgressWatchers(playersRoom);
+            RegisterProgressWatchers(settings);
             return menuHud;
         }
 
         public GameObject CreateBattleHud()
         {
             GameObject battleHud = _assetProvider.Instantiate(AssetPath.BattleHud);
+            GameObject settings = battleHud.GetComponent<BattleHud>().Settings;
+            RegisterProgressWatchers(settings);
             RegisterProgressWatchers(battleHud);
             return battleHud;
         }
