@@ -14,7 +14,6 @@ namespace GameEnvironment.UI
     public class GuardWindow : MonoBehaviour, ISaveProgress
     {
         [SerializeField] private BattleHud _battleHud;
-        [SerializeField] private DeckSpawner _deckSpawner;
         [SerializeField] private GameObject _guardWindow;
         [SerializeField] private GameObject _upgradeWindow;
         [SerializeField] private RectTransform _ugradeSlot;
@@ -122,7 +121,6 @@ namespace GameEnvironment.UI
         private void SpawnGuards(GuardSpawner spawner)
         {
             _guardWindow.SetActive(true);
-            _deckSpawner.DisactivateRaw();
             _currentSpawner = spawner;            
 
             for (int i = 0; i < _guardsToSpawn.Count; i++)

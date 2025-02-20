@@ -21,7 +21,7 @@ MonoBehaviour:
   EnDescription: A cheap guardian has average health and attack
   Damage: 3
   Health: 5
-  ActivatePrice: 0
+  ActionPoints: 3
   SummonPrice: 8
   UpgradePrice: 10
   Level: 1

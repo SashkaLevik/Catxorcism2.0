@@ -1,12 +1,15 @@
 using UnityEditor;
 using UnityEngine;
 
-public class Tools 
+namespace Editor
 {
-    [MenuItem("Tools/Clear prefs")]
-    public static void ClearPrefs()
+    public class Tools 
     {
-        PlayerPrefs.DeleteAll();
-        PlayerPrefs.Save();
+        [MenuItem("Tools/Clear prefs")]
+        public static void ClearPrefs()
+        {
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
+        }
     }
 }

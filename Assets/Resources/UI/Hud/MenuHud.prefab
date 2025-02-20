@@ -4213,6 +4213,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5714a348b198a5c4d8bd2d009ce3991c, type: 2}
   - {fileID: 11400000, guid: 066b4117ecdb73645961f41ab4c84e7a, type: 2}
   - {fileID: 11400000, guid: 86a71338629ec594f955473e76fefb33, type: 2}
+  _players:
+  - {fileID: 4571200460064920233, guid: a6ba78c7e3d544042b84ef28423266df, type: 3}
+  - {fileID: 5453795007843296302, guid: 63873a933ec27e14082df071e410cb71, type: 3}
+  - {fileID: 6188658757831119968, guid: 551a5cfbad2fa8d4b8a4322fbfdb7559, type: 3}
 --- !u!1 &6218264677451205112
 GameObject:
   m_ObjectHideFlags: 0

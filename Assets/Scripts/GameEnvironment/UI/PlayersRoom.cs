@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Data;
 using GameEnvironment.GameLogic.CardFolder;
@@ -19,9 +18,9 @@ namespace GameEnvironment.UI
         [SerializeField] private Button _previous;
         [SerializeField] private Button _mapButton;
         [SerializeField] private GameObject _map;
-        [SerializeField] private Player _player;
+        [SerializeField] private PlayerPreview _player;
         [SerializeField] private RectTransform _playerPos;
-        [SerializeField] private List<CardData> _playerDatas;
+        [SerializeField] private List<PlayerPreview> _players;
 
         private int _currentPlayerIndex;
         private CardData _currentPlayerData;
@@ -38,60 +37,45 @@ namespace GameEnvironment.UI
             _saveLoadService = AllServices.Container.Single<ISaveLoadService>();
             _stateMachine = AllServices.Container.Single<IGameStateMachine>();
         }
-        
-        private void Start()
-        {
-            
-        }
 
         private void OnEnable()
         {
             if (_progress.WorldData.IsNewGame)
-                _openPlayers.Add(_playerDatas[0].EnName);
+                _openPlayers.Add(_players[0].CardData.EnName);
 
-            _currentPlayerData = _playerDatas[0];
-            SetPlayer(_currentPlayerData);
+            _currentPlayerData = _players[0].CardData;
+            SetPlayer(_currentPlayerIndex);
             _mapButton.interactable = true;
-            
             _next.onClick.AddListener(ChooseNext);
             _previous.onClick.AddListener(ChoosePrevious);
             _mapButton.onClick.AddListener(OpenMap);
         }
 
-        private void OnDisable()
-        {
+        private void OnDisable() => 
             RemovePlayer();
-        }
 
         private void OnDestroy()
         {
             _next.onClick.RemoveListener(ChooseNext);
             _previous.onClick.RemoveListener(ChoosePrevious);
+            _mapButton.onClick.RemoveListener(OpenMap);
         }
         
         private void ChooseNext()
         {
             _currentPlayerIndex++;
             _mapButton.interactable = true;
-            //_buyButton.gameObject.SetActive(false);
 
-            if (_currentPlayerIndex > _playerDatas.Count - 1)
+            if (_currentPlayerIndex > _players.Count - 1)
                 _currentPlayerIndex = 0;
 
-            _currentPlayerData = _playerDatas[_currentPlayerIndex];
+            _currentPlayerData = _players[_currentPlayerIndex].CardData;
 
-            if (IsOpen(_currentPlayerData) == false)
-            {
-                /*_buyButton.gameObject.SetActive(true);
-                _buyButton.GetComponentInChildren<TMP_Text>().text = _currentData.ActivatePrice.ToString();
-                _buyButton.GetCard(_currentData);*/
+            if (IsOpen(_currentPlayerData) == false) 
                 _mapButton.interactable = false;
-            }
-
-            if (_player != null)
-                Destroy(_player.gameObject);
-
-            SetPlayer(_currentPlayerData);
+            
+            RemovePlayer();
+            SetPlayer(_currentPlayerIndex);
         }
 
         private void ChoosePrevious()
@@ -100,17 +84,15 @@ namespace GameEnvironment.UI
             _mapButton.interactable = true;
 
             if (_currentPlayerIndex < 0)
-                _currentPlayerIndex = _playerDatas.Count - 1;
+                _currentPlayerIndex = _players.Count - 1;
 
-            _currentPlayerData = _playerDatas[_currentPlayerIndex];
+            _currentPlayerData = _players[_currentPlayerIndex].CardData;
 
             if (IsOpen(_currentPlayerData) == false) 
                 _mapButton.interactable = false;
-
-            if (_player != null)
-                Destroy(_player.gameObject);
-
-            SetPlayer(_currentPlayerData);
+            
+            RemovePlayer();
+            SetPlayer(_currentPlayerIndex);
         }
 
         private void OpenMap() => 
@@ -124,11 +106,11 @@ namespace GameEnvironment.UI
             _player = null;
         }
         
-        private void SetPlayer(CardData data)
+        private void SetPlayer(int playerIndex)
         {
-            _player = (Player)Instantiate(data.CardPrefab, _playerPos);
-            _description.text = GetLocalizedDescription(data);
-            _name.text = GetLocalizedName(data);
+            _player = Instantiate(_players[playerIndex], _playerPos);
+            /*_description.text = GetLocalizedDescription(data);
+            _name.text = GetLocalizedName(data);*/
         }
         
         private string GetLocalizedName(CardData cardData)

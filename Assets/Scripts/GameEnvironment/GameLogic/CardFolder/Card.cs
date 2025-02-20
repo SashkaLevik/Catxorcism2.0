@@ -19,11 +19,11 @@ namespace GameEnvironment.GameLogic.CardFolder
 
         public void Activate()
         {
-            gameObject.layer = 8;
+            gameObject.layer = Layer.Draggable;
         }
 
         public void Disactivate() => 
-            gameObject.layer = 5;
+            gameObject.layer = Layer.UI;
 
         public void Flip() => 
             StartCoroutine(Rotate());

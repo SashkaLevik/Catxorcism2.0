@@ -1,55 +1,68 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Data;
+using GameEnvironment.UI;
 using GameEnvironment.Units;
 using Infrastructure.Services;
-using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GameEnvironment.GameLogic.CardFolder
 {
     public class Player : Unit, ISaveProgress
     {
         [SerializeField] private PlayerType _playerType;
-        //[SerializeField] private TMP_Text _healthAmount;
-        //[SerializeField] private TMP_Text _defenceAmount;
-        [SerializeField] private List<Card> _startingGuards;
+        [SerializeField] private List<Guard> _playerGuards;
 
-        private bool _isAttacking;
-        private float _animationDelay = 0.3f;
+        private int _leadership;
         private Health _health;
+        private DragController _dragController;
         private PlayerProgress _progress;
-        private List<Card> _playerDeck = new List<Card>();
-
+        
         public PlayerType Type => _playerType;
-        public bool IsAttacking => _isAttacking;
+        
+        public List<Guard> PlayerGuards => _playerGuards;
 
+        public int Leadership
+        {
+            get => _leadership;
+            set
+            {
+                _leadership = value;
+                LeadershipChanged?.Invoke(Leadership);
+            }
+        }
+
+        public event UnityAction<int> LeadershipChanged;
 
         protected override void Start()
         {
-            /*if (_progress.WorldData.IsNewRun)
-            {
-                _playerDeck = _startingGuards.ToList();
-            }*/
             _health = GetComponent<Health>();
             _health.HealthChanged += UpdateHealth;
             _health.Died += OnPlayerDie;
             _health.DefenceChanged += UpdateDefence;
             _startPosition = transform.position;
+            _dragController.GuardPlaced += OnGuardPlaced;
         }
+        
+        public void Construct(DragController dragController)
+        {
+            _dragController = dragController;
+        }
+
+        public void RestoreLeadership() => 
+            Leadership++;
+
+        private void OnGuardPlaced() => 
+            Leadership--;
 
         private void OnPlayerDie()
         {
             _health.HealthChanged -= UpdateHealth;
             _health.DefenceChanged -= UpdateDefence;
-        }
-
-        private void OnDestroy()
-        {
-           
+            _dragController.GuardPlaced -= OnGuardPlaced;
+            _health.Died -= OnPlayerDie;
         }
         
-
         private void UpdateDefence(int value)=>
             _defenceAmount.text = value.ToString();
 
@@ -58,11 +71,14 @@ namespace GameEnvironment.GameLogic.CardFolder
 
         public void Load(PlayerProgress progress)
         {
-            
+            _progress = progress;
+
+            _leadership = _progress.WorldData.IsNewRun ? _cardData.ActionPoints : progress.PlayerStats.Leadership;
         }
 
         public void Save(PlayerProgress progress)
         {
+            progress.PlayerStats.Leadership = _leadership;
         }
     }
 }

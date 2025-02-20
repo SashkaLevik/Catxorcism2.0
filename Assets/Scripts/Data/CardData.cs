@@ -15,7 +15,7 @@ namespace Data
         public string EnDescription;
         public int Damage;
         public int Health;
-        public int ActivatePrice;
+        public int ActionPoints;
         public int SummonPrice;
         public int UpgradePrice;
         public int Level;

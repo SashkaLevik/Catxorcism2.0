@@ -20,7 +20,7 @@ MonoBehaviour:
   EnDescription: Range attack allows avoiding a counterattack
   Damage: 2
   Health: 5
-  ActivatePrice: 30
+  ActionPoints: 2
   SummonPrice: 8
   UpgradePrice: 10
   Level: 1

@@ -57,7 +57,7 @@ namespace GameEnvironment.UI
                 }
 
                 _priceText = _buyButtons[i].GetComponentInChildren<TMP_Text>();
-                _priceText.text = _guardDatas[i].ActivatePrice.ToString();
+                _priceText.text = _guardDatas[i].ActionPoints.ToString();
                 _description = _slots[i].GetComponentInChildren<TMP_Text>();
                 _description.text = GetLocalizedDescription(_guardDatas[i]);
             }
@@ -67,10 +67,10 @@ namespace GameEnvironment.UI
         {
             _choosedGuard = button.Guard;
 
-            if (_menuHud.PlayerMoney.Crystals >= _choosedGuard.ActivatePrice)
+            if (_menuHud.PlayerMoney.Crystals >= _choosedGuard.ActionPoints)
             {
                 _openedGuards.Add(_choosedGuard.EnName);
-                _menuHud.PlayerMoney.RemoveCrystal(_choosedGuard.ActivatePrice, _crystal);
+                _menuHud.PlayerMoney.RemoveCrystal(_choosedGuard.ActionPoints, _crystal);
                 button.GetComponent<Button>().interactable = false;
             }
         }

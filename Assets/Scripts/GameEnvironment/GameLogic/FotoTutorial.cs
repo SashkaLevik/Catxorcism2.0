@@ -13,7 +13,6 @@ namespace GameEnvironment.GameLogic
         [SerializeField] private List<Sprite> _enImages;
         [SerializeField] private List<Sprite> _ruImages;
         [SerializeField] private GameObject _tutorialWindow;
-        [SerializeField] private DeckSpawner _deck;
         [SerializeField] private Image _currentImage;
 
         private int _imageNumber;
@@ -35,7 +34,6 @@ namespace GameEnvironment.GameLogic
 
         private void StartTutorial()
         {
-            _deck.DisactivateRaw();
             _tutorialWindow.SetActive(true);
             StartCoroutine(WaitNextClip());
         }

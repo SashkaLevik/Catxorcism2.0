@@ -57,10 +57,16 @@ namespace Infrastructure.States
         private void InitGameWorld()
         {
             GameObject battleHud = _gameFactory.CreateBattleHud();
-            GameObject spawnPoint = GameObject.FindWithTag(PlayerSpawner);
-            var playerSpawner = spawnPoint.GetComponent<PlayerSpawnPoint>();
-            GameObject player = _gameFactory.CreatePlayer(_cardData, spawnPoint);
-            battleHud.GetComponent<BattleHud>().Construct(player.GetComponent<Player>());                       
+            BattleHud hud = battleHud.GetComponent<BattleHud>();
+            GameObject playerSpawner = hud.PlayerSpawnPoint.gameObject;
+            GameObject currentPlayer = _gameFactory.CreatePlayer(_cardData, playerSpawner);
+            DeckCreator deckCreator = hud.GetComponent<DeckCreator>();
+            DragController dragController = hud.GetComponent<DragController>();
+            Player player = currentPlayer.GetComponent<Player>();
+            hud.Construct(player);
+            deckCreator.Construct(player.GetComponent<Player>());
+            player.Construct(dragController);
+            dragController.Construct(player);
         }      
 
         private void InformProgressReaders()

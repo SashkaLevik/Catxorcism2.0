@@ -18,15 +18,12 @@ namespace GameEnvironment.UI
         [SerializeField] private Sprite _mage;
         [SerializeField] private PlayerMoney _playerMoney;
         [SerializeField] private BattleHud _battleHud;
-        [SerializeField] private DeckSpawner _deckSpawner;
         [SerializeField] private TMP_Text _winGameMesage;
         [SerializeField] private Button _toMenu;
         [SerializeField] private Button _nextArea;
         [SerializeField] private GameObject _window;
 
         private int _maxWave = 2;
-        private int _crystalsPrize = 10;
-        private int _coinsPrize = 20;
         private IGameStateMachine _stateMachine;
         private Player _player;
 
@@ -53,7 +50,7 @@ namespace GameEnvironment.UI
             if (_player == null) return;
 
             _window.SetActive(true);
-            _battleHud.ResetCooldown();
+            //_battleHud.ResetCooldown();
 
             if (_player.Type == PlayerType.Knight)
                 _window.GetComponent<Image>().sprite = _knight;
@@ -74,7 +71,6 @@ namespace GameEnvironment.UI
         private void SetNewWave()
         {
             _window.SetActive(false);
-            _deckSpawner.DrawNextDeck();
         }
 
         private void ReturnToMenu() =>

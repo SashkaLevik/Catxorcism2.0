@@ -2,8 +2,9 @@
 {
     public enum SkillType
     {
-        Generic = 1,
-        Offencive = 2,
-        Defencive = 3
+        Attack = 0,
+        Defence = 1,
+        RowAttack = 2,
+        RowDefence = 3
     }
 }

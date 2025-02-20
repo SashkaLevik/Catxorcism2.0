@@ -1,4 +1,4 @@
-﻿namespace GameEnvironment.GameLogic
+﻿namespace GameEnvironment.GameLogic.RowFolder
 {
     public enum RowType
     {

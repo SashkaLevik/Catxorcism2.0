@@ -14,7 +14,6 @@ namespace GameEnvironment.GameLogic
         [SerializeField] private List<VideoClip> _enClips;
         [SerializeField] private List<VideoClip> _ruClips;
         [SerializeField] private GameObject _tutorialWindow;
-        [SerializeField] private DeckSpawner _deck;
 
         private int _clipNumber;
         private PlayerProgress _progress;
@@ -33,7 +32,6 @@ namespace GameEnvironment.GameLogic
 
         private void StartTutorial()
         {
-            _deck.DisactivateRaw();
             _tutorialWindow.SetActive(true);
             StartCoroutine(WaitNextClip());
         }

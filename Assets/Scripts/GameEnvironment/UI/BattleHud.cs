@@ -1,4 +1,5 @@
-﻿using Data;
+﻿using System;
+using Data;
 using GameEnvironment.GameLogic.CardFolder;
 using GameEnvironment.GameLogic.DiceFolder;
 using GameEnvironment.Units;
@@ -10,27 +11,30 @@ namespace GameEnvironment.UI
 {
     public class BattleHud : MonoBehaviour, ISaveProgress
     {
+        [SerializeField] private DragController _dragController;
         [SerializeField] private Dice _dicePrefab;
         [SerializeField] private GameObject _settings;
-        [SerializeField] private AudioSource _battleMusic;
         [SerializeField] private Canvas _canvas;
         [SerializeField] private DieWindow _dieWindow;
         [SerializeField] private Image[] _fullImages;
         [SerializeField] private Image[] _emptyImages;
+        [SerializeField] private RectTransform _playerSpawnPoint;
+        [SerializeField] private AudioSource _battleMusic;
 
-        
+
         private Vector3 _playerFrontDicePos = new Vector3(-1.9f, 4f, -10.6f);
         private Vector3 _playerBackDicePos = new Vector3(-4.4f, 4f, -10.6f);
         private Vector3 _enemyFrontDicePos = new Vector3(2f, 4f, -10.6f);
         private Vector3 _enemyBackDicePos = new Vector3(4.4f, 4f, -10.6f);
-
+        
+        /*private int _leadership;
+        private int _usePerTurn;  */      
+        private Player _player;
+        private PlayerProgress _progress;
         private Dice _playerFrontDice;
         private Dice _playerBackDice;
         private Dice _enemyFrontDice;
         private Dice _enemyBackDice;
-        private int _actionPoints = 2;
-        private int _usePerTurn;        
-        private Player _player;
 
         public Player Player => _player;
 
@@ -39,26 +43,37 @@ namespace GameEnvironment.UI
         public Dice PlayerFrontDice => _playerFrontDice;
 
         public Dice PlayerBackDice => _playerBackDice;
-        
+
+        public RectTransform PlayerSpawnPoint => _playerSpawnPoint;
+
         private void Awake() =>
             _canvas.worldCamera = Camera.main;        
 
         private void Start()
         {
-            _usePerTurn = _actionPoints;
-            UpdateCooldown();
-            _battleMusic.Play();            
+            _battleMusic.Play();
             CreateDice();
+            _player.LeadershipChanged += UpdateLeadership;
+            UpdateLeadership(_player.Leadership);
         }
 
-        private void Update()
+        private void OnDestroy()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                _playerFrontDice.Roll();
-            }
+            _player.LeadershipChanged -= UpdateLeadership;
         }
 
+        private void UpdateLeadership(int value)
+        {
+            for (int i = 0; i < _emptyImages.Length; i++)
+                _emptyImages[i].gameObject.SetActive(false);
+
+            for (int i = 0; i < _fullImages.Length; i++)
+                _fullImages[i].gameObject.SetActive(false);
+
+            for (int i = 0; i < value; i++)
+                _fullImages[i].gameObject.SetActive(true);
+        }
+        
         public void RollDices()
         {
             _playerFrontDice.Roll();
@@ -80,35 +95,11 @@ namespace GameEnvironment.UI
             _player.GetComponent<Health>().Died += OnPlayerDie;
         }
 
-        public void ResetCooldown()
+        /*public void ResetCooldown()
         {
-            _usePerTurn = _actionPoints;
+            _usePerTurn = _leadership;
             UpdateCooldown();
-        }             
-
-        public void UpdateCooldown()
-        {
-            for (int i = 0; i < _emptyImages.Length; i++)
-                _emptyImages[i].gameObject.SetActive(false);
-
-            for (int i = 0; i < _fullImages.Length; i++)
-                _fullImages[i].gameObject.SetActive(false);
-
-            for (int i = 0; i < _actionPoints; i++)
-                _fullImages[i].gameObject.SetActive(true);
-        }
-
-        public void DecreaseAP()
-        {
-            for (int i = 0; i < _usePerTurn; i++)
-            {
-                _fullImages[_usePerTurn - 1].gameObject.SetActive(false);
-                _emptyImages[_usePerTurn - 1].gameObject.SetActive(true);
-            }
-
-            _usePerTurn--;
-
-        }
+        }*/
 
         private void OnPlayerDie()
         {
