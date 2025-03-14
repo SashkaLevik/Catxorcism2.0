@@ -406,7 +406,6 @@ GameObject:
   - component: {fileID: 6972020234370939320}
   - component: {fileID: 6972020234370939321}
   - component: {fileID: 364272576210922031}
-  - component: {fileID: 2794144121046194252}
   - component: {fileID: 5702147526944070856}
   - component: {fileID: 6972020234370939316}
   - component: {fileID: 5022043876717497784}
@@ -491,24 +490,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6795faf56678d3b4994e1b10eafd053c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2794144121046194252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6972020234370939318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8d524bf0141cf540bb8029eb638b215, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cardData: {fileID: 11400000, guid: a98e2adfde3bcc5498d11a94040d794b, type: 2}
-  _healthAmount: {fileID: 6972020233574041005}
-  _defenceAmount: {fileID: 6972020234532338187}
-  _damageAmount: {fileID: 6972020233517937303}
-  _attackType: 1
-  _firePos: {fileID: 6323255752315566821}
 --- !u!114 &5702147526944070856
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,9 +2,9 @@
 {
     public enum SkillType
     {
-        Attack = 0,
-        Defence = 1,
-        RowAttack = 2,
-        RowDefence = 3
+        Default = 0,
+        UseOnGuard = 1,
+        UseOnEnemy = 2,
+        UseOnWorld = 3
     }
 }

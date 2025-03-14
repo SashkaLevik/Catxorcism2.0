@@ -14,7 +14,6 @@ namespace GameEnvironment.GameLogic.CardFolder
         [SerializeField] private List<Guard> _playerGuards;
 
         private int _leadership;
-        private Health _health;
         private DragController _dragController;
         private PlayerProgress _progress;
         
@@ -36,14 +35,19 @@ namespace GameEnvironment.GameLogic.CardFolder
 
         protected override void Start()
         {
-            _health = GetComponent<Health>();
-            _health.HealthChanged += UpdateHealth;
-            _health.Died += OnPlayerDie;
-            _health.DefenceChanged += UpdateDefence;
-            _startPosition = transform.position;
+            base.Start();
+            //_health.Died += OnPlayerDie;
             _dragController.GuardPlaced += OnGuardPlaced;
         }
-        
+
+        private void OnDestroy()
+        {
+            _health.HealthChanged -= UpdateHealth;
+            _health.DefenceChanged -= UpdateDefence;
+            //_health.Died -= OnPlayerDie;
+            _dragController.GuardPlaced -= OnGuardPlaced;
+        }
+
         public void Construct(DragController dragController)
         {
             _dragController = dragController;
@@ -52,22 +56,14 @@ namespace GameEnvironment.GameLogic.CardFolder
         public void RestoreLeadership() => 
             Leadership++;
 
-        private void OnGuardPlaced() => 
+        private void OnGuardPlaced(Guard guard) => 
             Leadership--;
 
-        private void OnPlayerDie()
+        /*private void OnPlayerDie()
         {
-            _health.HealthChanged -= UpdateHealth;
-            _health.DefenceChanged -= UpdateDefence;
             _dragController.GuardPlaced -= OnGuardPlaced;
             _health.Died -= OnPlayerDie;
-        }
-        
-        private void UpdateDefence(int value)=>
-            _defenceAmount.text = value.ToString();
-
-        private void UpdateHealth(int value)=>
-            _healthAmount.text = value.ToString();
+        }*/
 
         public void Load(PlayerProgress progress)
         {

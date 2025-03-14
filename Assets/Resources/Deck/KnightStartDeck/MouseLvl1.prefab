@@ -430,12 +430,12 @@ GameObject:
   - component: {fileID: 2225280606753028952}
   - component: {fileID: 2225280606753028955}
   - component: {fileID: 5635210381480608347}
+  - component: {fileID: 6086257832565740411}
   - component: {fileID: 4419843026079073553}
-  - component: {fileID: 3189814531903835497}
   - component: {fileID: 6168793550591252661}
   - component: {fileID: 2062667249513660398}
   - component: {fileID: 6653307765638523972}
-  - component: {fileID: 6086257832565740411}
+  - component: {fileID: 171838156523855919}
   m_Layer: 5
   m_Name: MouseLvl1
   m_TagString: Untagged
@@ -520,21 +520,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _backSprite: {fileID: 7468172582710580565}
+  _rowType: 3
   _cardData: {fileID: 11400000, guid: 9c0d6b73b39f25a42947dec2d02b249f, type: 2}
   _healthAmount: {fileID: 2225280604786257574}
   _defenceAmount: {fileID: 2225280606736318814}
   _damageAmount: {fileID: 2225280606808530333}
   _firePos: {fileID: 3167201212533242578}
   _shield: {fileID: 7820616697035278507}
-  _skillPrefab: {fileID: 0}
-  _rowType: 3
+  _guardTrigger:
+    serializedVersion: 2
+    m_Bits: 0
   _suit: 5
   _guardUpgrade: {fileID: 11400000, guid: d24d5ac35d8772141b5a86b24c6cdc96, type: 2}
   _suitSprite: {fileID: 0}
   _guardButton: {fileID: 6168793550591252661}
   _enemy: {fileID: 0}
-  _skills:
-  - {fileID: 11400000, guid: 2ce823b53d05c4b47aa5856c287d07dc, type: 2}
+  _skillCards:
+  - {fileID: 3395781617725570289, guid: 2ec217c43a4b5a444af968fdc1ea1c89, type: 3}
+  - {fileID: 8030979126418283988, guid: 56742fed5bcff9c49a24731dac3ceedc, type: 3}
+--- !u!114 &6086257832565740411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2225280606753027236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e803300683e419b830e671c3b8c79f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fullSprite: {fileID: 21300000, guid: 9b4cb7010c6de9b4b8941c87bf1ce8be, type: 3}
+  _emptySprite: {fileID: 21300000, guid: b4563d6afccd82f449f37b741dc5c542, type: 3}
+  _container: {fileID: 2766403647286574317}
+  _imagePrefab: {fileID: 6248798914423706679, guid: dd5b7eaca4e67374fbf95fe0ccf887bf, type: 3}
 --- !u!114 &4419843026079073553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,21 +566,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6795faf56678d3b4994e1b10eafd053c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3189814531903835497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2225280606753027236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e81721d2536f4f4bb619e8e6eb23362, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _attackSound: {fileID: 2062667249513660398}
-  _moveSpeed: 40
-  _projectile: {fileID: 6651965110157006113, guid: 5869b4fb808a58e419fdc1549216496b, type: 3}
 --- !u!114 &6168793550591252661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -712,7 +716,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -728,28 +732,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 140, y: 200}
   m_EdgeRadius: 0
---- !u!114 &6086257832565740411
-MonoBehaviour:
+--- !u!50 &171838156523855919
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2225280606753027236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e803300683e419b830e671c3b8c79f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _fullImages:
-  - {fileID: 1077662220881932424}
-  - {fileID: 33846320606150111}
-  - {fileID: 7875025319887485267}
-  - {fileID: 9177586330695141868}
-  _emptyImages:
-  - {fileID: 2440339943250959155}
-  - {fileID: 5446063790860821807}
-  - {fileID: 6595828435069884454}
-  - {fileID: 4544980988368441989}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &2225280606808530335
 GameObject:
   m_ObjectHideFlags: 0

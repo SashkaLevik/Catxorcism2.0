@@ -1,6 +1,7 @@
 ﻿using Data;
 using GameEnvironment.GameLogic;
 using GameEnvironment.GameLogic.CardFolder;
+using GameEnvironment.LevelRoutMap;
 using GameEnvironment.UI;
 using GameEnvironment.Units;
 using Infrastructure.Factory;
@@ -13,6 +14,7 @@ namespace Infrastructure.States
     class LevelState : IPayloadedState1<string, CardData>, IState
     {
         private const string PlayerSpawner = "PlayerSpawner";
+        private const string RoutMap = "RoutMap";
 
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
@@ -56,14 +58,17 @@ namespace Infrastructure.States
 
         private void InitGameWorld()
         {
+            GameObject routMap = GameObject.FindWithTag(RoutMap); 
             GameObject battleHud = _gameFactory.CreateBattleHud();
             BattleHud hud = battleHud.GetComponent<BattleHud>();
             GameObject playerSpawner = hud.PlayerSpawnPoint.gameObject;
             GameObject currentPlayer = _gameFactory.CreatePlayer(_cardData, playerSpawner);
+            BattleSystem battleSystem = hud.GetComponent<BattleSystem>();
             DeckCreator deckCreator = hud.GetComponent<DeckCreator>();
             DragController dragController = hud.GetComponent<DragController>();
             Player player = currentPlayer.GetComponent<Player>();
             hud.Construct(player);
+            battleSystem.Construct(routMap.GetComponent<RoutMap>());
             deckCreator.Construct(player.GetComponent<Player>());
             player.Construct(dragController);
             dragController.Construct(player);

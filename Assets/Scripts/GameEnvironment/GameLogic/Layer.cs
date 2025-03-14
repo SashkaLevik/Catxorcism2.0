@@ -4,5 +4,6 @@
     {
         public static readonly int UI = 5;
         public static readonly int Draggable = 8;
+        public static readonly int GuardTrigger = 7;
     }
 }

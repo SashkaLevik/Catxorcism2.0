@@ -16,3 +16,4 @@ MonoBehaviour:
   SkillType: 1
   SkillIcon: {fileID: 21300000, guid: bbbed0ad90bd7e945872963a78aacdb6, type: 3}
   AppliedValue: 2
+  RequiredAP: 4

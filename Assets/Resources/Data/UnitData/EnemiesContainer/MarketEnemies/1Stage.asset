@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8dfbc983f34fa99e2e3669a5f46ff6, type: 3}
+  m_Name: 1Stage
+  m_EditorClassIdentifier: 
+  _enemy: {fileID: 6972020234370939322, guid: e6b3a2db0434cb841bb05514aed3e315, type: 3}
+  _prefabs:
+  - {fileID: 6972020234370939322, guid: e6b3a2db0434cb841bb05514aed3e315, type: 3}
+  - {fileID: 6972020234370939322, guid: 53b66abc0a5ae8a49b5d7afcd3c04a42, type: 3}
+  _enemyStageID: 0

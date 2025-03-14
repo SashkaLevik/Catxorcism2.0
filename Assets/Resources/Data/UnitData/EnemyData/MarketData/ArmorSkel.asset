@@ -19,7 +19,7 @@ MonoBehaviour:
   EnDescription: 
   Damage: 3
   Health: 7
-  ActivatePrice: 0
+  ActionPoints: 3
   SummonPrice: 0
   UpgradePrice: 0
   Level: 0

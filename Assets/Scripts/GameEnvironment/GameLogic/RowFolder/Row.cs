@@ -15,13 +15,23 @@ namespace GameEnvironment.GameLogic.RowFolder
         {
         }
 
-        public bool CanPlaceGuard(Guard guard)
+        public bool CheckRowMatch(Unit guard)
         {
             if (guard.RowType == _rowType || guard.RowType == RowType.Generic)
             {
                 return true;
             }
             return false;
+        }
+
+        public RectTransform GetFreeSlot(int slotIndex)
+        {
+            if (_guardSlots[slotIndex].GetComponentInChildren<EnemyGuard>() == null)
+            {
+                return _guardSlots[slotIndex].GetComponent<RectTransform>();
+            }
+
+            return null;
         }
     }
 }

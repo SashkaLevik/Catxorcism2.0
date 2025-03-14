@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Data;
 using GameEnvironment.GameLogic.CardFolder;
 using GameEnvironment.GameLogic.DiceFolder;
+using GameEnvironment.GameLogic.RowFolder;
 using GameEnvironment.Units;
 using Infrastructure.Services;
 using UnityEngine;
@@ -19,22 +21,24 @@ namespace GameEnvironment.UI
         [SerializeField] private Image[] _fullImages;
         [SerializeField] private Image[] _emptyImages;
         [SerializeField] private RectTransform _playerSpawnPoint;
+        [SerializeField] private RectTransform _enemySpawnPoint;
+        [SerializeField] private Row _playerFrontRow;
+        [SerializeField] private Row _playerBackRow;
+        [SerializeField] private Row _enemyFrontRow;
+        [SerializeField] private Row _enemyBackRow;
         [SerializeField] private AudioSource _battleMusic;
-
 
         private Vector3 _playerFrontDicePos = new Vector3(-1.9f, 4f, -10.6f);
         private Vector3 _playerBackDicePos = new Vector3(-4.4f, 4f, -10.6f);
         private Vector3 _enemyFrontDicePos = new Vector3(2f, 4f, -10.6f);
         private Vector3 _enemyBackDicePos = new Vector3(4.4f, 4f, -10.6f);
-        
-        /*private int _leadership;
-        private int _usePerTurn;  */      
-        private Player _player;
-        private PlayerProgress _progress;
+
         private Dice _playerFrontDice;
         private Dice _playerBackDice;
         private Dice _enemyFrontDice;
         private Dice _enemyBackDice;
+        private Player _player;
+        private PlayerProgress _progress;
 
         public Player Player => _player;
 
@@ -45,6 +49,12 @@ namespace GameEnvironment.UI
         public Dice PlayerBackDice => _playerBackDice;
 
         public RectTransform PlayerSpawnPoint => _playerSpawnPoint;
+
+        public RectTransform EnemySpawnPoint => _enemySpawnPoint;
+
+        public Row EnemyFrontRow => _enemyFrontRow;
+
+        public Row EnemyBackRow => _enemyBackRow;
 
         private void Awake() =>
             _canvas.worldCamera = Camera.main;        
@@ -62,6 +72,12 @@ namespace GameEnvironment.UI
             _player.LeadershipChanged -= UpdateLeadership;
         }
 
+        public void Construct(Player player)
+        {
+            _player = player;
+            _player.GetComponent<Health>().Died += OnPlayerDie;
+        }
+        
         private void UpdateLeadership(int value)
         {
             for (int i = 0; i < _emptyImages.Length; i++)
@@ -89,37 +105,11 @@ namespace GameEnvironment.UI
             _enemyFrontDice = Instantiate(_dicePrefab, _enemyFrontDicePos, Quaternion.identity);
             _enemyBackDice = Instantiate(_dicePrefab, _enemyBackDicePos, Quaternion.identity);
         }
-        public void Construct(Player player)
-        {
-            _player = player;
-            _player.GetComponent<Health>().Died += OnPlayerDie;
-        }
-
-        /*public void ResetCooldown()
-        {
-            _usePerTurn = _leadership;
-            UpdateCooldown();
-        }*/
 
         private void OnPlayerDie()
         {
             _dieWindow.gameObject.SetActive(true);
             _player.GetComponent<Health>().Died -= OnPlayerDie;
-        }
-
-        private void GetEnemies()
-        {
-            /*for (int i = 0; i < _summonGuardButtons.Count; i++)
-            {
-                var guard = _summonGuardButtons[i].GetComponentInChildren<Guard>();
-                var enemy = _deck.FirstRaw[i].GetComponentInChildren<Enemy>();
-
-                if (guard != null && enemy != null)
-                {
-                    guard.InitEnemy(enemy);
-                    enemy.InitGuard(guard);
-                }
-            }*/
         }
 
         public void Load(PlayerProgress progress)

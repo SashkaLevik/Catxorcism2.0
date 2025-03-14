@@ -10,5 +10,7 @@ namespace Data
         public SkillType SkillType;
         public Sprite SkillIcon;
         public int AppliedValue;
+        public int RequiredAP;
+        public Sprite _skillIcon;
     }
 }

@@ -111,10 +111,10 @@ namespace GameEnvironment.UI
                 _upgradeWindow.SetActive(true);
                 _currentSpawner = spawner;
                 _currentGuard = guard;
-                Instantiate(guard.GuardApgrade.CardPrefab, _ugradeSlot);
-                _upgradeButton.GetCard(guard.GuardApgrade);
+                Instantiate(guard.GuardUpgrade.CardPrefab, _ugradeSlot);
+                _upgradeButton.GetCard(guard.GuardUpgrade);
                 _upgradeText = _upgradeButton.GetComponentInChildren<TMP_Text>();
-                _upgradeText.text = guard.GuardApgrade.UpgradePrice.ToString();
+                _upgradeText.text = guard.GuardUpgrade.UpgradePrice.ToString();
             }            
         }
 

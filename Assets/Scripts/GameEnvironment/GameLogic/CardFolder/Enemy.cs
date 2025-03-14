@@ -1,20 +1,32 @@
-﻿using GameEnvironment.Units;
+﻿using System.Collections;
+using System.Collections.Generic;
+using GameEnvironment.GameLogic.RowFolder;
+using GameEnvironment.UI;
+using GameEnvironment.Units;
+using UnityEngine;
+using UnityEngine.Events;
 
 namespace GameEnvironment.GameLogic.CardFolder
 {
     public class Enemy : Unit
     {
-        protected Health _health;
-        private Player _player;
-        private Guard _guard;
+        [SerializeField] private List<EnemyGuard> _enemyGuards;
 
+        private int _leadership;
+        private Player _player;
+        private BattleHud _battleHud;
+        private EnemyGuard _spawnedGuard;
+        private RectTransform _guardSlot;
+
+        public int Leadership => _leadership;
+
+        public List<EnemyGuard> Guards => _enemyGuards;
+        
         protected override void Start()
         {
-            _attackSystem = GetComponent<AttackSystem>();
-            _health = GetComponent<Health>();
-            _damage = _cardData.Damage;
-            _damageAmount.text = _damage.ToString();
-            _health.HealthChanged += UpdateHealth;
+            base.Start();
+            _leadership = _cardData.ActionPoints;
+            Debug.Log("enemyGetLeadership");
         }
 
         private void OnDestroy()
@@ -22,21 +34,16 @@ namespace GameEnvironment.GameLogic.CardFolder
             _health.HealthChanged -= UpdateHealth;
         }
 
-        public void InitGuard(Guard guard) =>
-            _guard = guard;
-
-        public void SetPosition() =>
-            _startPosition = transform.position;
-
-        public void InitPlayer(Player player) =>
+        public void InitBattle(BattleHud battleHud, Player player)
+        {
+            _battleHud = battleHud;
             _player = player;
+        }
+            
 
         public void Attack()
         {
                                   
-        }                          
-
-        private void UpdateHealth(int value)=>
-            _healthAmount.text = value.ToString();        
+        }
     }
 }

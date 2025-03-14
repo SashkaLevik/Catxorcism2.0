@@ -580,6 +580,7 @@ GameObject:
   - component: {fileID: 2242438288830863590}
   - component: {fileID: 586586648538115554}
   - component: {fileID: 4171872143180405759}
+  - component: {fileID: 8593876957379591827}
   m_Layer: 5
   m_Name: DogLvl1
   m_TagString: Untagged
@@ -664,22 +665,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _backSprite: {fileID: 5928831357742263328}
+  _rowType: 1
   _cardData: {fileID: 11400000, guid: ce2477bf83dc1b34cb97205f40900e14, type: 2}
   _healthAmount: {fileID: 2225280604786257574}
   _defenceAmount: {fileID: 2225280606736318814}
   _damageAmount: {fileID: 2225280606808530333}
   _firePos: {fileID: 0}
   _shield: {fileID: 5025399048834368622}
-  _skillPrefab: {fileID: 0}
-  _rowType: 1
+  _guardTrigger:
+    serializedVersion: 2
+    m_Bits: 128
   _suit: 4
   _guardUpgrade: {fileID: 11400000, guid: 8b588d5e8abd25742893bdd95b737abd, type: 2}
-  _suitSprite: {fileID: 0}
+  _suitSprite: {fileID: 6245271808282462192}
   _guardButton: {fileID: 2242438288830863590}
   _enemy: {fileID: 0}
-  _skills:
-  - {fileID: 11400000, guid: 77139f0740ed3e547a58c78355934344, type: 2}
-  - {fileID: 11400000, guid: 4246a70445fafcc499c62c63a0840839, type: 2}
+  _skillCards:
+  - {fileID: 1894481779856156264, guid: ff131a341a6f4f2489fccb084aae3517, type: 3}
+  - {fileID: 8218036254907501963, guid: c2e24f4f405340a4e88bd7892e9388b9, type: 3}
 --- !u!114 &5208489352006136715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -692,16 +695,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e803300683e419b830e671c3b8c79f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fullImages:
-  - {fileID: 2536530088878827530}
-  - {fileID: 3296370722969888093}
-  - {fileID: 4651802214475063761}
-  - {fileID: 5952182682734580078}
-  _emptyImages:
-  - {fileID: 872260742070092721}
-  - {fileID: 7373376173827472813}
-  - {fileID: 8524794825784033444}
-  - {fileID: 1356767220833323527}
+  _fullSprite: {fileID: 21300000, guid: 9b4cb7010c6de9b4b8941c87bf1ce8be, type: 3}
+  _emptySprite: {fileID: 21300000, guid: b4563d6afccd82f449f37b741dc5c542, type: 3}
+  _container: {fileID: 838529127457530991}
+  _imagePrefab: {fileID: 6248798914423706679, guid: dd5b7eaca4e67374fbf95fe0ccf887bf, type: 3}
 --- !u!114 &8938089552752471379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -864,7 +861,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -880,6 +877,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 140, y: 200}
   m_EdgeRadius: 0
+--- !u!50 &8593876957379591827
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2225280606753027236}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &2225280606808530335
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,8 +972,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

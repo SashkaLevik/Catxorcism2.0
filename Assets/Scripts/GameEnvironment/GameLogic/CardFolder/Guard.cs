@@ -2,7 +2,6 @@
 using Data;
 using GameEnvironment.GameLogic.RowFolder;
 using GameEnvironment.UI;
-using GameEnvironment.Units;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -11,66 +10,40 @@ namespace GameEnvironment.GameLogic.CardFolder
 {
     public class Guard : Unit
     {
-        [SerializeField] private SkillCard _skillPrefab;
-        [SerializeField] private RowType _rowType;
+        //[SerializeField] private RowType _rowType;
+        [SerializeField] private LayerMask _guardTrigger;
         [SerializeField] private SuitType _suit;
         [SerializeField] private CardData _guardUpgrade;
-        [SerializeField] private Sprite _suitSprite;
+        [SerializeField] private Image _suitSprite;
         [SerializeField] private Button _guardButton;
         [SerializeField] private Enemy _enemy;
-        [SerializeField] private List<SkillData> _skills;
+        [SerializeField] private List<SkillCard> _skillCards;
 
         private int _slotIndex;
+        private Row _row;
         private int _actionPoints;
         private bool _isTired = false;
-        private Health _health;
         private ActionPointsViewer _APViewer;
-        private SkillCard _currentSkill;
-
+        private BattleHud _battleHud;
+        private EnemyGuard _enemyGuard;
+        
         public Enemy Enemy => _enemy;
-        public CardData GuardApgrade => _guardUpgrade;
 
-        public RowType RowType => _rowType;
+        public EnemyGuard EnemyGuard => _enemyGuard;
 
-        public event UnityAction<Guard> OnGuardPressed;       
+        public CardData GuardUpgrade => _guardUpgrade;
+        
+        public List<SkillCard> SkillCards => _skillCards;
+
+        public event UnityAction<Guard> OnGuardPressed;
+
+        public event UnityAction<int> APChanged;
 
         protected override void Start()
         {
-            _APViewer = GetComponent<ActionPointsViewer>();
-            _APViewer.UpdateAP(_cardData.ActionPoints);
+            base.Start();
             _actionPoints = _cardData.ActionPoints;
-            _health = GetComponent<Health>();
-            _health.HealthChanged += UpdateHealth;
-            _health.DefenceChanged += UpdateDefence;
-            _damage = _cardData.Damage;
-            _damageAmount.text = _damage.ToString();
-            _startPosition = transform.position;
-        }
-
-        public void GetSlotIndex(int index) => 
-            _slotIndex = index;
-
-        public void CreateSkillCards()
-        {
-            foreach (var skill in _skills)
-            {
-                _currentSkill = Instantiate(_skillPrefab, transform.position, Quaternion.identity);
-                _currentSkill.Init(skill);
-            }
-        }
-        
-        private void UpdateDefence(int value)
-        {
-            if (value > 0) 
-                _shield.SetActive(true);
-
-            if (value < 0)
-            {
-                value = 0;
-                _shield.SetActive(false);
-            }
-            
-            _defenceAmount.text = value.ToString();
+            _APViewer = GetComponent<ActionPointsViewer>();
         }
 
         private void OnEnable()
@@ -78,30 +51,84 @@ namespace GameEnvironment.GameLogic.CardFolder
             _guardButton.onClick.AddListener(PassGuard);
         }
 
+        public void InitRow(Row row, int index, BattleHud battleHud)
+        {
+            _row = row;
+            _slotIndex = index;
+            _battleHud = battleHud;
+        }
+        
         public void InitEnemy(Enemy enemy) =>
             _enemy = enemy;
 
+        public EnemyGuard TryGetEnemy(Row row)
+        {
+            if (row.GuardSlots[_slotIndex].GetComponentInChildren<EnemyGuard>() != null)
+            {
+                _enemyGuard = row.GuardSlots[_slotIndex].GetComponentInChildren<EnemyGuard>();
+                return _enemyGuard;
+            }
+
+            return null;
+        }
+        
         public void OnSkillUsed(int requiredAP)
         {
             _actionPoints -= requiredAP;
+            APChanged?.Invoke(requiredAP);
 
             if (_actionPoints < 0)
             {
                 _isTired = true;
                 _actionPoints = 0;
             }
-            
-            _APViewer.UpdateAP(_actionPoints);
         }
 
-        private void Reset()
+        public void ResetAP()
         {
             _actionPoints = _cardData.ActionPoints;
-            _APViewer.UpdateAP(_actionPoints);
+            _APViewer.ResetAP();
         }
-        
-        private void UpdateHealth(int value) =>
-            _healthAmount.text = value.ToString();
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.TryGetComponent(out SkillCard skillCard))
+            {
+                OnSkillEnter(skillCard.AppliedValue);
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.TryGetComponent(out SkillCard skillCard))
+            {
+                OnSkillExit(skillCard.AppliedValue);
+            }
+        }
+
+        private void OnSkillEnter(int value)
+        {
+            _damage += value;
+            _damageAmount.text = _damage.ToString();
+        }
+
+        private void OnSkillExit(int value)
+        {
+            _damage -= value;
+            _damageAmount.text = _damage.ToString();
+        }
+
+        public override void Activate()
+        {
+            base.Activate();
+            _collider.isTrigger = true;
+        }
+
+        public override void Disactivate()
+        {
+            base.Disactivate();
+            _collider.isTrigger = false;
+        }
 
         private void PassGuard()
         {

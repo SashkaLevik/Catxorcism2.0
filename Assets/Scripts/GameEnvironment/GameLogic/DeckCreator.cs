@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Data;
 using GameEnvironment.GameLogic.CardFolder;
-using GameEnvironment.GameLogic.DiceFolder;
 using GameEnvironment.UI;
 using GameEnvironment.Units;
 using Infrastructure.Services;
@@ -13,6 +12,8 @@ namespace GameEnvironment.GameLogic
 {
     public class DeckCreator : MonoBehaviour, ISaveProgress
     {
+        [SerializeField] private SkillCard _skillPrefab;
+        [SerializeField] private DragController _dragController;
         [SerializeField] private BattleHud _battleHud;
         [SerializeField] private RectTransform _playerSpawnPos;
         [SerializeField] private RectTransform _redrawPos;
@@ -23,9 +24,11 @@ namespace GameEnvironment.GameLogic
         [SerializeField] private AudioSource _tossCard;
 
         private int _handCapacity = 4;
+        private Canvas _canvas;
         private Player _player;
         private Guard _spawnedGuard;
         private PlayerProgress _progress;
+        private SkillCard _currentSkill;
         private List<Guard> _playerGuards = new List<Guard>();
         private List<Card> _currentDeck = new List<Card>();
         private List<Card> _handCards = new List<Card>();
@@ -35,16 +38,20 @@ namespace GameEnvironment.GameLogic
         {
             if (_progress.WorldData.IsNewRun) 
                 _playerGuards = _player.PlayerGuards.ToList();
-            
-            CreateDeck();
-            _battleHud.PlayerFrontDice.OnDiceResult += DrawFirstGuards;
-        }
 
+            _canvas = GetComponent<Canvas>();
+            _dragController.GuardPlaced += OnGuardPlaced;
+            CreateDeck();
+        }
+        
         public void Construct(Player player)
         {
             _player = player;
         }
         
+        public void DrawHand() => 
+            StartCoroutine(DrawHandCards());
+
         private void CreateDeck()
         {
             foreach (var guard in _playerGuards)
@@ -52,65 +59,105 @@ namespace GameEnvironment.GameLogic
                 _spawnedGuard = Instantiate(guard, _playerSpawnPos);
                 _spawnedGuard.GetComponent<Health>().Died += OnGuardDie;
                 _currentDeck.Add(_spawnedGuard);
-                StartCoroutine(MoveCards(_spawnedGuard, _deckSpawnPos));
+                Move(_spawnedGuard, _deckSpawnPos);
             }
         }
 
+        private void OnGuardPlaced(Guard guard)
+        {
+            _handCards.Remove(guard);
+            StartCoroutine(CreateSkillCards(guard));
+        }
+        
         private void OnGuardDie()
         {
             _player.RestoreLeadership();
         }
 
-        public void DrawNextHand()
+        private IEnumerator CreateSkillCards(Guard guard)
         {
-            StartCoroutine(DrawHandCards());
+            foreach (var skillCard in guard.SkillCards)
+            {
+                var spawnPos = guard.GetComponentInParent<RectTransform>();
+                _currentSkill = Instantiate(skillCard, spawnPos);
+                _currentSkill.InitHud(_battleHud);
+                yield return new WaitForSeconds(0.2f);
+                Move(_currentSkill, _deckSpawnPos);
+                yield return new WaitForSeconds(0.2f);
+                _currentDeck.Add(_currentSkill);
+            }
+            
+            /*foreach (var skillData in guard.Skills)
+            {
+                var spawnPos = guard.GetComponentInParent<RectTransform>();
+                _currentSkill = Instantiate(_skillPrefab, spawnPos);
+                _currentSkill.Init(skillData);
+                yield return new WaitForSeconds(0.2f);
+                Move(_currentSkill, _deckSpawnPos);
+                yield return new WaitForSeconds(0.2f);
+                _currentDeck.Add(_currentSkill);
+            }*/
         }
-        
-        private void DrawFirstGuards(DiceFace arg0)
-        {
-            StartCoroutine(DrawHandCards());
-        }
-        
+
         private IEnumerator DrawHandCards()
         {
             if (_handCards.Count > 0)
                 yield return StartCoroutine(Discard());
+
+            yield return new WaitForSeconds(0.05f);
             
             for (int i = 0; i < _handCapacity; i++)
             {
                 if (_currentDeck.Count == 0)
+                {
                     yield return StartCoroutine(RedrawPlayed());
+                    yield return new WaitForSeconds(0.2f);
+                    _discardCards.Clear();
+                }
                 
-                StartCoroutine(MoveCards(_currentDeck[0], _hand));
+                Move(_currentDeck[0], _hand);
                 yield return new WaitForSeconds(0.2f);
                 _currentDeck[0].Activate();
-                _currentDeck.Remove(_currentDeck[0]);
                 _handCards.Add(_currentDeck[0]);
+                _currentDeck.Remove(_currentDeck[0]);
             }
-            
-            yield return null;
         }
 
         private IEnumerator Discard()
         {
-            StartCoroutine(Draw(_handCards, _discardPos));
-            yield return null;
-        }
+            foreach (var card in _handCards)
+            {
+                card.transform.SetParent(_canvas.transform);
+                Move(card, _discardPos);
+                yield return new WaitForSeconds(0.2f);
+                card.Disactivate();
+                _discardCards.Add(card);
+            }
 
+            yield return new WaitForSeconds(0.1f);
+            _handCards.Clear();
+        }
+        
         private IEnumerator RedrawPlayed()
         {
             _currentDeck = _discardCards.OrderBy(x => Random.value).ToList();
-            yield return StartCoroutine(Draw(_currentDeck, _redrawPos));
-            yield return StartCoroutine(Draw(_currentDeck, _deckSpawnPos));
-            yield return null;
+            
+            foreach (var card in _discardCards)
+            {
+                Move(card, _redrawPos);
+                yield return new WaitForSeconds(0.1f);
+            }
+            
+            foreach (var card in _discardCards)
+            {
+                Move(card, _deckSpawnPos);
+                yield return new WaitForSeconds(0.1f);
+            }
         }
 
-        private IEnumerator Draw(List<Card> cards, RectTransform position)
+        private void Move(Card card, RectTransform newPos)
         {
-            /*foreach (var card in cards) 
-                StartCoroutine(MoveCards(card, position));*/
-
-            yield return null;
+            StartCoroutine(MoveCards(card, newPos));
         }
         
         private IEnumerator MoveCards(Card card, RectTransform newPos)
@@ -121,7 +168,6 @@ namespace GameEnvironment.GameLogic
                     _moveSpeed * Time.deltaTime);
                 yield return null;
             }
-            yield return new WaitForSeconds(0.2f);
             card.Flip();
             card.transform.SetParent(newPos);
         }

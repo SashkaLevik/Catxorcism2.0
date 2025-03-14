@@ -4062,7 +4062,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 176, y: 65}
+  m_AnchoredPosition: {x: 950, y: 72.293}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3022989574088990114
@@ -4646,6 +4646,7 @@ GameObject:
   - component: {fileID: 5593667246150006357}
   - component: {fileID: 5593667246150006378}
   - component: {fileID: 5593667246150006379}
+  - component: {fileID: 3267558102264188650}
   - component: {fileID: 5593667246150006358}
   - component: {fileID: 5593667246150006359}
   - component: {fileID: 3697401355585198301}
@@ -4760,6 +4761,21 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3267558102264188650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5593667246150006376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f1433a487c472395362700acf770a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _battleHud: {fileID: 5593667246150006359}
+  _enemyFrontRow: {fileID: 6929913730910730376}
+  _enemyBackRow: {fileID: 1878489223241926411}
 --- !u!114 &5593667246150006358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4772,6 +4788,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed405b861eafbca4da6562bd5cec303c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _battleHud: {fileID: 5593667246150006359}
+  _enemySpawner: {fileID: 3267558102264188650}
   _hand: {fileID: 4561801336580422588}
   _draggable:
     serializedVersion: 2
@@ -4779,6 +4797,9 @@ MonoBehaviour:
   _cardSlotLayer:
     serializedVersion: 2
     m_Bits: 512
+  _guardTrigger:
+    serializedVersion: 2
+    m_Bits: 128
   _warning: {fileID: 2211711439843958601}
 --- !u!114 &5593667246150006359
 MonoBehaviour:
@@ -4810,6 +4831,11 @@ MonoBehaviour:
   - {fileID: 7152616549315154638}
   - {fileID: 863056429607647179}
   _playerSpawnPoint: {fileID: 175269893559932455}
+  _enemySpawnPoint: {fileID: 4153211378935384341}
+  _playerFrontRow: {fileID: 8169801667273076961}
+  _playerBackRow: {fileID: 2615256059957462866}
+  _enemyFrontRow: {fileID: 6929913730910730376}
+  _enemyBackRow: {fileID: 1878489223241926411}
   _battleMusic: {fileID: 985700040489636456}
 --- !u!114 &3697401355585198301
 MonoBehaviour:
@@ -4825,6 +4851,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _deckCreator: {fileID: 6050404014602366878}
   _battleHud: {fileID: 5593667246150006359}
+  _enemySpawner: {fileID: 3267558102264188650}
   _startBattle: {fileID: 3569919473646894074}
   _endTurn: {fileID: 7659819141909649254}
 --- !u!114 &6050404014602366878
@@ -4839,13 +4866,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc5674b40f003a4ca27769cd0fa7c45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _skillPrefab: {fileID: 75100406939869024, guid: 486efec4476ff0a459745e026d2326ff, type: 3}
+  _dragController: {fileID: 5593667246150006358}
   _battleHud: {fileID: 5593667246150006359}
   _playerSpawnPos: {fileID: 175269893559932455}
   _redrawPos: {fileID: 1771701672915237220}
   _deckSpawnPos: {fileID: 6889927643776490166}
   _hand: {fileID: 4561801336580422588}
   _discardPos: {fileID: 4608027230423134008}
-  _moveSpeed: 20
+  _moveSpeed: 30
   _tossCard: {fileID: 0}
 --- !u!114 &8425533223602271104
 MonoBehaviour:
@@ -5384,8 +5413,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -24.012, y: 141}
-  m_SizeDelta: {x: 1169.9, y: 100}
+  m_AnchoredPosition: {x: -29.896, y: 141}
+  m_SizeDelta: {x: 1158.134, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8729226949487121448
 MonoBehaviour:
@@ -6461,7 +6490,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -7729,7 +7758,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

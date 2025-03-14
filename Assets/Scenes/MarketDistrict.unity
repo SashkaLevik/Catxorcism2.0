@@ -1163,8 +1163,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 162640214}
-  m_Father: {fileID: 1643802745}
-  m_RootOrder: 1
+  m_Father: {fileID: 2067045355}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1287,9 +1287,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1868079849}
-  - {fileID: 1343678566}
+  m_Children: []
   m_Father: {fileID: 2067045355}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1579,8 +1577,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 316412248}
-  m_Father: {fileID: 1643802745}
-  m_RootOrder: 0
+  m_Father: {fileID: 2067045355}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1712,7 +1710,7 @@ GameObject:
   - component: {fileID: 2067045356}
   m_Layer: 5
   m_Name: RoutMap
-  m_TagString: Untagged
+  m_TagString: RoutMap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1791,6 +1789,8 @@ RectTransform:
   m_Children:
   - {fileID: 312359093}
   - {fileID: 1643802745}
+  - {fileID: 1868079849}
+  - {fileID: 1343678566}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1814,6 +1814,7 @@ MonoBehaviour:
   _routMapWindow: {fileID: 1643802744}
   _stageButtons:
   - {fileID: 162640215}
+  _eventButtons: []
 --- !u!1 &2137897709
 GameObject:
   m_ObjectHideFlags: 0

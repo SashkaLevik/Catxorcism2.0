@@ -10,21 +10,27 @@ namespace GameEnvironment.LevelRoutMap
     {
         [SerializeField] private GameObject _routMapWindow;
         [SerializeField] private List<Button> _stageButtons;
-
-        public event UnityAction StageEntered;
+        [SerializeField] private List<Button> _eventButtons;
         
+        public event UnityAction StageButtonPressed;
+
         private void Start()
         {
             foreach (var button in _stageButtons)
-            {
-                button.onClick.AddListener(OpenStage);
-            }
+                button.onClick.AddListener(() => EnterStage(button));
         }
 
-        private void OpenStage()
+        private void OnDestroy()
         {
-            _routMapWindow.SetActive(false);
-            StageEntered?.Invoke();
+            foreach (var button in _stageButtons)
+                button.onClick.RemoveListener(() => EnterStage(button));
+        }   
+        
+        private void EnterStage(Button button)
+        {
+            StageButtonPressed?.Invoke();
+            button.interactable = false;
+            this.gameObject.SetActive(false);
         }
     }
 }

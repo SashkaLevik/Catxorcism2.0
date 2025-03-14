@@ -8,22 +8,26 @@ namespace GameEnvironment.GameLogic.CardFolder
         [SerializeField] protected GameObject _backSprite;
         
         protected Vector3 _startPosition;
+        protected BoxCollider2D _collider;
         private bool _isFacedUp = false;
         private bool _isCoroutineAllowed = true;
-        
+
         public Vector3 StartPosition => _startPosition;
 
         protected virtual void Start()
-        {            
+        {
+            _collider = GetComponent<BoxCollider2D>();
         }
 
-        public void Activate()
+        public virtual void Activate()
         {
             gameObject.layer = Layer.Draggable;
         }
 
-        public void Disactivate() => 
+        public virtual void Disactivate()
+        {
             gameObject.layer = Layer.UI;
+        }
 
         public void Flip() => 
             StartCoroutine(Rotate());
@@ -37,10 +41,8 @@ namespace GameEnvironment.GameLogic.CardFolder
                 for (float i = 0; i < 180; i += 10)
                 {
                     transform.rotation = Quaternion.Euler(0,i,0);
-                    if (i == 90)
-                    {
+                    if (i == 90) 
                         _backSprite.SetActive(true);
-                    }
 
                     yield return new WaitForSeconds(0.01f);
                 }
@@ -50,10 +52,8 @@ namespace GameEnvironment.GameLogic.CardFolder
                 for (float i = 180; i >= 0; i -= 10)
                 {
                     transform.rotation = Quaternion.Euler(0,i,0);
-                    if (i == 90)
-                    {
+                    if (i == 90) 
                         _backSprite.SetActive(false);
-                    }
 
                     yield return new WaitForSeconds(0.01f);
                 }
