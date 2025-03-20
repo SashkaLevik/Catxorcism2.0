@@ -7,6 +7,7 @@ using GameEnvironment.UI;
 using GameEnvironment.Units;
 using Infrastructure.Services;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace GameEnvironment.GameLogic
 {
@@ -18,11 +19,15 @@ namespace GameEnvironment.GameLogic
         [SerializeField] private RectTransform _playerSpawnPos;
         [SerializeField] private RectTransform _redrawPos;
         [SerializeField] private RectTransform _deckSpawnPos;
-        [SerializeField] private RectTransform _hand;
+        [SerializeField] private RectTransform _handPosition;
         [SerializeField] private RectTransform _discardPos;
         [SerializeField] private float _moveSpeed;
         [SerializeField] private AudioSource _tossCard;
 
+        public float _fanSpread = -6f;
+        public float _cardSpacing = 100f;
+        public float _verticalSpacing = 100f;
+        
         private int _handCapacity = 4;
         private Canvas _canvas;
         private Player _player;
@@ -43,7 +48,14 @@ namespace GameEnvironment.GameLogic
             _dragController.GuardPlaced += OnGuardPlaced;
             CreateDeck();
         }
-        
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+            }
+        }
+
         public void Construct(Player player)
         {
             _player = player;
@@ -52,11 +64,33 @@ namespace GameEnvironment.GameLogic
         public void DrawHand() => 
             StartCoroutine(DrawHandCards());
 
+        public void DiscardPlayedSkill(SkillCard skillCard)
+        {
+            skillCard.transform.SetParent(_canvas.transform);
+            Move(skillCard, _discardPos);
+            skillCard.Disactivate();
+            _handCards.Remove(skillCard);
+            UpdateHandVisual();
+            _discardCards.Add(skillCard);
+        }
+        
+        public void UpdateHandVisual()
+        {
+            int cardCount = _handCards.Count;
+
+            for (int i = 0; i < cardCount; i++)
+            {
+                float horizontalOffset = _cardSpacing * (i - (cardCount - 1) / 2f);
+                _handCards[i].transform.localPosition = new Vector3(horizontalOffset, 0, 0);
+            }
+        }
+        
         private void CreateDeck()
         {
             foreach (var guard in _playerGuards)
             {
                 _spawnedGuard = Instantiate(guard, _playerSpawnPos);
+                _spawnedGuard.GetCanvas(_canvas, _handPosition);
                 _spawnedGuard.GetComponent<Health>().Died += OnGuardDie;
                 _currentDeck.Add(_spawnedGuard);
                 Move(_spawnedGuard, _deckSpawnPos);
@@ -80,23 +114,13 @@ namespace GameEnvironment.GameLogic
             {
                 var spawnPos = guard.GetComponentInParent<RectTransform>();
                 _currentSkill = Instantiate(skillCard, spawnPos);
+                _currentSkill.GetCanvas(_canvas, _handPosition);
                 _currentSkill.InitHud(_battleHud);
                 yield return new WaitForSeconds(0.2f);
                 Move(_currentSkill, _deckSpawnPos);
                 yield return new WaitForSeconds(0.2f);
                 _currentDeck.Add(_currentSkill);
             }
-            
-            /*foreach (var skillData in guard.Skills)
-            {
-                var spawnPos = guard.GetComponentInParent<RectTransform>();
-                _currentSkill = Instantiate(_skillPrefab, spawnPos);
-                _currentSkill.Init(skillData);
-                yield return new WaitForSeconds(0.2f);
-                Move(_currentSkill, _deckSpawnPos);
-                yield return new WaitForSeconds(0.2f);
-                _currentDeck.Add(_currentSkill);
-            }*/
         }
 
         private IEnumerator DrawHandCards()
@@ -114,12 +138,12 @@ namespace GameEnvironment.GameLogic
                     yield return new WaitForSeconds(0.2f);
                     _discardCards.Clear();
                 }
-                
-                Move(_currentDeck[0], _hand);
-                yield return new WaitForSeconds(0.2f);
-                _currentDeck[0].Activate();
+
+                yield return StartCoroutine(MoveCards(_currentDeck[0], _handPosition));
                 _handCards.Add(_currentDeck[0]);
+                _currentDeck[0].Activate();
                 _currentDeck.Remove(_currentDeck[0]);
+                UpdateHandVisual();
             }
         }
 

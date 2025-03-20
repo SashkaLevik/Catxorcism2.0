@@ -9,6 +9,7 @@ namespace GameEnvironment.GameLogic.CardFolder
 {
     public class SkillCard : Card
     {
+        [SerializeField] private GameObject _arrow;
         [SerializeField] private SkillType _skillType;
         [SerializeField] private TMP_Text _valueAmount;
         //[SerializeField] private Image _skillIcon;
@@ -39,34 +40,17 @@ namespace GameEnvironment.GameLogic.CardFolder
         {
             _battleHud = battleHud;
         }
-        
-        public void Init(SkillData skillData)
-        {
-            //_skillData = skillData;
-            //_skillIcon.sprite = _skillData.SkillIcon;
-            //_appliedValue = _skillData.AppliedValue;
-            _valueAmount.text = _appliedValue.ToString();
 
-            for (int i = 0; i < skillData.RequiredAP; i++) 
-                _APImages[i].gameObject.SetActive(true);
-        }
+        public void ShowArrow() => 
+            _arrow.SetActive(true);
+
+        public void HideArrow() => 
+            _arrow.SetActive(false);
 
         public virtual void UseSkill(){}
         
         public virtual void UseOnGuard(Guard guard){}
 
         public virtual void UseOnEnemy(EnemyGuard enemyGuard){}
-
-        public override void Activate()
-        {
-            base.Activate();
-            _collider.enabled = true;
-        }
-
-        public override void Disactivate()
-        {
-            base.Disactivate();
-            _collider.enabled = false;
-        }
     }
 }

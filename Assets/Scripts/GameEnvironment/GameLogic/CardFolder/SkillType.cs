@@ -2,9 +2,8 @@
 {
     public enum SkillType
     {
-        Default = 0,
-        UseOnGuard = 1,
-        UseOnEnemy = 2,
-        UseOnWorld = 3
+        Attack = 0,
+        Defence = 1,
+        Other = 2
     }
 }
