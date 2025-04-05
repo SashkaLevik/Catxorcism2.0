@@ -4,15 +4,14 @@ namespace GameEnvironment.GameLogic.CardFolder.SkillCards
 {
     public class AttackSkill : SkillCard
     {
-        public override void UseOnGuard(Guard guard)
+        public override void UseSkill(Unit unit)
         {
-            //guard.OnSkillUsed(_requiredAP);
-            if (guard.TryGetEnemy(_battleHud.EnemyFrontRow))
-                guard.EnemyGuard.GetComponent<Health>().TakeDamage(guard.Damage);
-            else if (guard.TryGetEnemy(_battleHud.EnemyBackRow))
-                guard.EnemyGuard.GetComponent<Health>().TakeDamage(guard.Damage);
-            else
-                guard.Enemy.GetComponent<Health>().TakeDamage(guard.Damage);
+            if (unit.CurrentEnemy != null) 
+                unit.CurrentEnemy.GetSkillEffect(unit.Damage, this);
+
+
+            if (unit.GetComponent<Guard>()) 
+                unit.GetComponent<Guard>().OnSkillPlayed(this);
         }
     }
 }

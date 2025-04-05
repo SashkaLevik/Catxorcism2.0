@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Data;
@@ -13,6 +14,7 @@ namespace GameEnvironment.GameLogic
 {
     public class DeckCreator : MonoBehaviour, ISaveProgress
     {
+        [SerializeField] private EnemySpawner _enemySpawner;
         [SerializeField] private SkillCard _skillPrefab;
         [SerializeField] private DragController _dragController;
         [SerializeField] private BattleHud _battleHud;
@@ -36,8 +38,13 @@ namespace GameEnvironment.GameLogic
         private SkillCard _currentSkill;
         private List<Guard> _playerGuards = new List<Guard>();
         private List<Card> _currentDeck = new List<Card>();
+        private List<Guard> _fieldGuards = new List<Guard>();
         private List<Card> _handCards = new List<Card>();
         private List<Card> _discardCards = new List<Card>();
+
+        public List<Card> HandCards => _handCards;
+
+        public List<Guard> FieldGuards => _fieldGuards;
 
         private void Start()
         {
@@ -49,16 +56,20 @@ namespace GameEnvironment.GameLogic
             CreateDeck();
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-            }
-        }
-
         public void Construct(Player player)
         {
             _player = player;
+        }
+        
+        public void RefreshEnemies() => 
+            StartCoroutine(GetNewEnemy());
+
+        private IEnumerator GetNewEnemy()
+        {
+            yield return new WaitForSeconds(0.4f);
+            
+            foreach (var guard in _fieldGuards) 
+                guard.TryGetEnemy(_battleHud);
         }
         
         public void DrawHand() => 
@@ -69,6 +80,7 @@ namespace GameEnvironment.GameLogic
             skillCard.transform.SetParent(_canvas.transform);
             Move(skillCard, _discardPos);
             skillCard.Disactivate();
+            skillCard.GetComponent<Card>().DisableCollider();
             _handCards.Remove(skillCard);
             UpdateHandVisual();
             _discardCards.Add(skillCard);
@@ -76,11 +88,11 @@ namespace GameEnvironment.GameLogic
         
         public void UpdateHandVisual()
         {
-            int cardCount = _handCards.Count;
+            int cardsCount = _handCards.Count;
 
-            for (int i = 0; i < cardCount; i++)
+            for (int i = 0; i < cardsCount; i++)
             {
-                float horizontalOffset = _cardSpacing * (i - (cardCount - 1) / 2f);
+                float horizontalOffset = _cardSpacing * (i - (cardsCount - 1) / 2f);
                 _handCards[i].transform.localPosition = new Vector3(horizontalOffset, 0, 0);
             }
         }
@@ -91,7 +103,7 @@ namespace GameEnvironment.GameLogic
             {
                 _spawnedGuard = Instantiate(guard, _playerSpawnPos);
                 _spawnedGuard.GetCanvas(_canvas, _handPosition);
-                _spawnedGuard.GetComponent<Health>().Died += OnGuardDie;
+                _spawnedGuard.Health.Died += OnGuardDie;
                 _currentDeck.Add(_spawnedGuard);
                 Move(_spawnedGuard, _deckSpawnPos);
             }
@@ -100,12 +112,16 @@ namespace GameEnvironment.GameLogic
         private void OnGuardPlaced(Guard guard)
         {
             _handCards.Remove(guard);
+            _fieldGuards.Add(guard);
             StartCoroutine(CreateSkillCards(guard));
         }
         
-        private void OnGuardDie()
+        private void OnGuardDie(Unit unit)
         {
+            unit.Health.Died -= OnGuardDie;
+            _currentDeck.Remove(unit);
             _player.RestoreLeadership();
+            _enemySpawner.RefreshEnemies();
         }
 
         private IEnumerator CreateSkillCards(Guard guard)
@@ -141,14 +157,23 @@ namespace GameEnvironment.GameLogic
 
                 yield return StartCoroutine(MoveCards(_currentDeck[0], _handPosition));
                 _handCards.Add(_currentDeck[0]);
-                _currentDeck[0].Activate();
                 _currentDeck.Remove(_currentDeck[0]);
                 UpdateHandVisual();
+            }
+
+            yield return new WaitForSeconds(0.3f);
+
+            foreach (var card in _handCards)
+            {
+                card.Activate();
             }
         }
 
         private IEnumerator Discard()
         {
+            foreach (var card in _handCards) 
+                card.DisableCollider();
+            
             foreach (var card in _handCards)
             {
                 card.transform.SetParent(_canvas.transform);

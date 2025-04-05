@@ -13,12 +13,13 @@ namespace GameEnvironment.GameLogic
     {
         private const string MarketEnemies = "Data/UnitData/EnemiesContainer/MarketEnemies";
 
+        [SerializeField] private DragController _dragController;
+        [SerializeField] private DeckCreator _deckCreator;
         [SerializeField] private BattleHud _battleHud;
         [SerializeField] private Row _enemyFrontRow;
         [SerializeField] private Row _enemyBackRow;
         
         private float _moveSpeed = 30f;
-        private int _leadership;
         private EnemyStageID _currentStage;
         private Player _player;
         private Enemy _spawnedEnemy;
@@ -31,18 +32,32 @@ namespace GameEnvironment.GameLogic
 
         public Enemy SpawnedEnemy => _spawnedEnemy;
 
+        public List<EnemyGuard> SpawnedGuards => _spawnedGuards;
+
         private void Awake()
         {
             _enemies = Resources.LoadAll<EnemiesContainer>(MarketEnemies).ToList();
         }
 
-        private void Update()
+        private void OnEnable()
         {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                StartCoroutine(SpawnGuards());
+            _dragController.GuardPlaced += OnPlayerGuardPlaced;
+        }
 
-            }
+        private void OnPlayerGuardPlaced(Guard arg0)
+        {
+            RefreshEnemies();
+        }
+
+        public void RefreshEnemies() => 
+            StartCoroutine(GetNewEnemy());
+
+        private IEnumerator GetNewEnemy()
+        {
+            yield return new WaitForSeconds(0.4f);
+            
+            foreach (var guard in _spawnedGuards) 
+                guard.TryGetEnemy(_battleHud);
         }
 
         public void SpawnEnemy(int stageNumber)
@@ -53,59 +68,42 @@ namespace GameEnvironment.GameLogic
 
         private IEnumerator CreateEnemy(EnemyStageID enemyType, RectTransform at)
         {
-            Debug.Log("EnemySpawned");
             _randomEnemy = GetRandomEnemy<Enemy>(enemyType);
             _spawnedEnemy = Instantiate(_randomEnemy, at.transform);
             _spawnedEnemy.InitBattle(_battleHud, _battleHud.Player);
             _enemyGuards = _spawnedEnemy.Guards.ToList();
             yield return new WaitForSeconds(1.3f);
-            _leadership = _spawnedEnemy.Leadership;
-            Debug.Log("SpawnerGetLeadership");
-            StartCoroutine(SpawnGuards());
+            yield return StartCoroutine(SpawnGuards(_enemyFrontRow));
+            yield return StartCoroutine(SpawnGuards(_enemyBackRow));
         }
 
-        private IEnumerator SpawnGuards()
+        private IEnumerator SpawnGuards(Row row)
         {
-            int guardsToSpawn = _leadership;
-            
-            for (int i = 0; i < guardsToSpawn; i++)
+            foreach (var guard in _enemyGuards)
             {
-                if (_enemyGuards.Count == 0)
-                    break;
-                
-                _currentGuard = Instantiate(_enemyGuards[0], _battleHud.EnemySpawnPoint);
-                _currentGuard.GetComponent<Health>().Died += OnGuardDie;
-                _spawnedGuards.Add(_currentGuard);
-                _enemyGuards.Remove(_enemyGuards[0]);
-                yield return new WaitForSeconds(0.2f);
-
-                if (_enemyFrontRow.CheckRowMatch(_currentGuard))
+                if (row.CheckRowMatch(guard) && row.GetFreeSlot())
                 {
-                    if (_enemyFrontRow.GetFreeSlot(i) != null)
-                    {
-                        _guardSlot = _enemyFrontRow.GetFreeSlot(i);
-                        _currentGuard.InitRow(_enemyFrontRow, i);
-                        StartCoroutine(Move(_currentGuard, _guardSlot));
-                    }
+                    RowCardSlot cardSlot = row.GetFreeSlot().GetComponent<RowCardSlot>();
+                    int index = row.GuardSlots.IndexOf(cardSlot);
+                    _currentGuard = Instantiate(guard, _battleHud.EnemySpawnPoint);
+                    _currentGuard.Health.Died += OnGuardDie;
+                    _guardSlot = row.GetFreeSlot();
+                    _currentGuard.InitRow(row, index);
+                    _currentGuard.InitPlayer(_battleHud.Player);
+                    _currentGuard.TryGetEnemy(_battleHud);
+                    _spawnedGuards.Add(_currentGuard);
+                    yield return new WaitForSeconds(0.1f);
+                    StartCoroutine(Move(_currentGuard, _guardSlot));
+                    yield return new WaitForSeconds(0.2f);
                 }
-                else if (_enemyBackRow.CheckRowMatch(_currentGuard))
-                {
-                    if (_enemyBackRow.GuardSlots[i].GetComponentInChildren<EnemyGuard>() == null)
-                    {
-                        _guardSlot = _enemyBackRow.GuardSlots[i].GetComponent<RectTransform>();
-                        _currentGuard.InitRow(_enemyBackRow, i);
-                        StartCoroutine(Move(_currentGuard, _guardSlot));
-                    }
-                }
-
-                _leadership--;
-                yield return new WaitForSeconds(0.2f);
             }
         }
 
-        private void OnGuardDie()
+        private void OnGuardDie(Unit unit)
         {
-            _leadership++;
+            unit.Health.Died -= OnGuardDie;
+            _spawnedGuards.Remove(unit.GetComponent<EnemyGuard>());
+            _deckCreator.RefreshEnemies();
         }
 
         private T GetRandomEnemy<T>(EnemyStageID type) where T : Enemy

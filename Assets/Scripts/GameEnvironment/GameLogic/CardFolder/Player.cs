@@ -42,8 +42,8 @@ namespace GameEnvironment.GameLogic.CardFolder
 
         private void OnDestroy()
         {
-            _health.HealthChanged -= UpdateHealth;
-            _health.DefenceChanged -= UpdateDefence;
+            Health.HealthChanged -= UpdateHealth;
+            Health.DefenceChanged -= UpdateDefence;
             //_health.Died -= OnPlayerDie;
             _dragController.GuardPlaced -= OnGuardPlaced;
         }

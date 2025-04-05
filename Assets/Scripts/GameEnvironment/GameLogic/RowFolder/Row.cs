@@ -9,12 +9,30 @@ namespace GameEnvironment.GameLogic.RowFolder
         [SerializeField] private RowType _rowType;
         [SerializeField] private List<RowCardSlot> _guardSlots;
 
+        private BoxCollider2D _collider;
         public List<RowCardSlot> GuardSlots => _guardSlots;
 
         private void Start()
         {
+            _collider = GetComponent<BoxCollider2D>();
         }
 
+        public void Activate()
+        {
+            _collider.enabled = true;
+
+            foreach (var slot in _guardSlots) 
+                slot.Collider2D.enabled = true;
+        }
+
+        public void Disactivate()
+        {
+            _collider.enabled = false;
+
+            foreach (var slot in _guardSlots) 
+                slot.Collider2D.enabled = false;
+        }
+        
         public bool CheckRowMatch(Unit guard)
         {
             if (guard.RowType == _rowType || guard.RowType == RowType.Generic)
@@ -24,11 +42,14 @@ namespace GameEnvironment.GameLogic.RowFolder
             return false;
         }
 
-        public RectTransform GetFreeSlot(int slotIndex)
+        public RectTransform GetFreeSlot()
         {
-            if (_guardSlots[slotIndex].GetComponentInChildren<EnemyGuard>() == null)
+            for (int i = 0; i < _guardSlots.Count; i++)
             {
-                return _guardSlots[slotIndex].GetComponent<RectTransform>();
+                if (_guardSlots[i].GetComponentInChildren<EnemyGuard>() == null)
+                {
+                    return _guardSlots[i].GetComponent<RectTransform>();
+                }
             }
 
             return null;

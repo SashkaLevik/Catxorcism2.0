@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Data;
-using GameEnvironment.GameLogic.RowFolder;
 using GameEnvironment.UI;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,8 +9,6 @@ namespace GameEnvironment.GameLogic.CardFolder
 {
     public class Guard : Unit
     {
-        //[SerializeField] private RowType _rowType;
-        [SerializeField] private LayerMask _guardTrigger;
         [SerializeField] private SuitType _suit;
         [SerializeField] private CardData _guardUpgrade;
         [SerializeField] private Image _suitSprite;
@@ -19,25 +16,21 @@ namespace GameEnvironment.GameLogic.CardFolder
         [SerializeField] private Enemy _enemy;
         [SerializeField] private List<SkillCard> _skillCards;
 
-        private int _slotIndex;
-        private Row _row;
-        private int _actionPoints;
         private bool _isTired = false;
         private bool _isOnField = false;
         private ActionPointsViewer _APViewer;
         private DragController _dragController;
+        private BattleHud _battleHud;
         private EnemyGuard _enemyGuard;
-
+        
         public bool IsOnField => _isOnField;
 
-        public int ActionPoints => _actionPoints;
+        public int ActionPoints { get; private set; }
 
         public Enemy Enemy => _enemy;
 
-        public EnemyGuard EnemyGuard => _enemyGuard;
-
         public CardData GuardUpgrade => _guardUpgrade;
-        
+
         public List<SkillCard> SkillCards => _skillCards;
 
         public event UnityAction<Guard> OnGuardPressed;
@@ -47,9 +40,9 @@ namespace GameEnvironment.GameLogic.CardFolder
         protected override void Start()
         {
             base.Start();
-            _actionPoints = _cardData.ActionPoints;
+            ActionPoints = _cardData.ActionPoints;
             _APViewer = GetComponent<ActionPointsViewer>();
-            _health.Died += OnGuardDie;
+            Health.Died += OnGuardDie;
         }
 
         private void OnEnable()
@@ -60,55 +53,45 @@ namespace GameEnvironment.GameLogic.CardFolder
         public void AddOnField() => 
             _isOnField = true;
 
-        public void InitRow(Row row, int index, DragController dragController)
-        {
-            _row = row;
-            _slotIndex = index;
-            _dragController = dragController;
-            _dragController.SkillPlayed += OnSkillPlayed;
-        }
-
         public void InitEnemy(Enemy enemy) =>
             _enemy = enemy;
 
-        public EnemyGuard TryGetEnemy(Row row)
-        {
-            if (row.GuardSlots[_slotIndex].GetComponentInChildren<EnemyGuard>() != null)
-            {
-                _enemyGuard = row.GuardSlots[_slotIndex].GetComponentInChildren<EnemyGuard>();
-                return _enemyGuard;
-            }
+        public void Init(DragController dragController) => 
+            _dragController = dragController;
 
-            return null;
+        public void TryGetEnemy(BattleHud battleHud)
+        {
+            if (GetEnemy(battleHud.EnemyFrontRow)){}
+            else if (GetEnemy(battleHud.EnemyBackRow)){}
+            else
+                _currentEnemy = _enemy;
         }
 
         public void ResetAP()
         {
-            _actionPoints = _cardData.ActionPoints;
+            ActionPoints = _cardData.ActionPoints;
             _APViewer.ResetAP();
         }
 
         protected override void OnMouseEnter()
         {
             base.OnMouseEnter();
+
             if (_isOnField && _dragController.CurrentSkill != null)
             {
                 if (_dragController.CurrentSkill.Type == SkillType.Attack)
-                {
                     OnSkillEnter(_dragController.CurrentSkill.AppliedValue);
-                }
             }
         }
 
         protected override void OnMouseExit()
         {
             base.OnMouseExit();
+
             if (_isOnField && _dragController.CurrentSkill != null)
             {
-                if (_dragController.CurrentSkill.Type == SkillType.Attack)
-                {
-                    OnSkillExit(_dragController.CurrentSkill.AppliedValue);
-                }
+                if (_dragController.CurrentSkill.Type == SkillType.Attack) 
+                    OnSkillExit();
             }
         }
 
@@ -124,40 +107,51 @@ namespace GameEnvironment.GameLogic.CardFolder
             gameObject.layer = Layer.UI;
         }
 
-        private void OnSkillPlayed(SkillCard skill)
+        public void OnSkillPlayed(SkillCard skill)
         {
-            _actionPoints -= skill.RequiredAP;
+            ActionPoints -= skill.RequiredAP;
             APChanged?.Invoke(skill.RequiredAP);
 
-            if (_actionPoints < 0)
+            if (ActionPoints < 0)
             {
+                ActionPoints = 0;
                 _isTired = true;
-                _actionPoints = 0;
             }
 
-            if (skill.Type == SkillType.Attack)
-            {
-                OnSkillExit(skill.AppliedValue);
-            }
+            if (skill.Type == SkillType.Attack) 
+                OnSkillExit();
         }
 
         private void OnSkillEnter(int value)
         {
-            _damage += value;
+            _damage = _defaultDamage;
+            
+            switch (CurrentEnemy.IsMarked)
+            {
+                case false when IsCursed:
+                    _damage += value / 2;
+                    break;
+                case true when IsCursed:
+                    _damage += value;
+                    break;
+                case true:
+                    _damage += value * 2;
+                    break;
+                default:
+                    _damage += value;
+                    break;
+            }
+
             _damageAmount.text = _damage.ToString();
         }
 
-        private void OnSkillExit(int value)
-        {
-            _damage -= value;
-            _damageAmount.text = _damage.ToString();
-        }
+        private void OnSkillExit() => 
+            _damageAmount.text = _defaultDamage.ToString();
 
-        private void OnGuardDie()
+        private void OnGuardDie(Unit unit)
         {
             _isOnField = false;
-            _row.GuardSlots[_slotIndex].Activate();
-            _dragController.SkillPlayed -= OnSkillPlayed;
+            //_row.GuardSlots[_slotIndex].Activate();
         }
         
         private void PassGuard()

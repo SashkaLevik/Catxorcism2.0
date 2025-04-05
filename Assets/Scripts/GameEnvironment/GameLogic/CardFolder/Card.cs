@@ -36,12 +36,16 @@ namespace GameEnvironment.GameLogic.CardFolder
         public virtual void Activate()
         {
             _isInHand = true;
+            _collider.enabled = true;
         }
 
         public virtual void Disactivate()
         {
             _isInHand = false;
         }
+
+        public void DisableCollider() => 
+            _collider.enabled = false;
 
         public void Flip() => 
             StartCoroutine(Rotate());
@@ -95,7 +99,7 @@ namespace GameEnvironment.GameLogic.CardFolder
             
             if (!_isFacedUp)
             {
-                for (float i = 0; i < 180; i += 10)
+                for (float i = 0; i < 190; i += 10)
                 {
                     transform.rotation = Quaternion.Euler(0,i,0);
                     if (i == 90) 

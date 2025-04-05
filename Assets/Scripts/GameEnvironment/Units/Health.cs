@@ -12,10 +12,11 @@ namespace GameEnvironment.Units
         private int _maxHealth;
         private int _defence;
         private int _defendingDamage;
+        private float _animationDelay = 0.2f;
         protected bool _isDefending;
         private Unit _unit;
 
-        public event UnityAction Died;
+        public event UnityAction<Unit> Died;
         public event UnityAction<int> HealthChanged;
         public event UnityAction<int> DefenceChanged;
 
@@ -70,6 +71,17 @@ namespace GameEnvironment.Units
             if (CurrentHP <= 0) Die();
         }
 
+        public void TakeDirectDamage(int damage)
+        {
+            CurrentHP -= damage;
+
+            if (CurrentHP < 0) CurrentHP = 0;
+            if (CurrentHP <= 0) Die();
+        }
+
+        public void BreakDefence() => 
+            Defence = 0;
+
         public void Heal(int value)
         {
             CurrentHP += value;
@@ -94,8 +106,8 @@ namespace GameEnvironment.Units
 
         protected virtual void Die()
         {
-            Died?.Invoke();            
-            Destroy(gameObject, 0.2f);
+            Died?.Invoke(_unit);   
+            Destroy(gameObject, _animationDelay);
         }
     }
 }

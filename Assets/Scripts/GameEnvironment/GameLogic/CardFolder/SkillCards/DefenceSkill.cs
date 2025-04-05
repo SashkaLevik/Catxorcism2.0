@@ -4,10 +4,12 @@ namespace GameEnvironment.GameLogic.CardFolder.SkillCards
 {
     public class DefenceSkill : SkillCard
     {
-        public override void UseOnGuard(Guard guard)
+        public override void UseSkill(Unit unit)
         {
-            guard.GetComponent<Health>().RiseDefence(_appliedValue);
-            //guard.OnSkillUsed(_requiredAP);
+            unit.GetSkillEffect(_appliedValue, this);
+            
+            if (unit.GetComponent<Guard>()) 
+                unit.GetComponent<Guard>().OnSkillPlayed(this);
         }
     }
 }

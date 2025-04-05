@@ -36,11 +36,13 @@ namespace GameEnvironment.UI
         {
             foreach (var image in _apImages) 
                 image.sprite = _fullSprite;
+
+            _requiredAP = 0;
         }
         
         private void UpdateAP(int requiredAP)
         {
-            _requiredAP = requiredAP;
+            _requiredAP += requiredAP;
             
             if (_requiredAP > _apImages.Count) 
                 _requiredAP = _apImages.Count;

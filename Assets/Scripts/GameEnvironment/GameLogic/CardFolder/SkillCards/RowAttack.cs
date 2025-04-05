@@ -4,31 +4,25 @@ namespace GameEnvironment.GameLogic.CardFolder.SkillCards
 {
     public class RowAttack : SkillCard
     {
-        public override void UseOnGuard(Guard guard)
+        public override void UseSkill(Unit unit)
         {
-            //guard.OnSkillUsed(_requiredAP);
-            if (guard.TryGetEnemy(_battleHud.EnemyFrontRow))
+            if (unit.CurrentEnemy != null && unit.CurrentEnemy.UnitRow == null)
             {
-                foreach (var slot in _battleHud.EnemyFrontRow.GuardSlots)
+                unit.CurrentEnemy.Health.TakeDamage(unit.Damage);
+            }
+            else if (unit.CurrentEnemy != null && unit.UnitRow != null)
+            {
+                foreach (var slot in unit.CurrentEnemy.UnitRow.GuardSlots)
                 {
-                    if (slot.GetComponentInChildren<EnemyGuard>() != null)
+                    if (slot.GetComponentInChildren<Unit>() != null)
                     {
-                        slot.GetComponentInChildren<EnemyGuard>().GetComponent<Health>().TakeDamage(guard.Damage);
+                        slot.GetComponentInChildren<Unit>().Health.TakeDamage(unit.Damage);
                     }
                 }
             }
-            else if (guard.TryGetEnemy(_battleHud.EnemyBackRow))
-            {
-                foreach (var slot in _battleHud.EnemyBackRow.GuardSlots)
-                {
-                    if (slot.GetComponentInChildren<EnemyGuard>() != null)
-                    {
-                        slot.GetComponentInChildren<EnemyGuard>().GetComponent<Health>().TakeDamage(guard.Damage);
-                    }
-                }
-            }
-            else
-                guard.Enemy.GetComponent<Health>().TakeDamage(guard.Damage);
+            
+            if (unit.GetComponent<Guard>()) 
+                unit.GetComponent<Guard>().OnSkillPlayed(this);
         }
     }
 }

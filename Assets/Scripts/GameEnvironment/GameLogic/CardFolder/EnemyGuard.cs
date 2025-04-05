@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Data;
 using GameEnvironment.GameLogic.RowFolder;
+using GameEnvironment.UI;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,34 +10,49 @@ namespace GameEnvironment.GameLogic.CardFolder
 {
     public class EnemyGuard : Unit
     {
-        [SerializeField] private Image _intention;
+        [SerializeField] private EnemySkillView _skillView;
         [SerializeField] private SuitType _suit;
-        [SerializeField] private List<SkillData> _skillDatas;
+        [SerializeField] private TMP_Text _valueAmount;
+        [SerializeField] private List<SkillCard> _skills;
 
-        private int _slotIndex;
+        //private int _slotIndex;
         private Player _player;
-        private Row _row;
-        
+        private SkillCard _currentSkill;
+
+        public Player Player => _player;
+
         protected override void Start()
         {
             base.Start();
-            //PrepareSkill();
+            PrepareSkill();
         }
 
         public void InitPlayer(Player player) => 
             _player = player;
-        
-        public void InitRow(Row row, int index)
+
+        public void TryGetEnemy(BattleHud battleHud)
         {
-            _row = row;
-            _slotIndex = index;
+            if (GetEnemy(battleHud.PlayerFrontRow)){}
+            else if (GetEnemy(battleHud.PlayerBackRow)){}
+            else
+                _currentEnemy = _player;
         }
 
-        private void PrepareSkill()
+        public void UsePreparedSkill()
         {
-            int randomSkill = Random.Range(0, _skillDatas.Count);
+            _currentSkill.UseSkill(this);
+            _skillView.HideSkill();
+        }
+        
+        public void PrepareSkill()
+        {
+            int randomSkill = Random.Range(0, _skills.Count);
+            _currentSkill = _skills[randomSkill];
+            _skillView.InitSkill(_currentSkill);
+            _valueAmount.text = _skills[randomSkill].AppliedValue.ToString();
 
-            _intention.sprite = _skillDatas[randomSkill]._skillIcon;
+            if (_currentSkill.Type == SkillType.Attack) 
+                _damage = _currentSkill.AppliedValue;
         }
     }
 }

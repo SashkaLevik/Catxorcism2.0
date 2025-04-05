@@ -11,7 +11,7 @@ namespace GameEnvironment.Units
         int Defence { get; set; }
 
         void TakeDamage(int damage);
-        //void TakeDirectDamage(float damage);
+        void TakeDirectDamage(int damage);
         //void BreakeDefence(float value);
     }
 }

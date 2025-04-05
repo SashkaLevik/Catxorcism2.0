@@ -52,6 +52,10 @@ namespace GameEnvironment.UI
 
         public RectTransform EnemySpawnPoint => _enemySpawnPoint;
 
+        public Row PlayerFrontRow => _playerFrontRow;
+
+        public Row PlayerBackRow => _playerBackRow;
+
         public Row EnemyFrontRow => _enemyFrontRow;
 
         public Row EnemyBackRow => _enemyBackRow;
@@ -106,7 +110,7 @@ namespace GameEnvironment.UI
             _enemyBackDice = Instantiate(_dicePrefab, _enemyBackDicePos, Quaternion.identity);
         }
 
-        private void OnPlayerDie()
+        private void OnPlayerDie(Unit unit)
         {
             _dieWindow.gameObject.SetActive(true);
             _player.GetComponent<Health>().Died -= OnPlayerDie;

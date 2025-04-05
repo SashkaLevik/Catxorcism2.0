@@ -17,7 +17,7 @@ namespace GameEnvironment.UI
         [SerializeField] private LayerMask _cardSlotLayer;
         [SerializeField] private LayerMask _guardTrigger;
         [SerializeField] private Warning _warning;
-        
+
         private int _slotIndex;
         private Player _player;
         private Card _currentCard;
@@ -31,7 +31,6 @@ namespace GameEnvironment.UI
         public SkillCard CurrentSkill => _currentSkill;
 
         public event UnityAction<Guard> GuardPlaced;
-        public event UnityAction<SkillCard> SkillPlayed; 
 
         private void Start()
         {
@@ -62,9 +61,7 @@ namespace GameEnvironment.UI
                                 _warning.Show(_warning.NoAP);
                                 return;
                             }
-                            
-                            _currentSkill.UseOnGuard(guard);
-                            SkillPlayed?.Invoke(_currentSkill);
+                            _currentSkill.UseSkill(guard);
                             _currentSkill.HideArrow();
                             _deckCreator.DiscardPlayedSkill(_currentSkill);
                             _currentSkill = null;
@@ -103,6 +100,8 @@ namespace GameEnvironment.UI
                     if (hit.transform.TryGetComponent(out Card card))
                     {
                         _currentCard = card;
+                        _battleHud.PlayerFrontRow.Activate();
+                        _battleHud.PlayerBackRow.Activate();
                     }
                 }
             }
@@ -178,11 +177,14 @@ namespace GameEnvironment.UI
                     _currentCard.transform.SetParent(cardSlot.transform, true);
                     _slotIndex = row.GuardSlots.IndexOf(cardSlot);
                     Guard guard = _currentCard.GetComponent<Guard>();
-                    guard.InitRow(row, _slotIndex, this);
+                    guard.InitRow(row, _slotIndex);
                     guard.InitEnemy(_enemySpawner.SpawnedEnemy);
+                    guard.Init(this);
                     GuardPlaced?.Invoke(guard);
                     guard.AddOnField();
-                    cardSlot.Disactivate();
+                    guard.TryGetEnemy(_battleHud);
+                    _battleHud.PlayerFrontRow.Disactivate();
+                    _battleHud.PlayerBackRow.Disactivate();
                     _deckCreator.UpdateHandVisual();
                     _currentCard.Disactivate();
                     _currentCard = null;

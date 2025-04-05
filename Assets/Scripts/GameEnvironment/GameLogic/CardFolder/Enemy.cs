@@ -1,10 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using GameEnvironment.GameLogic.RowFolder;
+﻿using System.Collections.Generic;
 using GameEnvironment.UI;
-using GameEnvironment.Units;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace GameEnvironment.GameLogic.CardFolder
 {
@@ -26,12 +22,11 @@ namespace GameEnvironment.GameLogic.CardFolder
         {
             base.Start();
             _leadership = _cardData.ActionPoints;
-            Debug.Log("enemyGetLeadership");
         }
 
         private void OnDestroy()
         {
-            _health.HealthChanged -= UpdateHealth;
+            Health.HealthChanged -= UpdateHealth;
         }
 
         public void InitBattle(BattleHud battleHud, Player player)
