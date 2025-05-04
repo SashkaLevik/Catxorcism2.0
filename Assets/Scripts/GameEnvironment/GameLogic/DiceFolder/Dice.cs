@@ -8,10 +8,10 @@ namespace GameEnvironment.GameLogic.DiceFolder
 {
     public class Dice : MonoBehaviour
     {
-        [SerializeField] private Transform[] _checkSides;
         [SerializeField] private float _throwForce;
         [SerializeField] private float _minRollValue;
         [SerializeField] private float _maxRollValue;
+        //[SerializeField] private DiceFaceData _faceData;
         [SerializeField] private List<DiceFaceData> _faceDatas;
         [SerializeField] private List<DiceFace> _faces;
 
@@ -20,6 +20,7 @@ namespace GameEnvironment.GameLogic.DiceFolder
         private Rigidbody _rigidbody;
         private Vector3 _startPosition;
 
+        //public DiceFaceData FaceData => _faceData;
         public bool IsRolling => _isRolling;
         public List<DiceFace> Faces => _faces;
 
@@ -30,6 +31,7 @@ namespace GameEnvironment.GameLogic.DiceFolder
             _rigidbody = GetComponent<Rigidbody>();
             _rigidbody.isKinematic = true;
             _startPosition = transform.position;
+            InitFaces();
         }       
 
         public void InitFaces()
@@ -71,9 +73,9 @@ namespace GameEnvironment.GameLogic.DiceFolder
             yield return new WaitForSeconds(0.2f);
             yield return new WaitUntil(()=> _rigidbody.velocity.magnitude == 0);
             GetDiceFace();
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.1f);
             _isRolling = false;
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.2f);
             _rigidbody.isKinematic = true;
             transform.position = _startPosition;
         }        
@@ -92,7 +94,6 @@ namespace GameEnvironment.GameLogic.DiceFolder
                 }
             }
 
-            Debug.Log(_topFace.SuitType);
             OnDiceResult?.Invoke(_topFace);
         }
         

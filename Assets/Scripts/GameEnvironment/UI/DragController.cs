@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using GameEnvironment.GameLogic;
 using GameEnvironment.GameLogic.CardFolder;
+using GameEnvironment.GameLogic.CardFolder.SkillCards;
 using GameEnvironment.GameLogic.RowFolder;
 using UnityEngine;
 using UnityEngine.Events;
@@ -27,7 +29,7 @@ namespace GameEnvironment.UI
         private Canvas _canvas;
         private Camera _camera;
         private Vector3 _worldPosition;
-        
+
         public SkillCard CurrentSkill => _currentSkill;
 
         public event UnityAction<Guard> GuardPlaced;
@@ -52,6 +54,22 @@ namespace GameEnvironment.UI
 
                 if (hit.collider != null)
                 {
+                    if (hit.transform.TryGetComponent(out SkillCard skillCard))
+                    {
+                        if (_currentSkill == null)
+                        {
+                            _currentSkill = skillCard;
+                            _currentSkill.ShowArrow();
+                        }
+                        else
+                        {
+                            _previousSkill = _currentSkill;
+                            _previousSkill.HideArrow();
+                            _currentSkill = skillCard;
+                            _currentSkill.ShowArrow();
+                        }
+                    }
+                    
                     if (hit.transform.TryGetComponent(out Guard guard) && _currentSkill != null)
                     {
                         if (guard.IsOnField)
@@ -72,20 +90,11 @@ namespace GameEnvironment.UI
                             _currentSkill = null;
                         }
                     }
-                    
-                    if (hit.transform.TryGetComponent(out SkillCard skillCard))
+                    else if (hit.transform.TryGetComponent(out MiddleRow middleRow) && _currentSkill != null)
                     {
-                        if (_currentSkill == null)
+                        if (_currentSkill.GetComponent<ObstacleSkill>())
                         {
-                            _currentSkill = skillCard;
-                            _currentSkill.ShowArrow();
-                        }
-                        else
-                        {
-                            _previousSkill = _currentSkill;
-                            _previousSkill.HideArrow();
-                            _currentSkill = skillCard;
-                            _currentSkill.ShowArrow();
+                            TryPlaceObstacle(middleRow);
                         }
                     }
                 }
@@ -123,10 +132,12 @@ namespace GameEnvironment.UI
                             TryPlaceGuard(row);
                             break;
                         }
+                        else
+                            _warning.Show(_warning.WrongRowType);
                     }
                 }
                 
-                ReturnOnTable();
+                ReturnInHand();
             }
 
             if (Input.GetMouseButtonDown(1))
@@ -145,7 +156,7 @@ namespace GameEnvironment.UI
             }
         }
 
-        private void ReturnOnTable()
+        private void ReturnInHand()
         {
             if (_currentCard != null)
             {
@@ -154,6 +165,8 @@ namespace GameEnvironment.UI
                 _currentCard.SetDefaultScale();
                 _deckCreator.UpdateHandVisual();
                 _currentCard = null;
+                _battleHud.PlayerFrontRow.Disactivate();
+                _battleHud.PlayerBackRow.Disactivate();
             }
         }
         
@@ -170,25 +183,49 @@ namespace GameEnvironment.UI
                     break;
                 }
                 
-                if (hit.collider.TryGetComponent(out RowCardSlot cardSlot))
+                if (hit.collider.TryGetComponent(out RowCardSlot cardSlot) && cardSlot.IsFree)
                 {
+                    Guard guard = _currentCard.GetComponent<Guard>();
+                    guard.Construct(_battleHud, row, cardSlot);
+                    guard.InitEnemy(_enemySpawner.SpawnedEnemy);
+                    guard.Construct(this, _deckCreator);
                     _currentCard.SetDefaultScale();
                     _currentCard.transform.position = cardSlot.transform.position;
                     _currentCard.transform.SetParent(cardSlot.transform, true);
-                    _slotIndex = row.GuardSlots.IndexOf(cardSlot);
-                    Guard guard = _currentCard.GetComponent<Guard>();
-                    guard.InitRow(row, _slotIndex);
-                    guard.InitEnemy(_enemySpawner.SpawnedEnemy);
-                    guard.Init(this);
+                    cardSlot.Occupy();
                     GuardPlaced?.Invoke(guard);
                     guard.AddOnField();
                     guard.TryGetEnemy(_battleHud);
+                    //guard.CheckSuitMatch(row);
                     _battleHud.PlayerFrontRow.Disactivate();
                     _battleHud.PlayerBackRow.Disactivate();
                     _deckCreator.UpdateHandVisual();
                     _currentCard.Disactivate();
                     _currentCard = null;
                 }
+                else
+                    _warning.Show(_warning.OccupiedSlot);
+            }
+        }
+
+        private void TryPlaceObstacle(MiddleRow row)
+        {
+            Vector2 clickPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D[] hitInfo = Physics2D.RaycastAll(clickPosition, Vector2.zero, Single.PositiveInfinity, _cardSlotLayer);
+
+            foreach (var hit in hitInfo)
+            {
+                if (hit.collider.TryGetComponent(out RowCardSlot cardSlot) && cardSlot.IsFree)
+                {
+                    _currentSkill.GetComponent<ObstacleSkill>().UseObstacleSkill(row, cardSlot);
+                    _deckCreator.RemoveObstacleSkill(_currentSkill.GetComponent<ObstacleSkill>());
+                    _battleHud.PlayerFrontRow.Disactivate();
+                    _battleHud.PlayerBackRow.Disactivate();
+                    _deckCreator.UpdateHandVisual();
+                    _currentSkill = null;
+                }
+                else
+                    _warning.Show(_warning.OccupiedSlot);
             }
         }
     }

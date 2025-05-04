@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Hearts
   m_EditorClassIdentifier: 
   SuitType: 2
+  SuitImage: {fileID: 21300000, guid: 1593f82638903f1428639f5821643802, type: 3}
   Material: {fileID: 2100000, guid: 2a55b79446b8a5640919beb444402e46, type: 2}

@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Empty
   m_EditorClassIdentifier: 
   SuitType: 1
+  SuitImage: {fileID: 21300000, guid: 2b6c9897d4cc7354b8138ef85bf99af4, type: 3}
   Material: {fileID: 2100000, guid: d361e1c96e2d9ca4ba40d2e39cd5c53c, type: 2}

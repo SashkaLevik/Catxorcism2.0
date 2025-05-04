@@ -72,7 +72,7 @@ namespace GameEnvironment.GameLogic
             _spawnedEnemy = Instantiate(_randomEnemy, at.transform);
             _spawnedEnemy.InitBattle(_battleHud, _battleHud.Player);
             _enemyGuards = _spawnedEnemy.Guards.ToList();
-            yield return new WaitForSeconds(1.3f);
+            yield return new WaitForSeconds(0.2f);
             yield return StartCoroutine(SpawnGuards(_enemyFrontRow));
             yield return StartCoroutine(SpawnGuards(_enemyBackRow));
         }
@@ -83,17 +83,16 @@ namespace GameEnvironment.GameLogic
             {
                 if (row.CheckRowMatch(guard) && row.GetFreeSlot())
                 {
-                    RowCardSlot cardSlot = row.GetFreeSlot().GetComponent<RowCardSlot>();
-                    int index = row.GuardSlots.IndexOf(cardSlot);
+                    RowCardSlot cardSlot = row.GetFreeSlot();
+                    cardSlot.Occupy();
                     _currentGuard = Instantiate(guard, _battleHud.EnemySpawnPoint);
                     _currentGuard.Health.Died += OnGuardDie;
-                    _guardSlot = row.GetFreeSlot();
-                    _currentGuard.InitRow(row, index);
+                    _currentGuard.Construct(_battleHud, row, cardSlot);
                     _currentGuard.InitPlayer(_battleHud.Player);
                     _currentGuard.TryGetEnemy(_battleHud);
                     _spawnedGuards.Add(_currentGuard);
                     yield return new WaitForSeconds(0.1f);
-                    StartCoroutine(Move(_currentGuard, _guardSlot));
+                    StartCoroutine(Move(_currentGuard, cardSlot.SlotPosition));
                     yield return new WaitForSeconds(0.2f);
                 }
             }
@@ -101,11 +100,11 @@ namespace GameEnvironment.GameLogic
 
         private void OnGuardDie(Unit unit)
         {
+            unit.CardSlot.Clear();
             unit.Health.Died -= OnGuardDie;
-            _spawnedGuards.Remove(unit.GetComponent<EnemyGuard>());
             _deckCreator.RefreshEnemies();
         }
-
+        
         private T GetRandomEnemy<T>(EnemyStageID type) where T : Enemy
         {
             return (T)_enemies.Where(e => e.EnemyStageID == type).OrderBy(o => Random.value).First().GetRandomPrefab();

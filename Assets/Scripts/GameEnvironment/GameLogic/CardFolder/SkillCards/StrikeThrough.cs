@@ -1,5 +1,6 @@
 ﻿using GameEnvironment.GameLogic.RowFolder;
 using GameEnvironment.Units;
+using UnityEngine;
 
 namespace GameEnvironment.GameLogic.CardFolder.SkillCards
 {
@@ -36,10 +37,10 @@ namespace GameEnvironment.GameLogic.CardFolder.SkillCards
                 }
                 
                 if (firstTarget != null) 
-                    firstTarget.Health.TakeDamage(unit.Damage);
+                    firstTarget.Health.TakeDamage(unit.CurrentDamage);
 
                 if (secondTarget != null) 
-                    secondTarget.Health.TakeDamage(unit.Damage / 2);
+                    secondTarget.Health.TakeDamage(unit.CurrentDamage / 2);
             }
             else if (unit.GetComponent<EnemyGuard>())
             {
@@ -68,10 +69,10 @@ namespace GameEnvironment.GameLogic.CardFolder.SkillCards
                 }
                 
                 if (firstTarget != null) 
-                    firstTarget.Health.TakeDamage(unit.Damage);
+                    firstTarget.Health.TakeDamage(unit.CurrentDamage);
 
                 if (secondTarget != null) 
-                    secondTarget.Health.TakeDamage(unit.Damage / 2);
+                    secondTarget.Health.TakeDamage(unit.CurrentDamage / 2);
             }
             
             
@@ -84,6 +85,7 @@ namespace GameEnvironment.GameLogic.CardFolder.SkillCards
             if (row.GuardSlots[_currentUnit.SlotIndex].GetComponentInChildren<Unit>() != null)
             {
                 var target = row.GuardSlots[_currentUnit.SlotIndex].GetComponentInChildren<Unit>();
+                
                 return target;
             }
 

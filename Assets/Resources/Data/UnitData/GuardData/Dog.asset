@@ -19,7 +19,7 @@ MonoBehaviour:
     \u0438\u043C\u0435\u0435\u0442 \u0441\u0440\u0435\u0434\u043D\u0438\u0435 \u0437\u0434\u043E\u0440\u043E\u0432\u044C\u0435
     \u0438 \u0430\u0442\u0430\u043A\u0443"
   EnDescription: A cheap guardian has average health and attack
-  Damage: 3
+  Damage: 2
   Health: 5
   ActionPoints: 3
   SummonPrice: 8

@@ -764,6 +764,7 @@ GameObject:
   - component: {fileID: 558861363929623635}
   - component: {fileID: 1269577026707093925}
   - component: {fileID: 8938089552752471379}
+  - component: {fileID: 7998857361684542883}
   - component: {fileID: 2242438288830863590}
   - component: {fileID: 586586648538115554}
   - component: {fileID: 405539238769888713}
@@ -853,6 +854,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _backSprite: {fileID: 5928831357742263328}
   _effectsReceiver: {fileID: 558861363929623635}
+  _suit: 5
   _rowType: 1
   _cardData: {fileID: 11400000, guid: ce2477bf83dc1b34cb97205f40900e14, type: 2}
   _healthAmount: {fileID: 2225280604786257574}
@@ -860,11 +862,11 @@ MonoBehaviour:
   _damageAmount: {fileID: 2225280606808530333}
   _firePos: {fileID: 0}
   _shield: {fileID: 5025399048834368622}
-  _suit: 5
   _guardUpgrade: {fileID: 11400000, guid: 8b588d5e8abd25742893bdd95b737abd, type: 2}
   _suitSprite: {fileID: 6245271808282462192}
   _guardButton: {fileID: 2242438288830863590}
   _enemy: {fileID: 0}
+  _buffCard: {fileID: 1894481779856156264, guid: 0ed30f1a634635b4d8d9e92902df5190, type: 3}
   _skillCards:
   - {fileID: 1894481779856156264, guid: f43a56d7e9d383f4fbb15e83e1bf9ece, type: 3}
 --- !u!114 &558861363929623635
@@ -913,6 +915,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6795faf56678d3b4994e1b10eafd053c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7998857361684542883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2225280606753027236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd8e1ad5ede948589b0b187565b20f8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buffIcon: {fileID: 0}
+  _buffImage: {fileID: 0}
 --- !u!114 &2242438288830863590
 MonoBehaviour:
   m_ObjectHideFlags: 0

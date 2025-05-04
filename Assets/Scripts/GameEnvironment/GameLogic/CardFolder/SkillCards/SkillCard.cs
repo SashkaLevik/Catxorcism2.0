@@ -1,24 +1,25 @@
 ﻿using System.Collections.Generic;
-using Data;
+using GameEnvironment.GameLogic.RowFolder;
 using GameEnvironment.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace GameEnvironment.GameLogic.CardFolder
+namespace GameEnvironment.GameLogic.CardFolder.SkillCards
 {
     public class SkillCard : Card
     {
+        [SerializeField] protected TMP_Text _valueAmount;
+        [SerializeField] protected int _appliedValue;
+        [SerializeField] protected int _requiredAP;
         [SerializeField] private SkillType _skillType;
         [SerializeField] private SkillEffectType _effectType;
         [SerializeField] private GameObject _arrow;
         [SerializeField] private Sprite _skillIcon;
         [SerializeField] private Sprite _effectIcon;
-        [SerializeField] private TMP_Text _valueAmount;
-        [SerializeField] protected int _appliedValue;
-        [SerializeField] protected int _requiredAP;
         [SerializeField] private List<Image> _APImages;
 
+        protected Guard _playerGuard;
         protected BattleHud _battleHud;
 
         public int AppliedValue => _appliedValue;

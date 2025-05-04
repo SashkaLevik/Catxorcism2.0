@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Data;
 using GameEnvironment.GameLogic.CardFolder;
+using GameEnvironment.GameLogic.CardFolder.SkillCards;
 using GameEnvironment.UI;
-using GameEnvironment.Units;
 using Infrastructure.Services;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -42,6 +41,8 @@ namespace GameEnvironment.GameLogic
         private List<Card> _handCards = new List<Card>();
         private List<Card> _discardCards = new List<Card>();
 
+        public Player Player => _player;
+
         public List<Card> HandCards => _handCards;
 
         public List<Guard> FieldGuards => _fieldGuards;
@@ -75,6 +76,9 @@ namespace GameEnvironment.GameLogic
         public void DrawHand() => 
             StartCoroutine(DrawHandCards());
 
+        public void DrawBuffCard(Guard guard) =>
+            StartCoroutine(CreateBuffCard(guard));
+
         public void DiscardPlayedSkill(SkillCard skillCard)
         {
             skillCard.transform.SetParent(_canvas.transform);
@@ -96,7 +100,10 @@ namespace GameEnvironment.GameLogic
                 _handCards[i].transform.localPosition = new Vector3(horizontalOffset, 0, 0);
             }
         }
-        
+
+        public void RemoveObstacleSkill(ObstacleSkill obstacleSkill) => 
+            _handCards.Remove(obstacleSkill);
+
         private void CreateDeck()
         {
             foreach (var guard in _playerGuards)
@@ -124,12 +131,13 @@ namespace GameEnvironment.GameLogic
             _enemySpawner.RefreshEnemies();
         }
 
+
         private IEnumerator CreateSkillCards(Guard guard)
         {
-            foreach (var skillCard in guard.SkillCards)
+            foreach (var skill in guard.SkillCards)
             {
                 var spawnPos = guard.GetComponentInParent<RectTransform>();
-                _currentSkill = Instantiate(skillCard, spawnPos);
+                _currentSkill = Instantiate(skill, spawnPos);
                 _currentSkill.GetCanvas(_canvas, _handPosition);
                 _currentSkill.InitHud(_battleHud);
                 yield return new WaitForSeconds(0.2f);
@@ -137,6 +145,19 @@ namespace GameEnvironment.GameLogic
                 yield return new WaitForSeconds(0.2f);
                 _currentDeck.Add(_currentSkill);
             }
+        }
+        
+        private IEnumerator CreateBuffCard(Guard guard)
+        {
+            var spawnPos = guard.GetComponentInParent<RectTransform>();
+            _currentSkill = Instantiate(guard.BuffCard, spawnPos);
+            _currentSkill.GetCanvas(_canvas, _handPosition);
+            _currentSkill.InitHud(_battleHud);
+            yield return new WaitForSeconds(0.2f);
+            Move(_currentSkill, _deckSpawnPos);
+            yield return new WaitForSeconds(0.2f);
+            _currentDeck.Add(_currentSkill);
+            yield return null;
         }
 
         private IEnumerator DrawHandCards()
@@ -204,7 +225,7 @@ namespace GameEnvironment.GameLogic
             }
         }
 
-        private void Move(Card card, RectTransform newPos)
+        public void Move(Card card, RectTransform newPos)
         {
             StartCoroutine(MoveCards(card, newPos));
         }

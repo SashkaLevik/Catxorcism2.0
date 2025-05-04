@@ -6,7 +6,7 @@ namespace GameEnvironment.GameLogic.CardFolder.SkillCards
     {
         public override void UseSkill(Unit unit)
         {
-            unit.GetSkillEffect(_appliedValue, this);
+            unit.OnAttackSkill(_appliedValue, this);
             
             if (unit.GetComponent<Guard>()) 
                 unit.GetComponent<Guard>().OnSkillPlayed(this);

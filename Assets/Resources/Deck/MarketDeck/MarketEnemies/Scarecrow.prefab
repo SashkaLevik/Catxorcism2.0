@@ -1551,6 +1551,7 @@ GameObject:
   - component: {fileID: 364272576210922031}
   - component: {fileID: 6972020234370939316}
   - component: {fileID: 5022043876717497784}
+  - component: {fileID: 2660828243106641753}
   m_Layer: 6
   m_Name: Scarecrow
   m_TagString: Untagged
@@ -1636,6 +1637,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _backSprite: {fileID: 5690143934840209551}
   _effectsReceiver: {fileID: 6705860464578383881}
+  _suit: 4
   _rowType: 3
   _cardData: {fileID: 11400000, guid: 928b9532307fe004eb45a0de4ab68f3b, type: 2}
   _healthAmount: {fileID: 6972020233574041005}
@@ -1644,7 +1646,6 @@ MonoBehaviour:
   _firePos: {fileID: 0}
   _shield: {fileID: 3955840193014985492}
   _skillView: {fileID: 6379828252049583613}
-  _suit: 4
   _valueAmount: {fileID: 6972020233517937303}
   _skills:
   - {fileID: 888913396586668258, guid: b044e701e2c0f2d4e84607135f5adfb6, type: 3}
@@ -1800,6 +1801,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2660828243106641753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6972020234370939318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20aeab1554864043bb26549b8e88958b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buffIcon: {fileID: 0}
+  _buffImage: {fileID: 0}
 --- !u!1 &6972020234532338181
 GameObject:
   m_ObjectHideFlags: 0

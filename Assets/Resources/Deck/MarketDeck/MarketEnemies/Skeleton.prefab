@@ -1672,6 +1672,7 @@ GameObject:
   - component: {fileID: 364272576210922031}
   - component: {fileID: 6972020234370939316}
   - component: {fileID: 5022043876717497784}
+  - component: {fileID: 7089210071075115044}
   m_Layer: 6
   m_Name: Skeleton
   m_TagString: Untagged
@@ -1757,6 +1758,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _backSprite: {fileID: 6438383609289657254}
   _effectsReceiver: {fileID: 5698579727120614671}
+  _suit: 2
   _rowType: 2
   _cardData: {fileID: 11400000, guid: b0717a48913fdda47b05487e6b636ee7, type: 2}
   _healthAmount: {fileID: 6972020233574041005}
@@ -1765,10 +1767,9 @@ MonoBehaviour:
   _firePos: {fileID: 0}
   _shield: {fileID: 744251433756458204}
   _skillView: {fileID: 4310083594801943316}
-  _suit: 2
   _valueAmount: {fileID: 6972020233517937303}
   _skills:
-  - {fileID: 888913396586668258, guid: 3bf31ca7de9629248bf07f2d65200ef0, type: 3}
+  - {fileID: 4641703124767886422, guid: b3b27fdc1f4f6c64291e4c67418e3509, type: 3}
 --- !u!114 &5698579727120614671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1921,6 +1922,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7089210071075115044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6972020234370939318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcc893a743e74bbf8a6598ddd05f9a8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buffIcon: {fileID: 0}
+  _buffImage: {fileID: 0}
 --- !u!1 &6972020234532338181
 GameObject:
   m_ObjectHideFlags: 0

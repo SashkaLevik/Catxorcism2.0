@@ -1,6 +1,6 @@
 ﻿using System.Collections;
+using System.Linq;
 using GameEnvironment.GameLogic.CardFolder;
-using GameEnvironment.GameLogic.DiceFolder;
 using GameEnvironment.LevelRoutMap;
 using GameEnvironment.UI;
 using UnityEngine;
@@ -23,7 +23,7 @@ namespace GameEnvironment.GameLogic
         
         private void Start()
         {
-            _startBattle.onClick.AddListener(OnBattleStart);
+            _startBattle.onClick.AddListener(StartBattle);
             _endTurn.onClick.AddListener(EnemyTurn);
             _routMap.StageButtonPressed += EnterStage;
         }
@@ -35,7 +35,7 @@ namespace GameEnvironment.GameLogic
 
         private void PlayerTurn()
         {
-            _deckCreator.DrawHand();
+            StartCoroutine(OnPlayerTurn());
         }
         
         private void EnemyTurn()
@@ -43,44 +43,71 @@ namespace GameEnvironment.GameLogic
             StartCoroutine(OnEnemyTurn());
         }
 
+        private IEnumerator OnPlayerTurn()
+        {
+            foreach (var guard in _deckCreator.FieldGuards.Where(guard => guard != null))
+                guard.EffectsReceiver.ApplyReceivedEffect();
+
+            _deckCreator.Player.EffectsReceiver.ApplyReceivedEffect();
+            yield return new WaitForSeconds(_animationDelay);
+            _deckCreator.DrawHand();
+        }
+
         private IEnumerator OnEnemyTurn()
         {
             foreach (var card in _deckCreator.HandCards) 
                 card.Disactivate();
 
-            foreach (var guard in _deckCreator.FieldGuards) 
-                guard.EffectsReceiver.ApplyReceivedEffect();
-
             yield return new WaitForSeconds(_animationDelay);
 
-            foreach (var enemyGuard in _enemySpawner.SpawnedGuards)
+            foreach (var enemyGuard in _enemySpawner.SpawnedGuards.Where(enemyGuard => enemyGuard != null))
             {
-                enemyGuard.UsePreparedSkill();
-                yield return new WaitForSeconds(_animationDelay);
                 enemyGuard.EffectsReceiver.ApplyReceivedEffect();
                 yield return new WaitForSeconds(_animationDelay);
             }
+            
+            foreach (var enemyGuard in _enemySpawner.SpawnedGuards.Where(enemyGuard => enemyGuard != null))
+            {
+                enemyGuard.UsePreparedSkill();
+                yield return new WaitForSeconds(_animationDelay);
+            }
 
-            foreach (var enemyGuard in _enemySpawner.SpawnedGuards)
+            foreach (var enemyGuard in _enemySpawner.SpawnedGuards.Where(enemyGuard => enemyGuard != null))
             {
                 enemyGuard.PrepareSkill();
                 yield return new WaitForSeconds(_animationDelay);
             }
-            
+
             PlayerTurn();
             _endTurn.interactable = true;
         }
 
         private void EnterStage()
         {
-            _battleHud.RollDices();
-            _enemySpawner.SpawnEnemy(_stageNumber);
-            _battleHud.PlayerFrontDice.OnDiceResult += PrepareForBattle;
+            //_battleHud.RollDices();
+            //StartCoroutine(OnStageEnter());
+            PrepareForBattle();
         }
 
-        private void PrepareForBattle(DiceFace arg0)
+        private IEnumerator OnBattleStart()
+        {
+            _startBattle.interactable = false;
+            _battleHud.RollDices();
+            
+            foreach (var dice in _battleHud._dices)
+                yield return new WaitWhile(() => dice.IsRolling);
+
+            yield return new WaitForSeconds(0.5f);
+            _deckCreator.DrawHand();
+            _endTurn.interactable = true;
+            //PrepareForBattle();
+        }
+        
+        private void PrepareForBattle()
         {
             _deckCreator.DrawHand();
+            _enemySpawner.SpawnEnemy(_stageNumber);
+            _startBattle.interactable = true;
         }
 
         private void CompleteStage()
@@ -89,9 +116,9 @@ namespace GameEnvironment.GameLogic
             _stageNumber++;
         }
         
-        private void OnBattleStart()
+        private void StartBattle()
         {
-            _deckCreator.DrawHand();
+            StartCoroutine(OnBattleStart());
             _startBattle.interactable = false;
             _endTurn.interactable = true;
         }

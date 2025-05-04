@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Data;
+using GameEnvironment.GameLogic.CardFolder.SkillCards;
 using GameEnvironment.UI;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,18 +10,19 @@ namespace GameEnvironment.GameLogic.CardFolder
 {
     public class Guard : Unit
     {
-        [SerializeField] private SuitType _suit;
         [SerializeField] private CardData _guardUpgrade;
         [SerializeField] private Image _suitSprite;
         [SerializeField] private Button _guardButton;
         [SerializeField] private Enemy _enemy;
+        [SerializeField] private SkillCard _buffCard;
         [SerializeField] private List<SkillCard> _skillCards;
 
-        private bool _isTired = false;
+        //private bool _isTired = false;
         private bool _isOnField = false;
         private ActionPointsViewer _APViewer;
+        private DeckCreator _deckCreator;
         private DragController _dragController;
-        private BattleHud _battleHud;
+        //private BattleHud _battleHud;
         private EnemyGuard _enemyGuard;
         
         public bool IsOnField => _isOnField;
@@ -29,7 +31,11 @@ namespace GameEnvironment.GameLogic.CardFolder
 
         public Enemy Enemy => _enemy;
 
+        public DeckCreator DeckCreator => _deckCreator;
+
         public CardData GuardUpgrade => _guardUpgrade;
+
+        public SkillCard BuffCard => _buffCard;
 
         public List<SkillCard> SkillCards => _skillCards;
 
@@ -56,8 +62,11 @@ namespace GameEnvironment.GameLogic.CardFolder
         public void InitEnemy(Enemy enemy) =>
             _enemy = enemy;
 
-        public void Init(DragController dragController) => 
+        public void Construct(DragController dragController, DeckCreator deckCreator)
+        {
             _dragController = dragController;
+            _deckCreator = deckCreator;
+        }
 
         public void TryGetEnemy(BattleHud battleHud)
         {
@@ -115,43 +124,40 @@ namespace GameEnvironment.GameLogic.CardFolder
             if (ActionPoints < 0)
             {
                 ActionPoints = 0;
-                _isTired = true;
+                //_isTired = true;
             }
 
             if (skill.Type == SkillType.Attack) 
-                OnSkillExit();
+                ResetDamage();
         }
 
         private void OnSkillEnter(int value)
         {
-            _damage = _defaultDamage;
-            
             switch (CurrentEnemy.IsMarked)
             {
                 case false when IsCursed:
-                    _damage += value / 2;
+                    CurrentDamage += value / 2;
                     break;
                 case true when IsCursed:
-                    _damage += value;
+                    CurrentDamage += value;
                     break;
                 case true:
-                    _damage += value * 2;
+                    CurrentDamage += value * 2;
                     break;
                 default:
-                    _damage += value;
+                    CurrentDamage += value;
                     break;
             }
-
-            _damageAmount.text = _damage.ToString();
         }
 
-        private void OnSkillExit() => 
-            _damageAmount.text = _defaultDamage.ToString();
+        private void OnSkillExit() =>
+            ResetDamage();
 
         private void OnGuardDie(Unit unit)
         {
             _isOnField = false;
-            //_row.GuardSlots[_slotIndex].Activate();
+            unit.CardSlot.Clear();
+            unit.Health.Died -= OnGuardDie;
         }
         
         private void PassGuard()

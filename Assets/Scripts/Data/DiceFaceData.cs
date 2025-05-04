@@ -1,5 +1,6 @@
 ﻿using GameEnvironment.GameLogic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Data
 {
@@ -7,6 +8,7 @@ namespace Data
     public class DiceFaceData : ScriptableObject
     {
         public SuitType SuitType;
+        public Sprite SuitImage;
         public Material Material;
     }
 }

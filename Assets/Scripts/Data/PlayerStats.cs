@@ -7,6 +7,7 @@ namespace Data
     [Serializable]
     public class PlayerStats
     {
+        public int Level;
         public int Leadership;
         public int HandCapacity;
         public List<Guard> PlayerGuards;
@@ -16,6 +17,7 @@ namespace Data
 
         public PlayerStats()
         {
+            Level = 1;
             Leadership = 0;
             HandCapacity = 0;
             PlayerGuards = new List<Guard>();

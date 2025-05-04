@@ -22,7 +22,7 @@ namespace GameEnvironment.Units
             if (enemy != null)
             {
                 Projectile projectile = Instantiate(_projectile, player.FirePos.transform.position, Quaternion.identity, player.FirePos);
-                projectile.Init(enemy, player.Damage);
+                projectile.Init(enemy, player.CurrentDamage);
                 projectile.Shoot();
                 _attackSound.Play();
             }            
@@ -36,8 +36,8 @@ namespace GameEnvironment.Units
             {
                 _attackSound.Play();
                 yield return StartCoroutine(Move(enemy.transform.position));
-                enemy.GetComponent<Health>().TakeDamage(player.Damage);
-                player.GetComponent<Health>().TakeDamage(enemy.Damage);
+                enemy.GetComponent<Health>().TakeDamage(player.CurrentDamage);
+                player.GetComponent<Health>().TakeDamage(enemy.CurrentDamage);
                 yield return StartCoroutine(Move(player.StartPosition));
             }
         }

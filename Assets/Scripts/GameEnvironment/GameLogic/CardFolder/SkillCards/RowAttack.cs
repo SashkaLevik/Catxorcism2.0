@@ -8,7 +8,7 @@ namespace GameEnvironment.GameLogic.CardFolder.SkillCards
         {
             if (unit.CurrentEnemy != null && unit.CurrentEnemy.UnitRow == null)
             {
-                unit.CurrentEnemy.Health.TakeDamage(unit.Damage);
+                unit.CurrentEnemy.Health.TakeDamage(unit.CurrentDamage);
             }
             else if (unit.CurrentEnemy != null && unit.UnitRow != null)
             {
@@ -16,7 +16,7 @@ namespace GameEnvironment.GameLogic.CardFolder.SkillCards
                 {
                     if (slot.GetComponentInChildren<Unit>() != null)
                     {
-                        slot.GetComponentInChildren<Unit>().Health.TakeDamage(unit.Damage);
+                        slot.GetComponentInChildren<Unit>().Health.TakeDamage(unit.CurrentDamage);
                     }
                 }
             }

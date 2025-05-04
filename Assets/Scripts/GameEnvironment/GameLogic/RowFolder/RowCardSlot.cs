@@ -6,25 +6,29 @@ namespace GameEnvironment.GameLogic.RowFolder
     public class RowCardSlot : MonoBehaviour
     {
         private Image _image;
+        private bool _isFree = true;
+
+        public bool IsFree => _isFree;
+        
+        public RectTransform SlotPosition { get; private set; }
 
         public BoxCollider2D Collider2D { get; private set; }
         
         private void Start()
         {
+            SlotPosition = GetComponent<RectTransform>();
             _image = GetComponent<Image>();
             Collider2D = GetComponent<BoxCollider2D>();
         }
 
-        public void Activate()
+        public void Occupy()
         {
-            _image.enabled = true;
-            //Collider2D.enabled = true;
+            _isFree = false;
         }
         
-        public void Disactivate()
+        public void Clear()
         {
-            _image.enabled = false;
-            //Collider2D.enabled = false;
+            _isFree = true;
         }
     }
 }

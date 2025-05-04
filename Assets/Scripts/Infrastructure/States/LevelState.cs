@@ -3,7 +3,6 @@ using GameEnvironment.GameLogic;
 using GameEnvironment.GameLogic.CardFolder;
 using GameEnvironment.LevelRoutMap;
 using GameEnvironment.UI;
-using GameEnvironment.Units;
 using Infrastructure.Factory;
 using Infrastructure.GameManegment;
 using Infrastructure.Services;
@@ -72,6 +71,9 @@ namespace Infrastructure.States
             deckCreator.Construct(player.GetComponent<Player>());
             player.Construct(dragController);
             dragController.Construct(player);
+
+            foreach (var skill in player.PlayerSkills) 
+                skill.Construct(hud, deckCreator);
         }      
 
         private void InformProgressReaders()

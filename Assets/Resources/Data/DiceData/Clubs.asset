@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Clubs
   m_EditorClassIdentifier: 
   SuitType: 5
+  SuitImage: {fileID: 21300000, guid: 6f65b822d9a9ea846a8a0a7788ba2edc, type: 3}
   Material: {fileID: 2100000, guid: b405ea7a8c1d007429d723e8ba88f215, type: 2}

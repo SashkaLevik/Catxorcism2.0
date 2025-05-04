@@ -15,18 +15,7 @@ namespace GameEnvironment.Units
         private float _animationDelay = 0.2f;
         protected bool _isDefending;
         private Unit _unit;
-
-        public event UnityAction<Unit> Died;
-        public event UnityAction<int> HealthChanged;
-        public event UnityAction<int> DefenceChanged;
-
-        private void Start()
-        {
-            _unit = GetComponent<Unit>();
-            CurrentHP = _unit.CardData.Health;
-            MaxHP = _unit.CardData.Health;
-        }
-
+        
         public int Defence
         {
             get => _defence;
@@ -54,8 +43,19 @@ namespace GameEnvironment.Units
             {
                 _maxHealth = value;
             }
-        }        
+        } 
 
+        public event UnityAction<Unit> Died;
+        public event UnityAction<int> HealthChanged;
+        public event UnityAction<int> DefenceChanged;
+
+        private void Start()
+        {
+            _unit = GetComponent<Unit>();
+            CurrentHP = _unit.CardData.Health;
+            MaxHP = _unit.CardData.Health;
+        }
+        
         public virtual void TakeDamage(int damage)
         {
             _defendingDamage = damage - _defence;
@@ -106,8 +106,8 @@ namespace GameEnvironment.Units
 
         protected virtual void Die()
         {
-            Died?.Invoke(_unit);   
-            Destroy(gameObject, _animationDelay);
+            Died?.Invoke(_unit);
+            Destroy(gameObject);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Data;
 using GameEnvironment.GameLogic.CardFolder;
+using GameEnvironment.GameLogic.CardFolder.SkillCards;
 using GameEnvironment.Units;
 using TMPro;
 using UnityEngine;
@@ -45,18 +46,21 @@ namespace GameEnvironment.GameLogic.SkillEffects
 
         public void ApplyOnTurn(Unit unit)
         {
-            switch (_skill.EffectType)
+            if (unit.gameObject.activeSelf == true)
             {
-                case SkillEffectType.Poison:
-                case SkillEffectType.Bleed:
-                    unit.Health.TakeDirectDamage(_effectDuration);
-                    ReduceDuration(unit);
-                    break;
-                case SkillEffectType.Stun:
-                case SkillEffectType.Mark:
-                case SkillEffectType.Curse:
-                    ReduceDuration(unit);
-                    break;
+                switch (_skill.EffectType)
+                {
+                    case SkillEffectType.Poison:
+                    case SkillEffectType.Bleed:
+                        unit.Health.TakeDirectDamage(_effectDuration);
+                        ReduceDuration(unit);
+                        break;
+                    case SkillEffectType.Stun:
+                    case SkillEffectType.Mark:
+                    case SkillEffectType.Curse:
+                        ReduceDuration(unit);
+                        break;
+                }
             }
         }
 

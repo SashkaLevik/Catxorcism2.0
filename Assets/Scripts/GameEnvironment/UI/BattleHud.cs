@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Data;
 using GameEnvironment.GameLogic.CardFolder;
 using GameEnvironment.GameLogic.DiceFolder;
@@ -26,17 +25,16 @@ namespace GameEnvironment.UI
         [SerializeField] private Row _playerBackRow;
         [SerializeField] private Row _enemyFrontRow;
         [SerializeField] private Row _enemyBackRow;
+        [SerializeField] private MiddleRow _middleRow;
+        [SerializeField] private List<Button> _diceButtons;
         [SerializeField] private AudioSource _battleMusic;
 
         private Vector3 _playerFrontDicePos = new Vector3(-1.9f, 4f, -10.6f);
         private Vector3 _playerBackDicePos = new Vector3(-4.4f, 4f, -10.6f);
         private Vector3 _enemyFrontDicePos = new Vector3(2f, 4f, -10.6f);
         private Vector3 _enemyBackDicePos = new Vector3(4.4f, 4f, -10.6f);
+        public List<Dice> _dices = new List<Dice>();
 
-        private Dice _playerFrontDice;
-        private Dice _playerBackDice;
-        private Dice _enemyFrontDice;
-        private Dice _enemyBackDice;
         private Player _player;
         private PlayerProgress _progress;
 
@@ -44,10 +42,11 @@ namespace GameEnvironment.UI
 
         public GameObject Settings => _settings;
 
-        public Dice PlayerFrontDice => _playerFrontDice;
-
-        public Dice PlayerBackDice => _playerBackDice;
-
+        public Dice PlayerFrontDice { get; private set; }
+        public Dice PlayerBackDice { get; private set; }
+        public Dice EnemyFrontDice { get; private set; }
+        public Dice EnemyBackDice { get; private set; }
+        
         public RectTransform PlayerSpawnPoint => _playerSpawnPoint;
 
         public RectTransform EnemySpawnPoint => _enemySpawnPoint;
@@ -60,26 +59,46 @@ namespace GameEnvironment.UI
 
         public Row EnemyBackRow => _enemyBackRow;
 
+        public MiddleRow MiddleRow => _middleRow;
+
         private void Awake() =>
             _canvas.worldCamera = Camera.main;        
 
         private void Start()
         {
             _battleMusic.Play();
-            CreateDice();
+            CreateDices();
             _player.LeadershipChanged += UpdateLeadership;
             UpdateLeadership(_player.Leadership);
+
+            foreach (var button in _diceButtons) 
+                button.onClick.AddListener(DeactivateDices);
         }
 
         private void OnDestroy()
         {
             _player.LeadershipChanged -= UpdateLeadership;
+            
+            foreach (var button in _diceButtons) 
+                button.onClick.RemoveListener(DeactivateDices);
         }
 
         public void Construct(Player player)
         {
             _player = player;
             _player.GetComponent<Health>().Died += OnPlayerDie;
+        }
+
+        public void ActivateDices()
+        {
+            foreach (var button in _diceButtons) 
+                button.interactable = true;
+        }
+
+        public void DeactivateDices()
+        {
+            foreach (var button in _diceButtons) 
+                button.interactable = false;
         }
         
         private void UpdateLeadership(int value)
@@ -96,18 +115,26 @@ namespace GameEnvironment.UI
         
         public void RollDices()
         {
-            _playerFrontDice.Roll();
-            _playerBackDice.Roll();
-            _enemyFrontDice.Roll();
-            _enemyBackDice.Roll();
+            PlayerFrontDice.Roll();
+            PlayerBackDice.Roll();
+            EnemyFrontDice.Roll();
+            EnemyBackDice.Roll();
         }
         
-        private void CreateDice()
+        private void CreateDices()
         {
-            _playerFrontDice = Instantiate(_dicePrefab, _playerFrontDicePos, Quaternion.identity);
-            _playerBackDice = Instantiate(_dicePrefab, _playerBackDicePos, Quaternion.identity);
-            _enemyFrontDice = Instantiate(_dicePrefab, _enemyFrontDicePos, Quaternion.identity);
-            _enemyBackDice = Instantiate(_dicePrefab, _enemyBackDicePos, Quaternion.identity);
+            PlayerFrontDice = Instantiate(_dicePrefab, _playerFrontDicePos, Quaternion.identity);
+            PlayerBackDice = Instantiate(_dicePrefab, _playerBackDicePos, Quaternion.identity);
+            EnemyFrontDice = Instantiate(_dicePrefab, _enemyFrontDicePos, Quaternion.identity);
+            EnemyBackDice = Instantiate(_dicePrefab, _enemyBackDicePos, Quaternion.identity);
+            _playerFrontRow.InitDice(PlayerFrontDice);
+            _playerBackRow.InitDice(PlayerBackDice);
+            _enemyFrontRow.InitDice(EnemyFrontDice);
+            _enemyBackRow.InitDice(EnemyBackDice);
+            _dices.Add(PlayerFrontDice);
+            _dices.Add(PlayerBackDice);
+            _dices.Add(EnemyFrontDice);
+            _dices.Add(EnemyBackDice);
         }
 
         private void OnPlayerDie(Unit unit)

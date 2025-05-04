@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using GameEnvironment.GameLogic.CardFolder;
+using GameEnvironment.GameLogic.CardFolder.SkillCards;
 using GameEnvironment.Units;
 using UnityEngine;
 using UnityEngine.UI;
@@ -52,18 +54,16 @@ namespace GameEnvironment.GameLogic.SkillEffects
 
         public void ApplyReceivedEffect()
         {
-            StartCoroutine(CheckEffects());
+            if (_unit != null) 
+                StartCoroutine(CheckEffects());
         }
 
         private IEnumerator CheckEffects()
         {
-            foreach (var effect in _receivedEffects)
+            foreach (var effect in _receivedEffects.Where(effect => effect.Skill != null))
             {
-                if (effect.Skill != null)
-                {
-                    effect.ApplyOnTurn(_unit);
-                    yield return new WaitForSeconds(0.2f);
-                }
+                effect.ApplyOnTurn(_unit);
+                yield return new WaitForSeconds(0.2f);
             }
         }
         

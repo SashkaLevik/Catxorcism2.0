@@ -1,17 +1,14 @@
 ﻿using System.Collections.Generic;
-using Data;
-using GameEnvironment.GameLogic.RowFolder;
+using GameEnvironment.GameLogic.CardFolder.SkillCards;
 using GameEnvironment.UI;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace GameEnvironment.GameLogic.CardFolder
 {
     public class EnemyGuard : Unit
     {
         [SerializeField] private EnemySkillView _skillView;
-        [SerializeField] private SuitType _suit;
         [SerializeField] private TMP_Text _valueAmount;
         [SerializeField] private List<SkillCard> _skills;
 
@@ -52,7 +49,7 @@ namespace GameEnvironment.GameLogic.CardFolder
             _valueAmount.text = _skills[randomSkill].AppliedValue.ToString();
 
             if (_currentSkill.Type == SkillType.Attack) 
-                _damage = _currentSkill.AppliedValue;
+                _currentDamage = _currentSkill.AppliedValue;
         }
     }
 }

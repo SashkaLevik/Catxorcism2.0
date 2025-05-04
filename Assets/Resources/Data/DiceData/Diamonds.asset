@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Diamonds
   m_EditorClassIdentifier: 
   SuitType: 3
+  SuitImage: {fileID: 21300000, guid: 10744620940c30043a008f04445959d1, type: 3}
   Material: {fileID: 2100000, guid: 71a7ddefb7a0246488d3fe00b1f05022, type: 2}

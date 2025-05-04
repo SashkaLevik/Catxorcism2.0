@@ -1,6 +1,7 @@
 ﻿using System;
 using Data;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GameEnvironment.GameLogic.DiceFolder
 {
@@ -10,18 +11,19 @@ namespace GameEnvironment.GameLogic.DiceFolder
         [SerializeField] private DiceFaceData _faceData;
         [SerializeField] private Material _material;
 
+        private MeshRenderer _meshRenderer;
+        
         public SuitType SuitType => _suitType;
+        public DiceFaceData FaceData => _faceData;
 
-        private void Start()
-        {
-            _material = GetComponent<MeshRenderer>().material;
-        }
+        private void Awake() => 
+            _meshRenderer = GetComponent<MeshRenderer>();
 
         public void Init(DiceFaceData faceData)
         {
             _faceData = faceData;
             _suitType = _faceData.SuitType;
-            _material = _faceData.Material;
+            _meshRenderer.material = _faceData.Material;
         }
     }
 }

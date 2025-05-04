@@ -7,7 +7,7 @@ namespace GameEnvironment.GameLogic.CardFolder.SkillCards
         public override void UseSkill(Unit unit)
         {
             if (unit.CurrentEnemy != null) 
-                unit.CurrentEnemy.GetSkillEffect(unit.Damage, this);
+                unit.CurrentEnemy.OnAttackSkill(unit.CurrentDamage, this);
 
             unit.OnDefence(_appliedValue / 2);
             

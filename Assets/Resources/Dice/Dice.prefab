@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c4dab12b6ad08384ba8a3ce2f7eba5f7, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _suitType: 1
-  _faceData: {fileID: 11400000, guid: 69dda6988ecd8664eb4f05800b479da2, type: 2}
+  _faceData: {fileID: 0}
   _material: {fileID: 0}
 --- !u!1 &2065160648859294114
 GameObject:
@@ -157,7 +157,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2a55b79446b8a5640919beb444402e46, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -191,8 +191,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9704b5b85a2043e892e6eab67161e4fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _suitType: 2
-  _faceData: {fileID: 11400000, guid: 01af2d9e94d5c7d48b1107e99fbfb8ab, type: 2}
+  _suitType: 1
+  _faceData: {fileID: 0}
   _material: {fileID: 0}
 --- !u!1 &3942594497012240858
 GameObject:
@@ -254,7 +254,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3702af41351dffc4eafdf345b99f5423, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -288,8 +288,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9704b5b85a2043e892e6eab67161e4fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _suitType: 4
-  _faceData: {fileID: 11400000, guid: e9c71ab37be2f924cab0cec251bea600, type: 2}
+  _suitType: 1
+  _faceData: {fileID: 0}
   _material: {fileID: 0}
 --- !u!1 &6778424829709094489
 GameObject:
@@ -351,7 +351,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b405ea7a8c1d007429d723e8ba88f215, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -385,8 +385,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9704b5b85a2043e892e6eab67161e4fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _suitType: 5
-  _faceData: {fileID: 11400000, guid: 9cccb88f1a31cd245a8ad5cc0276750b, type: 2}
+  _suitType: 1
+  _faceData: {fileID: 0}
   _material: {fileID: 0}
 --- !u!1 &6833917841600535825
 GameObject:
@@ -503,11 +503,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40fa9fa7695746a29d3e4656a447436c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _checkSides: []
   _throwForce: 10
   _minRollValue: 50
   _maxRollValue: 200
-  _faceDatas: []
+  _faceDatas:
+  - {fileID: 11400000, guid: 9cccb88f1a31cd245a8ad5cc0276750b, type: 2}
+  - {fileID: 11400000, guid: a0f60d2e8dfdcd04da815f2c0ee4a4b8, type: 2}
+  - {fileID: 11400000, guid: 01af2d9e94d5c7d48b1107e99fbfb8ab, type: 2}
+  - {fileID: 11400000, guid: e9c71ab37be2f924cab0cec251bea600, type: 2}
+  - {fileID: 11400000, guid: 69dda6988ecd8664eb4f05800b479da2, type: 2}
+  - {fileID: 11400000, guid: 69dda6988ecd8664eb4f05800b479da2, type: 2}
   _faces:
   - {fileID: 4056985243485523002}
   - {fileID: 5764133314441047417}
@@ -591,7 +596,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c4dab12b6ad08384ba8a3ce2f7eba5f7, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -626,7 +631,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _suitType: 1
-  _faceData: {fileID: 11400000, guid: 69dda6988ecd8664eb4f05800b479da2, type: 2}
+  _faceData: {fileID: 0}
   _material: {fileID: 0}
 --- !u!1 &8573373253953133127
 GameObject:
@@ -688,7 +693,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 71a7ddefb7a0246488d3fe00b1f05022, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -722,6 +727,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9704b5b85a2043e892e6eab67161e4fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _suitType: 3
-  _faceData: {fileID: 11400000, guid: a0f60d2e8dfdcd04da815f2c0ee4a4b8, type: 2}
+  _suitType: 1
+  _faceData: {fileID: 0}
   _material: {fileID: 0}

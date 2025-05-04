@@ -374,7 +374,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6f65b822d9a9ea846a8a0a7788ba2edc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 10744620940c30043a008f04445959d1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -670,6 +670,7 @@ GameObject:
   - component: {fileID: 2242438288830863590}
   - component: {fileID: 586586648538115554}
   - component: {fileID: 8213948990752953694}
+  - component: {fileID: -9008932984994670067}
   m_Layer: 5
   m_Name: DogLvl1 2
   m_TagString: Untagged
@@ -756,6 +757,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _backSprite: {fileID: 5928831357742263328}
   _effectsReceiver: {fileID: 7377514680585076419}
+  _suit: 3
   _rowType: 1
   _cardData: {fileID: 11400000, guid: ce2477bf83dc1b34cb97205f40900e14, type: 2}
   _healthAmount: {fileID: 2225280604786257574}
@@ -763,11 +765,11 @@ MonoBehaviour:
   _damageAmount: {fileID: 2225280606808530333}
   _firePos: {fileID: 0}
   _shield: {fileID: 5025399048834368622}
-  _suit: 5
   _guardUpgrade: {fileID: 11400000, guid: 8b588d5e8abd25742893bdd95b737abd, type: 2}
   _suitSprite: {fileID: 6245271808282462192}
   _guardButton: {fileID: 2242438288830863590}
   _enemy: {fileID: 0}
+  _buffCard: {fileID: 1894481779856156264, guid: 0ed30f1a634635b4d8d9e92902df5190, type: 3}
   _skillCards:
   - {fileID: 1894481779856156264, guid: f43a56d7e9d383f4fbb15e83e1bf9ece, type: 3}
 --- !u!114 &7377514680585076419
@@ -982,6 +984,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 140, y: 200}
   m_EdgeRadius: 0
+--- !u!114 &-9008932984994670067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2225280606753027236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd8e1ad5ede948589b0b187565b20f8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buffIcon: {fileID: 0}
+  _buffImage: {fileID: 0}
 --- !u!1 &2225280606808530335
 GameObject:
   m_ObjectHideFlags: 0

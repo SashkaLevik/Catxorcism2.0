@@ -10,7 +10,6 @@ namespace GameEnvironment.GameLogic.CardFolder
 
         private int _leadership;
         private Player _player;
-        private BattleHud _battleHud;
         private EnemyGuard _spawnedGuard;
         private RectTransform _guardSlot;
 
