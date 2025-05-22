@@ -1222,7 +1222,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _backSprite: {fileID: 0}
-  _effectsReceiver: {fileID: 0}
+  _effectsReceiver: {fileID: 4687666082933446058}
+  _suit: 1
   _rowType: 1
   _cardData: {fileID: 11400000, guid: f0343feda5d4d4c4e9f84391b6387f25, type: 2}
   _healthAmount: {fileID: 6972020233574041005}
@@ -1230,6 +1231,7 @@ MonoBehaviour:
   _damageAmount: {fileID: 6972020233517937303}
   _firePos: {fileID: 0}
   _shield: {fileID: 4802769225747720721}
+  _canIgnoreObstacle: 0
   _enemyGuards:
   - {fileID: 4897332852581984082, guid: 527e23e843778064087e771ac7b97225, type: 3}
   - {fileID: 4897332852581984082, guid: 527e23e843778064087e771ac7b97225, type: 3}

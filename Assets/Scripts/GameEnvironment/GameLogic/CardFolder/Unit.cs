@@ -46,6 +46,9 @@ namespace GameEnvironment.GameLogic.CardFolder
         public CardData CardData => _cardData;
         public Transform FirePos => _firePos;
         public Row UnitRow => _row;
+
+        public BattleHud BattleHud => _battleHud;
+
         public RowType RowType => _rowType;
         public Unit CurrentEnemy => _currentEnemy;
         public EffectsReceiver EffectsReceiver => _effectsReceiver;
@@ -98,10 +101,11 @@ namespace GameEnvironment.GameLogic.CardFolder
             set => _canAttackTwice = value;
         }
         
-        public event UnityAction<int> DamageChanged; 
-        
-        private void Awake()
+        public event UnityAction<int> DamageChanged;
+
+        protected override void Awake()
         {
+            base.Awake();
             Health = GetComponent<Health>();
             _buff = GetComponent<Buff>();
             Health.HealthChanged += UpdateHealth;
@@ -123,7 +127,7 @@ namespace GameEnvironment.GameLogic.CardFolder
             DamageChanged -= UpdateDamage;
         }
 
-        public void Construct(BattleHud battleHud, Row row, RowCardSlot cardSlot)
+        public void SetRow(BattleHud battleHud, Row row, RowCardSlot cardSlot)
         {
             _battleHud = battleHud;
             _row = row;
@@ -131,45 +135,45 @@ namespace GameEnvironment.GameLogic.CardFolder
             _slotIndex = row.GuardSlots.IndexOf(cardSlot);
         }
 
-        public void Attack(SkillCard skill)
+        public void Attack(SkillCard skill, Unit target, int damage)
         {
             ObstacleSkill currentObstacle = null;
             
             if (_battleHud.MiddleRow.RowSlots[_slotIndex].GetComponentInChildren<ObstacleSkill>() != null)
                 currentObstacle = _battleHud.MiddleRow.RowSlots[_slotIndex].GetComponentInChildren<ObstacleSkill>();
-            
-            if (currentObstacle != null && _canIgnoreObstacle)
-            {
-                if (CurrentEnemy != null) 
-                    CurrentEnemy.OnAttackSkill(CurrentDamage, skill);
 
-                if (CanAttackTwice && CurrentEnemy != null)
-                    CurrentEnemy.OnAttackSkill(Mathf.RoundToInt(CurrentDamage / 2), skill);
-            
-                if (CurrentEnemy.CanCounter) 
-                    OnAttackSkill(Mathf.RoundToInt(CurrentDamage / 2), skill);
-
-                if (GetComponent<Guard>()) 
-                    GetComponent<Guard>().OnSkillPlayed(skill);
-            }
-            else if (currentObstacle != null)
+            if (currentObstacle != null)
             {
-                currentObstacle.TakeDamage();
-            }
-        }
+                if (currentObstacle.IsHarmful && !_canIgnoreObstacle) 
+                    Health.TakeDamage(currentObstacle.AppliedValue);
 
-        public void CheckSuitMatch(Row row)
-        {
-            if (row.RowSuit == _suit)
-            {
-                if (!IsBuffApplied) _buff.ApplyBuff();
+                switch (currentObstacle.IsBlocked)
+                {
+                    case true when _canIgnoreObstacle:
+                    case false:
+                        AttackEnemy(skill, target, damage);
+                        break;
+                    default:
+                        currentObstacle.TakeDamage();
+                        break;
+                }
             }
             else
-            {
-                _buff.ResetBuff();
-            }
+                AttackEnemy(skill, target, damage);
         }
 
+        private void AttackEnemy(SkillCard skill, Unit target, int damage)
+        {
+            if (target != null) 
+                target.OnAttackSkill(damage, skill);
+
+            if (CanAttackTwice && target != null)
+                target.OnAttackSkill(Mathf.RoundToInt(damage / 2), skill);
+            
+            if (target.CanCounter) 
+                OnAttackSkill(Mathf.RoundToInt(damage / 2), skill);
+        }
+        
         public void OnAttackSkill(int value, SkillCard skill)
         {
             switch (skill.Type)
@@ -187,7 +191,7 @@ namespace GameEnvironment.GameLogic.CardFolder
 
             _effectsReceiver.TryApplyEffect(skill);
         }
-        
+
         public void RiseDamage(int value)
         {
             CurrentDamage += value;
@@ -197,11 +201,22 @@ namespace GameEnvironment.GameLogic.CardFolder
         {
             CurrentDamage = _defaultdamage;
         }
-            
 
         public void OnDefence(int value) => 
             Health.RiseDefence(value);
 
+        public void CheckSuitMatch(Row row)
+        {
+            if (row.RowSuit == _suit)
+            {
+                if (!IsBuffApplied) _buff.ApplyBuff();
+            }
+            else
+            {
+                _buff.ResetBuff();
+            }
+        }
+        
         protected Unit GetEnemy(Row row)
         {
             if (row.GuardSlots[_slotIndex].GetComponentInChildren<Unit>() != null)

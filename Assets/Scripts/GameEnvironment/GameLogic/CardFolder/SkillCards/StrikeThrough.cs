@@ -35,12 +35,16 @@ namespace GameEnvironment.GameLogic.CardFolder.SkillCards
                 {
                     firstTarget = unit.GetComponent<Guard>().Enemy;
                 }
-                
-                if (firstTarget != null) 
-                    firstTarget.Health.TakeDamage(unit.CurrentDamage);
 
-                if (secondTarget != null) 
-                    secondTarget.Health.TakeDamage(unit.CurrentDamage / 2);
+                if (firstTarget != null)
+                {
+                    _currentUnit.Attack(this, firstTarget, _currentUnit.CurrentDamage);
+                }
+
+                if (secondTarget != null)
+                {
+                    _currentUnit.Attack(this, secondTarget, Mathf.RoundToInt(_currentUnit.CurrentDamage / 2));
+                }
             }
             else if (unit.GetComponent<EnemyGuard>())
             {
@@ -68,11 +72,15 @@ namespace GameEnvironment.GameLogic.CardFolder.SkillCards
                     firstTarget = unit.GetComponent<EnemyGuard>().Player;
                 }
                 
-                if (firstTarget != null) 
-                    firstTarget.Health.TakeDamage(unit.CurrentDamage);
+                if (firstTarget != null)
+                {
+                    _currentUnit.Attack(this, firstTarget, _currentUnit.CurrentDamage);
+                }
 
-                if (secondTarget != null) 
-                    secondTarget.Health.TakeDamage(unit.CurrentDamage / 2);
+                if (secondTarget != null)
+                {
+                    _currentUnit.Attack(this, secondTarget, Mathf.RoundToInt(_currentUnit.CurrentDamage / 2));
+                }
             }
             
             

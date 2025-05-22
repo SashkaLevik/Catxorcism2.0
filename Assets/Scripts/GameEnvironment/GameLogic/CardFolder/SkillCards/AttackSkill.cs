@@ -9,7 +9,14 @@ namespace GameEnvironment.GameLogic.CardFolder.SkillCards
     {
         public override void UseSkill(Unit unit)
         {
-            unit.Attack(this);
+            if (unit.CurrentEnemy != null)
+            {
+                var target = unit.CurrentEnemy;
+                unit.Attack(this, target, unit.CurrentDamage);
+            }
+            
+            if (GetComponent<Guard>()) 
+                GetComponent<Guard>().OnSkillPlayed(this);
         }
 
         private Unit GetRandomTarget(Row frontRow, Row backRow, Unit unit)

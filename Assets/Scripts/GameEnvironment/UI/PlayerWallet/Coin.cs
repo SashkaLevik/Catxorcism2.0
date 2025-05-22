@@ -1,7 +1,8 @@
-﻿using TMPro;
+﻿using GameEnvironment.Units;
+using TMPro;
 using UnityEngine;
 
-namespace GameEnvironment.Units
+namespace GameEnvironment.UI.PlayerWallet
 {
     public class Coin : Item
     {

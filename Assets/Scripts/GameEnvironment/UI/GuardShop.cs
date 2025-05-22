@@ -67,12 +67,12 @@ namespace GameEnvironment.UI
         {
             _choosedGuard = button.Guard;
 
-            if (_menuHud.PlayerMoney.Crystals >= _choosedGuard.ActionPoints)
+            /*if (_menuHud.PlayerMoney.Crystals >= _choosedGuard.ActionPoints)
             {
                 _openedGuards.Add(_choosedGuard.EnName);
                 _menuHud.PlayerMoney.RemoveCrystal(_choosedGuard.ActionPoints, _crystal);
                 button.GetComponent<Button>().interactable = false;
-            }
+            }*/
         }
        
         private string GetLocalizedDescription(CardData cardData)

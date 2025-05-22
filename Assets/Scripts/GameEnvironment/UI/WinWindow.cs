@@ -1,5 +1,6 @@
 ﻿using GameEnvironment.GameLogic;
 using GameEnvironment.GameLogic.CardFolder;
+using GameEnvironment.UI.PlayerWallet;
 using GameEnvironment.Units;
 using Infrastructure.Services;
 using Infrastructure.States;

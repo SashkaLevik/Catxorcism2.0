@@ -1,17 +1,26 @@
-﻿namespace GameEnvironment.GameLogic.SuitBuff.PlayerGuardBuff
+﻿using GameEnvironment.GameLogic.CardFolder.SkillCards;
+using UnityEngine;
+
+namespace GameEnvironment.GameLogic.SuitBuff.PlayerGuardBuff
 {
     public class MouseBuff : Buff
     {
+        private ObstacleSkill _obstacleSkill;
+        
         public override void ApplyBuff()
         {
-            base.ApplyBuff();
-            _unitToBuff.CanAttackTwice = true;
+            if (_guard.BattleHud.MiddleRow.RowSlots[_guard.SlotIndex].GetComponentInChildren<ObstacleSkill>() != null)
+                Destroy(_guard.BattleHud.MiddleRow.RowSlots[_guard.SlotIndex].GetComponentInChildren<ObstacleSkill>().gameObject);
+            
+            var spawnPos = _guard.GetComponentInParent<RectTransform>();
+            _obstacleSkill = (ObstacleSkill) Instantiate(_guard.BuffCard, spawnPos);
+            _obstacleSkill.PlaceObstacle(_guard.BattleHud.MiddleRow, _guard.BattleHud.MiddleRow.RowSlots[_guard.SlotIndex]);
+            _unitToBuff.IsBuffApplied = true;
         }
 
         public override void ResetBuff()
         {
-            base.ResetBuff();
-            _unitToBuff.CanAttackTwice = false;
+            _unitToBuff.IsBuffApplied = false;
         }
     }
 }

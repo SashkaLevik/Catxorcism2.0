@@ -8,15 +8,17 @@ namespace GameEnvironment.GameLogic.CardFolder.SkillCards
         {
             if (unit.CurrentEnemy != null && unit.CurrentEnemy.UnitRow == null)
             {
-                unit.CurrentEnemy.Health.TakeDamage(unit.CurrentDamage);
+                var target = unit.CurrentEnemy;
+                unit.Attack(this, target, unit.CurrentDamage);
             }
-            else if (unit.CurrentEnemy != null && unit.UnitRow != null)
+            if (unit.CurrentEnemy != null && unit.UnitRow != null)
             {
                 foreach (var slot in unit.CurrentEnemy.UnitRow.GuardSlots)
                 {
                     if (slot.GetComponentInChildren<Unit>() != null)
                     {
-                        slot.GetComponentInChildren<Unit>().Health.TakeDamage(unit.CurrentDamage);
+                        var target = slot.GetComponentInChildren<Unit>();
+                        unit.Attack(this, target, unit.CurrentDamage);
                     }
                 }
             }

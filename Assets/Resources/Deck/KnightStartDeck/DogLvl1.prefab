@@ -1031,12 +1031,13 @@ MonoBehaviour:
   _effectsReceiver: {fileID: 72572171650032075}
   _suit: 5
   _rowType: 1
-  _cardData: {fileID: 11400000, guid: ce2477bf83dc1b34cb97205f40900e14, type: 2}
+  _cardData: {fileID: 11400000, guid: 7a76398315408b34885e191c06767617, type: 2}
   _healthAmount: {fileID: 2225280604786257574}
   _defenceAmount: {fileID: 2225280606736318814}
   _damageAmount: {fileID: 2225280606808530333}
   _firePos: {fileID: 0}
   _shield: {fileID: 5025399048834368622}
+  _canIgnoreObstacle: 0
   _guardUpgrade: {fileID: 11400000, guid: 8b588d5e8abd25742893bdd95b737abd, type: 2}
   _suitSprite: {fileID: 6245271808282462192}
   _guardButton: {fileID: 2242438288830863590}

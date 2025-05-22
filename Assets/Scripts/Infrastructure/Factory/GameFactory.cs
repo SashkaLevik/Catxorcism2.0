@@ -25,10 +25,14 @@ namespace Infrastructure.Factory
             GameObject menuHud = _assetProvider.Instantiate(AssetPath.MenuHud);
             MenuHud menu = menuHud.GetComponent<MenuHud>();
             GameObject playersRoom = menu.PlayersRoom;
+            GameObject academy = menu.Academy;
             GameObject settings = menu.Settings;
+            GameObject startDeckCreator = menu.StartDeckCreator;
             RegisterProgressWatchers(menuHud);
             RegisterProgressWatchers(playersRoom);
+            RegisterProgressWatchers(academy);
             RegisterProgressWatchers(settings);
+            RegisterProgressWatchers(startDeckCreator);
             return menuHud;
         }
 

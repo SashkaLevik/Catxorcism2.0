@@ -673,14 +673,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _backSprite: {fileID: 3198624142574467951}
+  _valueAmount: {fileID: 4128698999904761532}
+  _appliedValue: 2
+  _requiredAP: 1
   _skillType: 0
   _effectType: 1
   _arrow: {fileID: 6921864875810914728}
   _skillIcon: {fileID: 21300000, guid: 50853884b5d6d294e887e4a096d85b2a, type: 3}
   _effectIcon: {fileID: 0}
-  _valueAmount: {fileID: 4128698999904761532}
-  _appliedValue: 4
-  _requiredAP: 1
   _APImages:
   - {fileID: 8491910411964306537}
   - {fileID: 2572047408671142807}

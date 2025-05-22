@@ -87,7 +87,7 @@ namespace GameEnvironment.GameLogic
                     cardSlot.Occupy();
                     _currentGuard = Instantiate(guard, _battleHud.EnemySpawnPoint);
                     _currentGuard.Health.Died += OnGuardDie;
-                    _currentGuard.Construct(_battleHud, row, cardSlot);
+                    _currentGuard.SetRow(_battleHud, row, cardSlot);
                     _currentGuard.InitPlayer(_battleHud.Player);
                     _currentGuard.TryGetEnemy(_battleHud);
                     _spawnedGuards.Add(_currentGuard);

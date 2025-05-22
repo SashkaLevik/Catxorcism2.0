@@ -17,12 +17,11 @@ namespace GameEnvironment.GameLogic.CardFolder
         [SerializeField] private SkillCard _buffCard;
         [SerializeField] private List<SkillCard> _skillCards;
 
-        //private bool _isTired = false;
+        //public int ContainerIndex;
         private bool _isOnField = false;
         private ActionPointsViewer _APViewer;
         private DeckCreator _deckCreator;
         private DragController _dragController;
-        //private BattleHud _battleHud;
         private EnemyGuard _enemyGuard;
         
         public bool IsOnField => _isOnField;
@@ -46,6 +45,8 @@ namespace GameEnvironment.GameLogic.CardFolder
         protected override void Start()
         {
             base.Start();
+            /*_suit = _cardData.SuitType;
+            _suitSprite.sprite = _cardData.SuitIcon;*/
             ActionPoints = _cardData.ActionPoints;
             _APViewer = GetComponent<ActionPointsViewer>();
             Health.Died += OnGuardDie;
@@ -67,6 +68,9 @@ namespace GameEnvironment.GameLogic.CardFolder
             _dragController = dragController;
             _deckCreator = deckCreator;
         }
+
+        public void SetSlotIndex(int index) => 
+            _slotIndex = index;
 
         public void TryGetEnemy(BattleHud battleHud)
         {
@@ -110,9 +114,9 @@ namespace GameEnvironment.GameLogic.CardFolder
             gameObject.layer = Layer.Draggable;
         }
 
-        public override void Disactivate()
+        public override void Inactivate()
         {
-            base.Disactivate();
+            base.Inactivate();
             gameObject.layer = Layer.UI;
         }
 

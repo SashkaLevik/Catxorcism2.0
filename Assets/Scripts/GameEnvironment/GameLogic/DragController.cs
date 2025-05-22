@@ -1,13 +1,12 @@
 using System;
-using System.Collections;
-using GameEnvironment.GameLogic;
 using GameEnvironment.GameLogic.CardFolder;
 using GameEnvironment.GameLogic.CardFolder.SkillCards;
 using GameEnvironment.GameLogic.RowFolder;
+using GameEnvironment.UI;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace GameEnvironment.UI
+namespace GameEnvironment.GameLogic
 {
     public class DragController : MonoBehaviour
     {
@@ -17,7 +16,6 @@ namespace GameEnvironment.UI
         [SerializeField] private RectTransform _hand;
         [SerializeField] private LayerMask _draggable;
         [SerializeField] private LayerMask _cardSlotLayer;
-        [SerializeField] private LayerMask _guardTrigger;
         [SerializeField] private Warning _warning;
 
         private int _slotIndex;
@@ -50,51 +48,55 @@ namespace GameEnvironment.UI
             if (Input.GetMouseButtonDown(0))
             {
                 _worldPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
-                RaycastHit2D hit = Physics2D.Raycast(_worldPosition, Vector2.zero, Single.PositiveInfinity);
+                RaycastHit2D[] hitInfo = Physics2D.RaycastAll(_worldPosition, Vector2.zero);
 
-                if (hit.collider != null)
+                foreach (var hit in hitInfo)
                 {
-                    if (hit.transform.TryGetComponent(out SkillCard skillCard))
+                    if (hit.collider != null)
                     {
-                        if (_currentSkill == null)
+                        if (hit.transform.TryGetComponent(out SkillCard skillCard))
                         {
-                            _currentSkill = skillCard;
-                            _currentSkill.ShowArrow();
-                        }
-                        else
-                        {
-                            _previousSkill = _currentSkill;
-                            _previousSkill.HideArrow();
-                            _currentSkill = skillCard;
-                            _currentSkill.ShowArrow();
-                        }
-                    }
-                    
-                    if (hit.transform.TryGetComponent(out Guard guard) && _currentSkill != null)
-                    {
-                        if (guard.IsOnField)
-                        {
-                            if (guard.ActionPoints <= 0)
+                            if (_currentSkill == null)
                             {
-                                _warning.Show(_warning.NoAP);
-                                return;
+                                _currentSkill = skillCard;
+                                _currentSkill.ShowArrow();
                             }
-                            _currentSkill.UseSkill(guard);
-                            _currentSkill.HideArrow();
-                            _deckCreator.DiscardPlayedSkill(_currentSkill);
-                            _currentSkill = null;
+                            else
+                            {
+                                _previousSkill = _currentSkill;
+                                _previousSkill.HideArrow();
+                                _currentSkill = skillCard;
+                                _currentSkill.ShowArrow();
+                            }
                         }
-                        else
+                    
+                        if (hit.transform.TryGetComponent(out Guard guard) && _currentSkill != null)
                         {
-                            _currentSkill.HideArrow();
-                            _currentSkill = null;
+                            if (guard.IsOnField)
+                            {
+                                if (guard.ActionPoints <= 0)
+                                {
+                                    _warning.Show(_warning.NoAP);
+                                    return;
+                                }
+                                _currentSkill.UseSkill(guard);
+                                _currentSkill.HideArrow();
+                                _deckCreator.DiscardPlayedSkill(_currentSkill);
+                                _currentSkill = null;
+                            }
+                            else
+                            {
+                                _currentSkill.HideArrow();
+                                _currentSkill = null;
+                            }
                         }
-                    }
-                    else if (hit.transform.TryGetComponent(out MiddleRow middleRow) && _currentSkill != null)
-                    {
-                        if (_currentSkill.GetComponent<ObstacleSkill>())
+                        else if (hit.transform.TryGetComponent(out MiddleRow middleRow) && _currentSkill != null)
                         {
-                            TryPlaceObstacle(middleRow);
+                            Debug.Log(middleRow);
+                            if (_currentSkill.GetComponent<ObstacleSkill>())
+                            {
+                                TryPlaceObstacle(middleRow);
+                            }
                         }
                     }
                 }
@@ -163,7 +165,7 @@ namespace GameEnvironment.UI
                 _currentCard.transform.position = _hand.transform.position;
                 _currentCard.transform.SetParent(_hand);
                 _currentCard.SetDefaultScale();
-                _deckCreator.UpdateHandVisual();
+                _deckCreator.UpdateCardsShift();
                 _currentCard = null;
                 _battleHud.PlayerFrontRow.Disactivate();
                 _battleHud.PlayerBackRow.Disactivate();
@@ -186,7 +188,7 @@ namespace GameEnvironment.UI
                 if (hit.collider.TryGetComponent(out RowCardSlot cardSlot) && cardSlot.IsFree)
                 {
                     Guard guard = _currentCard.GetComponent<Guard>();
-                    guard.Construct(_battleHud, row, cardSlot);
+                    guard.SetRow(_battleHud, row, cardSlot);
                     guard.InitEnemy(_enemySpawner.SpawnedEnemy);
                     guard.Construct(this, _deckCreator);
                     _currentCard.SetDefaultScale();
@@ -199,8 +201,8 @@ namespace GameEnvironment.UI
                     //guard.CheckSuitMatch(row);
                     _battleHud.PlayerFrontRow.Disactivate();
                     _battleHud.PlayerBackRow.Disactivate();
-                    _deckCreator.UpdateHandVisual();
-                    _currentCard.Disactivate();
+                    _deckCreator.UpdateCardsShift();
+                    _currentCard.Inactivate();
                     _currentCard = null;
                 }
                 else
@@ -217,11 +219,13 @@ namespace GameEnvironment.UI
             {
                 if (hit.collider.TryGetComponent(out RowCardSlot cardSlot) && cardSlot.IsFree)
                 {
-                    _currentSkill.GetComponent<ObstacleSkill>().UseObstacleSkill(row, cardSlot);
+                    Debug.Log(cardSlot);
+
+                    _currentSkill.GetComponent<ObstacleSkill>().PlaceObstacle(row, cardSlot);
                     _deckCreator.RemoveObstacleSkill(_currentSkill.GetComponent<ObstacleSkill>());
-                    _battleHud.PlayerFrontRow.Disactivate();
-                    _battleHud.PlayerBackRow.Disactivate();
-                    _deckCreator.UpdateHandVisual();
+                    /*_battleHud.PlayerFrontRow.Disactivate();
+                    _battleHud.PlayerBackRow.Disactivate();*/
+                    _deckCreator.UpdateCardsShift();
                     _currentSkill = null;
                 }
                 else

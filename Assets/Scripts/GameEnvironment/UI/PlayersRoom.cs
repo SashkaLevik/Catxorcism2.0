@@ -16,8 +16,8 @@ namespace GameEnvironment.UI
         [SerializeField] private TMP_Text _description;
         [SerializeField] private Button _next;
         [SerializeField] private Button _previous;
-        [SerializeField] private Button _mapButton;
-        [SerializeField] private GameObject _map;
+        [SerializeField] private Button _hireGuards;
+        [SerializeField] private GameObject _startDeckCreator;
         [SerializeField] private PlayerPreview _player;
         [SerializeField] private RectTransform _playerPos;
         [SerializeField] private List<PlayerPreview> _players;
@@ -45,26 +45,26 @@ namespace GameEnvironment.UI
 
             _currentPlayerData = _players[0].CardData;
             SetPlayer(_currentPlayerIndex);
-            _mapButton.interactable = true;
+            _hireGuards.interactable = true;
             _next.onClick.AddListener(ChooseNext);
             _previous.onClick.AddListener(ChoosePrevious);
-            _mapButton.onClick.AddListener(OpenMap);
+            _hireGuards.onClick.AddListener(OpenStartDeckCreator);
         }
 
         private void OnDisable() => 
             RemovePlayer();
 
-        private void OnDestroy()
+        protected void OnDestroy()
         {
             _next.onClick.RemoveListener(ChooseNext);
             _previous.onClick.RemoveListener(ChoosePrevious);
-            _mapButton.onClick.RemoveListener(OpenMap);
+            _hireGuards.onClick.RemoveListener(OpenStartDeckCreator);
         }
         
         private void ChooseNext()
         {
             _currentPlayerIndex++;
-            _mapButton.interactable = true;
+            _hireGuards.interactable = true;
 
             if (_currentPlayerIndex > _players.Count - 1)
                 _currentPlayerIndex = 0;
@@ -72,7 +72,7 @@ namespace GameEnvironment.UI
             _currentPlayerData = _players[_currentPlayerIndex].CardData;
 
             if (IsOpen(_currentPlayerData) == false) 
-                _mapButton.interactable = false;
+                _hireGuards.interactable = false;
             
             RemovePlayer();
             SetPlayer(_currentPlayerIndex);
@@ -81,7 +81,7 @@ namespace GameEnvironment.UI
         private void ChoosePrevious()
         {
             _currentPlayerIndex--;
-            _mapButton.interactable = true;
+            _hireGuards.interactable = true;
 
             if (_currentPlayerIndex < 0)
                 _currentPlayerIndex = _players.Count - 1;
@@ -89,14 +89,14 @@ namespace GameEnvironment.UI
             _currentPlayerData = _players[_currentPlayerIndex].CardData;
 
             if (IsOpen(_currentPlayerData) == false) 
-                _mapButton.interactable = false;
+                _hireGuards.interactable = false;
             
             RemovePlayer();
             SetPlayer(_currentPlayerIndex);
         }
 
-        private void OpenMap() => 
-            _map.SetActive(true);
+        private void OpenStartDeckCreator() => 
+            _startDeckCreator.SetActive(true);
 
         private void RemovePlayer()
         {
@@ -142,12 +142,12 @@ namespace GameEnvironment.UI
             _progress = progress;
 
             if (progress.WorldData.IsNewGame == false)
-                _openPlayers = progress.PlayerStats.OpenPlayers.ToList();
+                _openPlayers = progress.WorldData.OpenPlayers.ToList();
         }
 
         public void Save(PlayerProgress progress)
         {
-            progress.PlayerStats.OpenPlayers = _openPlayers.ToList();
+            progress.WorldData.OpenPlayers = _openPlayers.ToList();
         }
     }
 }

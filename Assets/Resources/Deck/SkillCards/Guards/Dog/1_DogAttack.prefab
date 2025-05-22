@@ -594,7 +594,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 256}
+  m_SizeDelta: {x: 200, y: 260}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6972020234370939320
 CanvasRenderer:
@@ -647,14 +647,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _backSprite: {fileID: 3198624142574467951}
+  _valueAmount: {fileID: 4128698999904761532}
+  _appliedValue: 2
+  _requiredAP: 1
   _skillType: 0
   _effectType: 1
   _arrow: {fileID: 6921864875810914728}
   _skillIcon: {fileID: 0}
   _effectIcon: {fileID: 0}
-  _valueAmount: {fileID: 4128698999904761532}
-  _appliedValue: 2
-  _requiredAP: 1
   _APImages:
   - {fileID: 8491910411964306537}
   - {fileID: 2572047408671142807}
@@ -871,7 +871,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 16, y: -10}
+  m_AnchoredPosition: {x: 60, y: -10}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1964538305740503004

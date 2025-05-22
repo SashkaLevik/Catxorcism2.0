@@ -1,4 +1,5 @@
-﻿using GameEnvironment.GameLogic.CardFolder;
+﻿using GameEnvironment.GameLogic;
+using GameEnvironment.GameLogic.CardFolder;
 using GameEnvironment.Units;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ namespace Data
     public class CardData : ScriptableObject
     {
         public Card CardPrefab;
+        /*public SuitType SuitType;
+        public Sprite SuitIcon;*/
         public string RuName;
         public string EnName;
         public string RuDescription;

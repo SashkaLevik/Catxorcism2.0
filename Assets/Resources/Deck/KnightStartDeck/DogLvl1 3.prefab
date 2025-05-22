@@ -799,8 +799,8 @@ MonoBehaviour:
   _enemy: {fileID: 0}
   _buffCard: {fileID: 1894481779856156264, guid: 0ed30f1a634635b4d8d9e92902df5190, type: 3}
   _skillCards:
+  - {fileID: 2027177391272999283, guid: 5695e213ac09f6f4aa3d563511472e6c, type: 3}
   - {fileID: 590957827741995071, guid: c21621da5f0a1d648b7ac7bd0525ee0d, type: 3}
-  - {fileID: 8218036254907501963, guid: c2e24f4f405340a4e88bd7892e9388b9, type: 3}
 --- !u!114 &2234384914295553784
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -687,6 +687,8 @@ MonoBehaviour:
   - {fileID: 1819733284079705697}
   - {fileID: 4819494875696492889}
   - {fileID: 9604796157796805}
+  _isBlocked: 1
+  _isHarmful: 1
 --- !u!1 &7672916996162065363
 GameObject:
   m_ObjectHideFlags: 0

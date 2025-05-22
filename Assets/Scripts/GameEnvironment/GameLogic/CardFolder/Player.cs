@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Data;
 using GameEnvironment.GameLogic.PlayerSkills;
 using GameEnvironment.UI;
@@ -12,7 +13,6 @@ namespace GameEnvironment.GameLogic.CardFolder
     public class Player : Unit, ISaveProgress
     {
         [SerializeField] private PlayerType _playerType;
-        [SerializeField] private List<Guard> _playerGuards;
         [SerializeField] private List<PlayerSkill> _playerSkills;
 
         private int _leadership;
@@ -21,7 +21,6 @@ namespace GameEnvironment.GameLogic.CardFolder
 
         public int Level { get; private set; }
         public PlayerType Type => _playerType;
-        public List<Guard> PlayerGuards => _playerGuards;
         public List<PlayerSkill> PlayerSkills => _playerSkills;
 
         public int Leadership
@@ -72,9 +71,10 @@ namespace GameEnvironment.GameLogic.CardFolder
         {
             _progress = progress;
             Level = progress.PlayerStats.Level;
-            
-            _leadership = _progress.WorldData.IsNewRun ? _cardData.ActionPoints 
-                : progress.PlayerStats.Leadership;
+
+            _leadership = progress.PlayerStats.Leadership;
+            /*_leadership = _progress.WorldData.IsNewRun ? _cardData.ActionPoints 
+                : progress.PlayerStats.Leadership;*/
         }
 
         public void Save(PlayerProgress progress)

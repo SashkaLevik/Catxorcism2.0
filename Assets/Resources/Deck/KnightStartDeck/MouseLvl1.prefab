@@ -723,7 +723,7 @@ MonoBehaviour:
   _suitSprite: {fileID: 4115372388449280613}
   _guardButton: {fileID: 6168793550591252661}
   _enemy: {fileID: 0}
-  _buffCard: {fileID: 0}
+  _buffCard: {fileID: 590957827741995071, guid: c21621da5f0a1d648b7ac7bd0525ee0d, type: 3}
   _skillCards:
   - {fileID: 2027177391272999283, guid: 5695e213ac09f6f4aa3d563511472e6c, type: 3}
   - {fileID: 590957827741995071, guid: c21621da5f0a1d648b7ac7bd0525ee0d, type: 3}

@@ -9,6 +9,7 @@ namespace GameEnvironment.UI
         public Button CloseButton;
 
         protected virtual void Awake() => 
-            CloseButton.onClick.AddListener(()=> gameObject.SetActive(false));
+            CloseButton.onClick.AddListener(()=>gameObject.SetActive(false));
+        
     }
 }

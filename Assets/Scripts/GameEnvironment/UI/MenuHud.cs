@@ -1,4 +1,5 @@
 ﻿using Data;
+using GameEnvironment.UI.PlayerWallet;
 using GameEnvironment.Units;
 using Infrastructure.Services;
 using Infrastructure.States;
@@ -16,10 +17,12 @@ namespace GameEnvironment.UI
         [SerializeField] private Canvas _canvas;
         [SerializeField] private AudioSource _mainTheme;
         [SerializeField] private PlayerMoney _playerMoney;
-        [SerializeField] private Button _openSettings;
         [SerializeField] private Button _play;
-        [SerializeField] private GameObject _settingsWindow;
+        [SerializeField] private Button _academyButton;
+        [SerializeField] private Button _openSettings;
         [SerializeField] private GameObject _playersRoom;
+        [SerializeField] private GameObject _academy;
+        [SerializeField] private GameObject _startDeckCreator;
         [SerializeField] private GameObject _settings;
         [SerializeField] private BuyButton _buyButton;
         [SerializeField] private Warning _warning;
@@ -32,7 +35,11 @@ namespace GameEnvironment.UI
 
         public GameObject PlayersRoom => _playersRoom;
 
+        public GameObject Academy => _academy;
+
         public GameObject Settings => _settings;
+
+        public GameObject StartDeckCreator => _startDeckCreator;
 
         private void Awake()
         {
@@ -43,15 +50,19 @@ namespace GameEnvironment.UI
 
         private void Start()
         {
-            _crystals.text = _playerMoney.Crystals.ToString();
+            //_crystals.text = _playerMoney.Crystals.ToString();
             _mainTheme.Play();
         }
 
         private void OnEnable()
         {
-            _openSettings.onClick.AddListener(OpenSettings);
             _play.onClick.AddListener(OpenPlayersRoom);
+            _academyButton.onClick.AddListener(EnterAcademy);
+            _openSettings.onClick.AddListener(OpenSettings);
         }
+
+        private void EnterAcademy() => 
+            _academy.SetActive(true);
 
         private void OpenPlayersRoom() => 
             _playersRoom.SetActive(true);
@@ -87,7 +98,7 @@ namespace GameEnvironment.UI
        
 
         private void OpenSettings() =>
-            _settingsWindow.SetActive(true);
+            _settings.SetActive(true);
 
         public void Save(PlayerProgress progress)
         {
@@ -95,7 +106,7 @@ namespace GameEnvironment.UI
 
         public void Load(PlayerProgress progress)
         {
-            
+            _progress = progress;
         }
     }
 }

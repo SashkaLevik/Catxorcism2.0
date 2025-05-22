@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using GameEnvironment.GameLogic.CardFolder;
+using GameEnvironment.UI;
+using UnityEngine.UI;
 
 namespace Data
 {
@@ -14,7 +18,10 @@ namespace Data
         public float MasterVolume;
         public float MusicVolume;
         public float SFXVolume;
-
+        public List<CardData> AvailableGuards;
+        public List<string> RestoredBuildings;
+        public List<string> OpenPlayers;
+        
         public WorldData(string level)
         {
             Level = level;
@@ -26,6 +33,9 @@ namespace Data
             MasterVolume = 1;
             MusicVolume = 1;
             SFXVolume = 1;
+            AvailableGuards = new List<CardData>();
+            RestoredBuildings = new List<string>();
+            OpenPlayers = new List<string>();
         }
     }
 }

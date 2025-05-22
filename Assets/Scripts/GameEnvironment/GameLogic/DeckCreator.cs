@@ -25,17 +25,14 @@ namespace GameEnvironment.GameLogic
         [SerializeField] private float _moveSpeed;
         [SerializeField] private AudioSource _tossCard;
 
-        public float _fanSpread = -6f;
         public float _cardSpacing = 100f;
-        public float _verticalSpacing = 100f;
-        
-        private int _handCapacity = 4;
+        private int _handCapacity;
         private Canvas _canvas;
         private Player _player;
         private Guard _spawnedGuard;
         private PlayerProgress _progress;
         private SkillCard _currentSkill;
-        private List<Guard> _playerGuards = new List<Guard>();
+        private List<CardData> _playerGuards = new List<CardData>();
         private List<Card> _currentDeck = new List<Card>();
         private List<Guard> _fieldGuards = new List<Guard>();
         private List<Card> _handCards = new List<Card>();
@@ -49,9 +46,8 @@ namespace GameEnvironment.GameLogic
 
         private void Start()
         {
-            if (_progress.WorldData.IsNewRun) 
-                _playerGuards = _player.PlayerGuards.ToList();
-
+            /*if (_progress.WorldData.IsNewRun) 
+                _playerGuards = _player.PlayerGuards.ToList();*/
             _canvas = GetComponent<Canvas>();
             _dragController.GuardPlaced += OnGuardPlaced;
             CreateDeck();
@@ -83,14 +79,14 @@ namespace GameEnvironment.GameLogic
         {
             skillCard.transform.SetParent(_canvas.transform);
             Move(skillCard, _discardPos);
-            skillCard.Disactivate();
+            skillCard.Inactivate();
             skillCard.GetComponent<Card>().DisableCollider();
             _handCards.Remove(skillCard);
-            UpdateHandVisual();
+            UpdateCardsShift();
             _discardCards.Add(skillCard);
         }
         
-        public void UpdateHandVisual()
+        public void UpdateCardsShift()
         {
             int cardsCount = _handCards.Count;
 
@@ -108,7 +104,7 @@ namespace GameEnvironment.GameLogic
         {
             foreach (var guard in _playerGuards)
             {
-                _spawnedGuard = Instantiate(guard, _playerSpawnPos);
+                _spawnedGuard = (Guard) Instantiate(guard.CardPrefab, _playerSpawnPos);
                 _spawnedGuard.GetCanvas(_canvas, _handPosition);
                 _spawnedGuard.Health.Died += OnGuardDie;
                 _currentDeck.Add(_spawnedGuard);
@@ -179,7 +175,7 @@ namespace GameEnvironment.GameLogic
                 yield return StartCoroutine(MoveCards(_currentDeck[0], _handPosition));
                 _handCards.Add(_currentDeck[0]);
                 _currentDeck.Remove(_currentDeck[0]);
-                UpdateHandVisual();
+                UpdateCardsShift();
             }
 
             yield return new WaitForSeconds(0.3f);
@@ -200,7 +196,7 @@ namespace GameEnvironment.GameLogic
                 card.transform.SetParent(_canvas.transform);
                 Move(card, _discardPos);
                 yield return new WaitForSeconds(0.2f);
-                card.Disactivate();
+                card.Inactivate();
                 _discardCards.Add(card);
             }
 
@@ -245,12 +241,13 @@ namespace GameEnvironment.GameLogic
         public void Load(PlayerProgress progress)
         {
             _progress = progress;
-            _playerGuards = progress.PlayerStats.PlayerGuards.ToList();
+            _handCapacity = progress.PlayerStats.HandCapacity;
+            _playerGuards = progress.PlayerStats.StartingGuards.ToList();
         }
 
         public void Save(PlayerProgress progress)
         {
-            progress.PlayerStats.PlayerGuards = _playerGuards.ToList();
+            //progress.PlayerStats.PlayerGuards = _playerGuards.ToList();
         }
     }
 }

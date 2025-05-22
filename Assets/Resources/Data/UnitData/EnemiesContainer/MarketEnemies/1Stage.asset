@@ -15,5 +15,5 @@ MonoBehaviour:
   _enemy: {fileID: 6972020234370939322, guid: e6b3a2db0434cb841bb05514aed3e315, type: 3}
   _prefabs:
   - {fileID: 6972020234370939322, guid: e6b3a2db0434cb841bb05514aed3e315, type: 3}
-  - {fileID: 6972020234370939322, guid: 53b66abc0a5ae8a49b5d7afcd3c04a42, type: 3}
+  - {fileID: 6972020234370939322, guid: e6b3a2db0434cb841bb05514aed3e315, type: 3}
   _enemyStageID: 0

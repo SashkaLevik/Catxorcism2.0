@@ -56,7 +56,7 @@ namespace GameEnvironment.GameLogic
         private IEnumerator OnEnemyTurn()
         {
             foreach (var card in _deckCreator.HandCards) 
-                card.Disactivate();
+                card.Inactivate();
 
             yield return new WaitForSeconds(_animationDelay);
 

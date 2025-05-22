@@ -6,10 +6,17 @@ namespace GameEnvironment.GameLogic.CardFolder.SkillCards
 {
     public class ObstacleSkill : SkillCard
     {
+        [SerializeField] protected bool _isBlocked;
+        [SerializeField] protected bool _isHarmful;
+        
         protected RowCardSlot _cardSlot;
         private float _moveSpeed = 30f;
 
-        public virtual void UseObstacleSkill(MiddleRow middleRow, RowCardSlot slot){}
+        public bool IsBlocked => _isBlocked;
+
+        public bool IsHarmful => _isHarmful;
+
+        public virtual void PlaceObstacle(MiddleRow middleRow, RowCardSlot slot){}
 
         public void TakeDamage()
         {

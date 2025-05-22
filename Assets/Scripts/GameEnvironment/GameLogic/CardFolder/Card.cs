@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,11 +9,11 @@ namespace GameEnvironment.GameLogic.CardFolder
     public class Card : MonoBehaviour
     {
         [SerializeField] protected GameObject _backSprite;
-        
-        protected Vector3 _startPosition;
-        protected BoxCollider2D _collider;
+
+        private Vector3 _startPosition;
+        private BoxCollider2D _collider;
         private int _positionIndex;
-        protected bool _isInHand = false;
+        private bool _isInHand = false;
         private bool _isFacedUp = false;
         private bool _isCoroutineAllowed = true;
         private Canvas _canvas;
@@ -21,10 +22,15 @@ namespace GameEnvironment.GameLogic.CardFolder
 
         public Vector3 StartPosition => _startPosition;
 
-        protected virtual void Start()
+        protected virtual void Awake()
         {
             _collider = GetComponent<BoxCollider2D>();
             _cardTransform = GetComponent<Transform>();
+        }
+
+        protected virtual void Start()
+        {
+            
         }
 
         public void GetCanvas(Canvas canvas, RectTransform handPosition)
@@ -39,7 +45,7 @@ namespace GameEnvironment.GameLogic.CardFolder
             _collider.enabled = true;
         }
 
-        public virtual void Disactivate()
+        public virtual void Inactivate()
         {
             _isInHand = false;
         }
