@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Data;
 using GameEnvironment.GameLogic.CardFolder;
@@ -19,12 +20,14 @@ namespace GameEnvironment.UI
         private Button _button;
         private Academy _academy;
         private PlayerMoney _playerMoney;
+        private RectTransform _buttonPosition;
 
         private void Awake()
         {
             _button = GetComponent<Button>();
             _academy = GetComponentInParent<Academy>();
             _playerMoney = _academy.PlayerMoney;
+            _buttonPosition = _button.GetComponent<RectTransform>();
 
             foreach (var buildName in _academy.RestoredBuildings)
             {
@@ -53,17 +56,17 @@ namespace GameEnvironment.UI
         {
             if (_requiredMaterials <= _playerMoney.Materials)
             {
+                _academy.OnConstruct(_requiredMaterials, _buttonPosition);
                 _button.image.sprite = _restoredSprite;
                 _button.interactable = false;
-                
+                _playerMoney.RemoveMaterials(_requiredMaterials, _academy.MaterialsAmount);
+
                 if (_buildingType == BuildingType.Guard) 
                     RestoreGuardBuilding();
                 else if (_buildingType == BuildingType.GateHouse) 
                     _academy.IncreaseHandCapacity();
                 else if (_buildingType == BuildingType.Amphitheater) 
                     _academy.IncreaseLeadership();
-                
-                _playerMoney.RemoveMaterials(_requiredMaterials, _academy.MaterialsAmount);
             }
         }
 

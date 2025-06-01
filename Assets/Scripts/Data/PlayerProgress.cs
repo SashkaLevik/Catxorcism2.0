@@ -17,7 +17,7 @@ namespace Data
             WorldData = new WorldData(initialLevel);
             PlayerStats = new PlayerStats();
             Coins = 10;
-            Materials = 10;
+            Materials = 30;
             IsPlayerCreated = false;
         }
     }

@@ -25,7 +25,7 @@ namespace GameEnvironment.GameLogic
         {
             _startBattle.onClick.AddListener(StartBattle);
             _endTurn.onClick.AddListener(EnemyTurn);
-            _routMap.StageButtonPressed += EnterStage;
+            _routMap.BattleEntered += EnterStage;
         }
 
         public void Construct(RoutMap routMap)
@@ -84,6 +84,7 @@ namespace GameEnvironment.GameLogic
 
         private void EnterStage()
         {
+            _routMap.gameObject.SetActive(false);
             //_battleHud.RollDices();
             //StartCoroutine(OnStageEnter());
             PrepareForBattle();
