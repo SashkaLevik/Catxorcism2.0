@@ -267,6 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51b4f367ee2e4610adff0fb46f91ef69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _skillDescription: {fileID: 5114912402989901592, guid: d85afe72e6a0074419210d55acd7995e, type: 3}
 --- !u!1 &978632168389490317
 GameObject:
   m_ObjectHideFlags: 0
@@ -534,6 +535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db4a28a27c53455393e731e21a165a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _skillDescription: {fileID: 0}
 --- !u!1 &2013246858844142753
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,17 +1008,11 @@ MonoBehaviour:
   _damageAmount: {fileID: 2225280606808530333}
   _firePos: {fileID: 0}
   _shield: {fileID: 4405579194213943953}
+  _canIgnoreObstacle: 0
   _playerType: 0
-  _playerGuards:
-  - {fileID: 1003202658727545870, guid: af859ceea3f579343ad3e45d6d466981, type: 3}
-  - {fileID: 5635210381480608347, guid: cbab845f523f9a74c928f5d981ec13cb, type: 3}
-  - {fileID: 1003202658727545870, guid: 8c931a598b289344eb2f861ca83e4bf5, type: 3}
-  - {fileID: 1003202658727545870, guid: 7907818086ae8b54fb9f5939b7072a92, type: 3}
-  - {fileID: 1003202658727545870, guid: 71de1ff2e1ffc7a4c9ca72ea242bda83, type: 3}
   _playerSkills:
   - {fileID: 6361017437644930343}
   - {fileID: 8581712089307997294}
-  - {fileID: 909561941127893391}
 --- !u!114 &757858309821252701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1501,6 +1497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4438d04a7ac4ce18c4f6a55dd6d4c88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _skillDescription: {fileID: 0}
 --- !u!1 &3727467989197827378
 GameObject:
   m_ObjectHideFlags: 0
@@ -1989,6 +1986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1bd0b72db064b3e97f2b7b1d00857f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _skillDescription: {fileID: 3633225924401182693, guid: 0683ab44cca5ed94f8a9824b8a50e86e, type: 3}
   _appliedValue: 2
 --- !u!1 &6812965542802073598
 GameObject:
@@ -2323,6 +2321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25a0137c3dad4e74afd24845025dc9e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _skillDescription: {fileID: 0}
 --- !u!1 &9039827593145175644
 GameObject:
   m_ObjectHideFlags: 0

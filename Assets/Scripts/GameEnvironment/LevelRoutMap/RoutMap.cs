@@ -1,24 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Data;
 using GameEnvironment.LevelRoutMap.RoutEventWindows;
+using Infrastructure.Services;
 using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 namespace GameEnvironment.LevelRoutMap
 {
-    public class RoutMap : MonoBehaviour
+    public class RoutMap : MonoBehaviour, ISaveProgress
     {
         [SerializeField] private List<RoutEvent> _routEvents;
         [SerializeField] private GameObject _buttonPrefab;
         [SerializeField] private GameObject _pathPrefab;
 
-        private int _layers = 6;
+        public MapData MapData;
+        private int _layers = 9;
         private int _maxButtonsPerLayer = 3;
         private float _xSteep = 3;
         private float _verticalSpacing = 2f;
         private float _curveHeight = 1f;
         private float _leftMarginPercent = 0.1f;
+        private PlayerProgress _progress;
+        private ISaveLoadService _saveLoadService;
+        private Canvas _canvas;
         private EventButton _currentButton;
         private Camera _camera;
         private List<EventButton> _allButtons = new List<EventButton>();
@@ -26,19 +33,48 @@ namespace GameEnvironment.LevelRoutMap
 
         public event UnityAction BattleEntered;
 
+        private void Awake()
+        {
+            _canvas = GetComponent<Canvas>();
+            _canvas.worldCamera = Camera.main;
+            _saveLoadService = AllServices.Container.Single<ISaveLoadService>();
+        }
+
         private void Start()
         {
             _camera = Camera.main;
-            GenerateMap();
-            if (_allButtons.Count > 0) _allButtons[0].SetReachable(true);
+            if (MapData.SavedButtons.Count > 0 && MapData.CurrentButtonIndex >= 0)
+                LoadMap();
+            else
+            {
+                GenerateMap();
+                if (_allButtons.Count > 0) _allButtons[0].SetReachable(true);
+            }
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                _saveLoadService.SaveProgress();
+            }
+        }
+
+        public void SetCurrentButton(EventButton button)
+        {
+            _currentButton = button;
+            _currentButton.SetReachable(false);
+
+            foreach (EventButton connected in _currentButton.ConnectedButtons) 
+                connected.SetReachable(true);
+        }
+        
         public void OpenEvent(EventButton targetButton)
         {
-            /*if (targetButton.EventType == EventType.Battle) 
-                BattleEntered?.Invoke();*/
+            if (targetButton.RoutEventType == RoutEventType.Battle) 
+                BattleEntered?.Invoke();
             
-            foreach (var routEvent in _routEvents.Where(routEvent => targetButton.routEventType == routEvent.routEventType))
+            foreach (var routEvent in _routEvents.Where(routEvent => targetButton.RoutEventType == routEvent.routEventType))
                 routEvent.gameObject.SetActive(true);
             
             _currentButton = targetButton;
@@ -47,7 +83,6 @@ namespace GameEnvironment.LevelRoutMap
 
         private void GenerateMap()
         {
-            //foreach (Transform child in transform) Destroy(child.gameObject);
             _allButtons.Clear();
             _allPaths.Clear();
 
@@ -67,7 +102,7 @@ namespace GameEnvironment.LevelRoutMap
                     Vector3 position = new Vector3(leftEdge.x + (_xSteep * layer),
                         (i - (layerButtonsCount - 1) * 0.5f) * _verticalSpacing, 0);
 
-                    EventButton button = CreateButton(position, layer, i);
+                    EventButton button = CreateButton(position, layer, i, _layers);
                     button.Construct(this);
                     currentLayerButtons.Add(button);
                     _allButtons.Add(button);
@@ -85,6 +120,32 @@ namespace GameEnvironment.LevelRoutMap
             ValidateFullMapConnectivity();
         }
 
+        private EventButton CreateButton(Vector3 position, int layer, int index, int totalLayers)
+        {
+            GameObject buttonObj = Instantiate(_buttonPrefab, position, Quaternion.identity, transform);
+            EventButton button = buttonObj.GetComponent<EventButton>();
+            button.SetType(DetermineEventType(layer, totalLayers));
+
+            return button;
+        }
+
+        private EventButton LoadSavedButton(Vector3 position, RoutEventType eventType)
+        {
+            GameObject button = Instantiate(_buttonPrefab, position, Quaternion.identity, transform);
+            EventButton eventButton = button.GetComponent<EventButton>();
+            eventButton.SetType(eventType);
+            eventButton.Construct(this);
+            return eventButton;
+        }
+        
+        private RoutEventType DetermineEventType(int layer, int totalLayers)
+        {
+            if (layer == 0) return RoutEventType.Battle;
+            if (layer == totalLayers - 1) return RoutEventType.Boss;
+
+            bool isBattleLayer = (layer % 2 == 0);
+            return isBattleLayer ? RoutEventType.Battle : GetRandomEventType(layer);
+        }
 
         private void ValidateFullMapConnectivity()
         {
@@ -200,40 +261,22 @@ namespace GameEnvironment.LevelRoutMap
             return closestButton;
         }
 
-        private EventButton CreateButton(Vector3 position, int layer, int index)
-        {
-            GameObject buttonObj = Instantiate(_buttonPrefab, position, Quaternion.identity, transform);
-            EventButton button = buttonObj.GetComponent<EventButton>();
-
-            if (layer == 0) button.SetType(RoutEventType.Battle);
-            else if (layer == _layers -1) button.SetType(RoutEventType.Boss);
-            else button.SetType(GetRandomEventType(layer));
-            
-            return button;
-        }
-
         private RoutEventType GetRandomEventType(int currentLayer)
         {
             float[] weights =
             {
-                40f,
-                Mathf.Clamp(currentLayer * 10, 5, 25),
-                Mathf.Clamp(30 - currentLayer * 3, 10, 30),
-                Mathf.Clamp(currentLayer * 5, 5, 20),
-                15f
+                Mathf.Clamp(40 - currentLayer * 2, 15, 40), // Decrease
+                Mathf.Clamp(currentLayer * 8, 10, 35), //Increase
+                25f
             };
 
-            float total = 0;
-            foreach (var w in weights) total += w;
-
+            float total = weights[0] + weights[1] + weights[2];
             float randomPoint = Random.Range(0, total);
-            for (int i = 0; i < weights.Length; i++)
-            {
-                if (randomPoint < weights[i]) return (RoutEventType) i;
-                randomPoint -= weights[i];
-            }
 
-            return RoutEventType.Battle;
+            if (randomPoint < weights[0]) return RoutEventType.FirePlace;
+            if (randomPoint < weights[0] + weights[1]) return RoutEventType.DiceSmith;
+
+            return RoutEventType.TreasureBox;
         }
         
         private int GetButtonLayer(EventButton button)
@@ -246,19 +289,10 @@ namespace GameEnvironment.LevelRoutMap
         {
             GameObject pathObj = Instantiate(_pathPrefab, transform);
             MapPath path = pathObj.GetComponent<MapPath>();
-            path.Initialize(from, to, _curveHeight);
+            path.Initialize(from, to);
             _allPaths.Add(path);
             from.AddConnectedButton(to);
             return path;
-        }
-
-        public void SetCurrentButton(EventButton button)
-        {
-            _currentButton = button;
-            _currentButton.SetReachable(false);
-
-            foreach (EventButton connected in _currentButton.ConnectedButtons) 
-                connected.SetReachable(true);
         }
 
         private void UpdateReachableEvents()
@@ -268,6 +302,91 @@ namespace GameEnvironment.LevelRoutMap
 
             foreach (var button in _currentButton.ConnectedButtons) 
                 button.SetReachable(true);
+        }
+
+        private void LoadMap()
+        {
+            _layers = MapData.CurrentLayerCount;
+            Dictionary<int, EventButton> indexToButton = new Dictionary<int, EventButton>();
+            for (int i = 0; i < MapData.SavedButtons.Count; i++)
+            {
+                EventButtonData buttonData = MapData.SavedButtons[i];
+                EventButton eventButton = LoadSavedButton(buttonData.Position, buttonData.EventType);
+                eventButton.SetReachable(buttonData.IsReachable);
+                _allButtons.Add(eventButton);
+                indexToButton[i] = eventButton;
+            }
+
+            for (int i = 0; i < MapData.SavedButtons.Count; i++)
+            {
+                EventButton button = _allButtons[i];
+                foreach (var connectedIndex in MapData.SavedButtons[i].ConnectedButtonIndices)
+                {
+                    if (indexToButton.ContainsKey(connectedIndex))
+                    {
+                        button.AddConnectedButton(indexToButton[connectedIndex]);
+                    }
+                }
+            }
+
+            foreach (var pathData in MapData.SavedPaths)
+            {
+                if (indexToButton.ContainsKey(pathData.StartButtonIndex) 
+                    && indexToButton.ContainsKey(pathData.EndButtonIndex))
+                {
+                    CreatePath(indexToButton[pathData.StartButtonIndex],
+                        indexToButton[pathData.EndButtonIndex]);
+                }
+            }
+
+            if (MapData.CurrentButtonIndex >=0 && MapData.CurrentButtonIndex < _allButtons.Count)
+            {
+                _currentButton = _allButtons[MapData.CurrentButtonIndex];
+                UpdateReachableEvents();
+            }
+        }
+
+        public void Load(PlayerProgress progress)
+        {
+            MapData = progress.MapData;
+        }
+
+        public void Save(PlayerProgress progress)
+        {
+            progress.MapData.SavedButtons.Clear();
+            progress.MapData.SavedPaths.Clear();
+            progress.MapData.CurrentLayerCount = _layers;
+            Dictionary<EventButton, int> buttonToIndex = new Dictionary<EventButton, int>();
+            
+            for (int i = 0; i < _allButtons.Count; i++)
+            {
+                EventButton button = _allButtons[i];
+                buttonToIndex[button] = i;
+                button.ButtonData.IsReachable = button.IsReachable;
+                button.ButtonData.Position = button.transform.position;
+                button.ButtonData.EventType = button.RoutEventType;
+                
+                foreach (var connected in button.ConnectedButtons)
+                {
+                    if (buttonToIndex.ContainsKey(connected))
+                        button.ButtonData.ConnectedButtonIndices.Add(buttonToIndex[connected]);
+                }
+                
+                progress.MapData.SavedButtons.Add(button.ButtonData);
+            }
+            
+            foreach (var mapPath in _allPaths)
+            {
+                if (buttonToIndex.ContainsKey(mapPath.StartButton) && buttonToIndex.ContainsKey(mapPath.EndButton))
+                {
+                    mapPath.PathData.StartButtonIndex = buttonToIndex[mapPath.StartButton];
+                    mapPath.PathData.EndButtonIndex = buttonToIndex[mapPath.EndButton];
+                    progress.MapData.SavedPaths.Add(mapPath.PathData);
+                }
+            }
+
+            if (_currentButton != null && buttonToIndex.ContainsKey(_currentButton))
+                progress.MapData.CurrentButtonIndex = buttonToIndex[_currentButton];
         }
     }
 }

@@ -1,21 +1,25 @@
-﻿using GameEnvironment.LevelRoutMap.RoutEventWindows;
+﻿using Data;
+using GameEnvironment.LevelRoutMap.RoutEventWindows;
 using UnityEngine;
 
 namespace GameEnvironment.LevelRoutMap
 {
     public class MapPath : MonoBehaviour
     {
+        public PathData PathData;
+        
         [SerializeField] private LineRenderer _lineRenderer;
-        /*private EventButton _startButton;
-        private EventButton _endButton;*/
+        public EventButton StartButton;
+        public EventButton EndButton;
         //private float _lineThickness = 0.2f;
 
-        public void Initialize(EventButton start, EventButton end, float curveHeight)
+        public void Initialize(EventButton start, EventButton end)
         {
             //_lineRenderer.startWidth = _lineThickness;
             //_lineRenderer.endWidth = _lineThickness;
             //DrawCurvedPath(start.transform.position, end.transform.position, curveHeight);
-
+            StartButton = start;
+            EndButton = end;
             UpdateVisuals(start, end);
         }
 

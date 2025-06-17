@@ -7,14 +7,14 @@ using GameEnvironment.GameLogic.CardFolder;
 using Infrastructure.Services;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
 
 namespace GameEnvironment.UI
 {
     public class StartDeckCreator : BaseWindow, ISaveProgress
     {
+        private const string AllData = "Data/CardData";
+        
         [SerializeField] private Academy _academy;
         [SerializeField] private RectTransform _hiredGuardsContainer;
         [SerializeField] private Warning _warning;
@@ -23,17 +23,23 @@ namespace GameEnvironment.UI
         [SerializeField] private GuardDescription _guardDescription;
         [SerializeField] private List<RectTransform> _slots;
         [SerializeField] private TMP_Text _deckCount;
-
+        [SerializeField] private List<CardData> _allCardsData;
+        
         private int _deckCapacity;
         private float _moveSpeed = 30f;
         private Guard _currentGuard;
-        private List<CardData> _availableGuards = new List<CardData>();
-        private List<CardData> _hiredGuards = new List<CardData>();
+        private List<CardData> _openedGuardsData = new List<CardData>();
+        private List<string> _hiredGuards = new List<string>();
         private List<Guard> _spawnedGuards = new List<Guard>();
         private Camera _camera;
         private ISaveLoadService _saveLoadService;
 
-        //public List<Guard> HiredGuards => _hiredGuards;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            _allCardsData = Resources.LoadAll<CardData>(AllData).ToList();
+        }
 
         private void Start()
         {
@@ -62,7 +68,7 @@ namespace GameEnvironment.UI
         {
             _mapButton.onClick.AddListener(OpenMap);
             _deckCount.text = _deckCapacity.ToString();
-            _availableGuards = _academy.AvailableGuards.ToList();
+            LoadGuards();
             InstallAvailableGuards();
         }
 
@@ -75,17 +81,29 @@ namespace GameEnvironment.UI
                 Destroy(slot.GetComponentInChildren<Guard>().gameObject);
             
             _mapButton.onClick.RemoveListener(OpenMap);
-            _availableGuards.Clear();
+            _openedGuardsData.Clear();
             _spawnedGuards.Clear();
             _hiredGuards.Clear();
         }
 
+        private void LoadGuards()
+        {
+            for (int i = 0; i < _academy.RestoredGuards.Count; i++)
+            {
+                if (_allCardsData[i].EnName == _academy.RestoredGuards[i])
+                {
+                    _openedGuardsData.Add(_allCardsData[i]);
+                }
+            }
+        }
+        
         private void InstallAvailableGuards()
         {
-            for (int i = 0; i < _availableGuards.Count; i++)
+            for (int i = 0; i < _openedGuardsData.Count; i++)
             {
-                _currentGuard = (Guard) Instantiate(_availableGuards[i].CardPrefab, _slots[i]);
+                _currentGuard = Instantiate(_openedGuardsData[i].CardPrefab.GetComponent<Guard>(), _slots[i]);
                 _currentGuard.SetSlotIndex(_slots.IndexOf(_slots[i]));
+                _currentGuard.ConstructUnit(_openedGuardsData[i]);
                 _spawnedGuards.Add(_currentGuard);
                 _currentGuard.OnGuardPressed += AddInDeck;
             }
@@ -98,7 +116,7 @@ namespace GameEnvironment.UI
                 _currentGuard = guard;
                 _currentGuard.OnGuardPressed -= AddInDeck;
                 _currentGuard.OnGuardPressed += RemoveFromDeck;
-                _hiredGuards.Add(_currentGuard.CardData);
+                _hiredGuards.Add(_currentGuard.CardData.EnName);
                 StartCoroutine(MoveCards(guard, _hiredGuardsContainer));
                 CheckDeckCapacity();
                 _guardDescription.Hide();
@@ -112,7 +130,7 @@ namespace GameEnvironment.UI
             _currentGuard = guard;
             _currentGuard.OnGuardPressed -= RemoveFromDeck;
             _currentGuard.OnGuardPressed += AddInDeck;
-            _hiredGuards.Remove(_currentGuard.CardData);
+            _hiredGuards.Remove(_currentGuard.CardData.EnName);
             StartCoroutine(MoveCards(guard, _slots[_currentGuard.SlotIndex]));
             CheckDeckCapacity();
         }
@@ -147,7 +165,7 @@ namespace GameEnvironment.UI
 
         public void Save(PlayerProgress progress)
         {
-            progress.PlayerStats.StartingGuards = _hiredGuards.ToList();
+            progress.PlayerStats.PlayerDeck = _hiredGuards.ToList();
         }
     }
 }

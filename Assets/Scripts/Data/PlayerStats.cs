@@ -16,7 +16,7 @@ namespace Data
         public int DefaultHandCapacity;
         public List<DiceFaceData> FrontDiceFaces;
         public List<DiceFaceData> BackDiceFaces;
-        public List<CardData> StartingGuards;
+        public List<string> PlayerDeck;
 
         public PlayerStats()
         {
@@ -29,7 +29,7 @@ namespace Data
             DefaultDeckCapacity = 4;
             FrontDiceFaces = new List<DiceFaceData>();
             BackDiceFaces = new List<DiceFaceData>();
-            StartingGuards = new List<CardData>();
+            PlayerDeck = new List<string>();
         }
 
     }

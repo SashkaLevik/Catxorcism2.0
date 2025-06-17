@@ -1,6 +1,5 @@
 ﻿using GameEnvironment.GameLogic;
 using GameEnvironment.GameLogic.CardFolder;
-using GameEnvironment.Units;
 using UnityEngine;
 
 namespace Data
@@ -9,17 +8,15 @@ namespace Data
 
     public class CardData : ScriptableObject
     {
-        public Card CardPrefab;
-        /*public SuitType SuitType;
-        public Sprite SuitIcon;*/
-        public string RuName;
+        public GameObject CardPrefab;
+        public Sprite RawPosition;
+        public SuitType SuitType;
+        public Sprite SuitIcon;
         public string EnName;
-        public string RuDescription;
-        public string EnDescription;
+        public string RuName;
         public int Damage;
         public int Health;
         public int ActionPoints;
-        public int SummonPrice;
         public int UpgradePrice;
         public int Level;
     }

@@ -8,6 +8,7 @@ namespace Data
     {
         public WorldData WorldData;
         public PlayerStats PlayerStats;
+        public MapData MapData;
         public int Coins;
         public int Materials;
         public bool IsPlayerCreated;
@@ -16,6 +17,7 @@ namespace Data
         {
             WorldData = new WorldData(initialLevel);
             PlayerStats = new PlayerStats();
+            MapData = new MapData();
             Coins = 10;
             Materials = 30;
             IsPlayerCreated = false;

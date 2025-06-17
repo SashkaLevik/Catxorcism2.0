@@ -11,8 +11,7 @@ namespace Infrastructure.Factory
 
         GameObject CreateMenuHud();
         GameObject CreateBattleHud();
-        //GameObject CreateSkillPanel();
-        //GameObject CreateBattleSystem();
+        GameObject CreateRoutMap();
         //GameObject CreateArtifactsWatcher();
         List<ISaveProgress> ProgressWriters { get; }
         List<ILoadProgress> ProgressReaders { get; }

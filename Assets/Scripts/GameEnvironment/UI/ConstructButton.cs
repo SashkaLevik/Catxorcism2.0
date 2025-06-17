@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Data;
-using GameEnvironment.GameLogic.CardFolder;
 using GameEnvironment.UI.PlayerWallet;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,10 +9,10 @@ namespace GameEnvironment.UI
     public class ConstructButton : MonoBehaviour
     {
         [SerializeField] private BuildingType _buildingType;
-        [SerializeField] private string _name;
+        [SerializeField] private string _buildName;
         [SerializeField] private int _requiredMaterials;
         [SerializeField] private Sprite _restoredSprite;
-        [SerializeField] private List<CardData> _guardDatas;
+        [SerializeField] private List<CardData> _guards;
 
         private Button _button;
         private Academy _academy;
@@ -31,7 +28,7 @@ namespace GameEnvironment.UI
 
             foreach (var buildName in _academy.RestoredBuildings)
             {
-                if (buildName == _name) 
+                if (buildName == _buildName) 
                     SetRestored();
             }
         }
@@ -59,18 +56,16 @@ namespace GameEnvironment.UI
                 _academy.OnConstruct(_requiredMaterials, _buttonPosition);
                 _button.image.sprite = _restoredSprite;
                 _button.interactable = false;
-                _playerMoney.RemoveMaterials(_requiredMaterials, _academy.MaterialsAmount);
 
                 if (_buildingType == BuildingType.Guard) 
-                    RestoreGuardBuilding();
+                    _academy.RestoreBuilding(_guards, _buildName);
                 else if (_buildingType == BuildingType.GateHouse) 
                     _academy.IncreaseHandCapacity();
                 else if (_buildingType == BuildingType.Amphitheater) 
                     _academy.IncreaseLeadership();
+                
+                _playerMoney.RemoveMaterials(_requiredMaterials, _academy.MaterialsAmount);
             }
         }
-
-        private void RestoreGuardBuilding() => 
-            _academy.AddHiredGuards(_guardDatas, _name);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq;
 using GameEnvironment.GameLogic.CardFolder;
 using GameEnvironment.LevelRoutMap;
@@ -84,7 +85,7 @@ namespace GameEnvironment.GameLogic
 
         private void EnterStage()
         {
-            _routMap.gameObject.SetActive(false);
+            //_routMap.gameObject.SetActive(false);
             //_battleHud.RollDices();
             //StartCoroutine(OnStageEnter());
             PrepareForBattle();
@@ -99,7 +100,7 @@ namespace GameEnvironment.GameLogic
                 yield return new WaitWhile(() => dice.IsRolling);
 
             yield return new WaitForSeconds(0.5f);
-            _deckCreator.DrawHand();
+            //_deckCreator.DrawHand();
             _endTurn.interactable = true;
             //PrepareForBattle();
         }

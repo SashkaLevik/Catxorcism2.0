@@ -1,4 +1,5 @@
 ﻿using System;
+using Data;
 using GameEnvironment.GameLogic.CardFolder;
 using TMPro;
 using UnityEngine;
@@ -52,8 +53,14 @@ namespace GameEnvironment.Units
         private void Start()
         {
             _unit = GetComponent<Unit>();
-            CurrentHP = _unit.CardData.Health;
-            MaxHP = _unit.CardData.Health;
+            /*CurrentHP = _unit.CardData.Health;
+            MaxHP = _unit.CardData.Health;*/
+        }
+
+        public void SetHealth(CardData data)
+        {
+            CurrentHP = data.Health;
+            MaxHP = CurrentHP;
         }
         
         public virtual void TakeDamage(int damage)

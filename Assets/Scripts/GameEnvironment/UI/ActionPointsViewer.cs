@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Data;
 using GameEnvironment.GameLogic.CardFolder;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,8 +21,22 @@ namespace GameEnvironment.UI
 
         private void Start()
         {
+            //_guard = GetComponent<Guard>();
+            /*_actionPoints = _guard.CardData.ActionPoints;
+            _guard.APChanged += UpdateAP;
+
+            for (int i = 0; i < _actionPoints; i++)
+            {
+                _apImage = Instantiate(_imagePrefab, _container.transform);
+                _apImage.sprite = _fullSprite;
+                _apImages.Add(_apImage);
+            }*/
+        }
+
+        public void SetAP(CardData data)
+        {
             _guard = GetComponent<Guard>();
-            _actionPoints = _guard.CardData.ActionPoints;
+            _actionPoints = data.ActionPoints;
             _guard.APChanged += UpdateAP;
 
             for (int i = 0; i < _actionPoints; i++)
@@ -31,7 +46,7 @@ namespace GameEnvironment.UI
                 _apImages.Add(_apImage);
             }
         }
-
+        
         public void ResetAP()
         {
             foreach (var image in _apImages) 

@@ -1,6 +1,7 @@
-﻿using Data;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Data;
 using GameEnvironment.UI.PlayerWallet;
-using GameEnvironment.Units;
 using Infrastructure.Services;
 using Infrastructure.States;
 using TMPro;
@@ -18,6 +19,7 @@ namespace GameEnvironment.UI
         [SerializeField] private AudioSource _mainTheme;
         [SerializeField] private PlayerMoney _playerMoney;
         [SerializeField] private Button _play;
+        [SerializeField] private Button _continue;
         [SerializeField] private Button _academyButton;
         [SerializeField] private Button _openSettings;
         [SerializeField] private GameObject _playersRoom;
@@ -26,13 +28,17 @@ namespace GameEnvironment.UI
         [SerializeField] private GameObject _settings;
         [SerializeField] private BuyButton _buyButton;
         [SerializeField] private Warning _warning;
+        [SerializeField] private List<CardData> _allPlayers;
 
+        private string _level;
+        private string _currentPlayerName;
+        private CardData _currentPlayerData;
         private IGameStateMachine _stateMachine;
         private ISaveLoadService _saveLoadService;
         private PlayerProgress _progress;
 
         public PlayerMoney PlayerMoney => _playerMoney;
-
+        
         public GameObject PlayersRoom => _playersRoom;
 
         public GameObject Academy => _academy;
@@ -50,16 +56,27 @@ namespace GameEnvironment.UI
 
         private void Start()
         {
-            //_crystals.text = _playerMoney.Crystals.ToString();
             _mainTheme.Play();
+
+            if (_progress.WorldData.IsNewRun == false)
+            {
+                _continue.interactable = true;
+                
+                foreach (var player in _allPlayers.Where(player => player.EnName.Contains(_currentPlayerName)))
+                    _currentPlayerData = player;
+            }
         }
 
         private void OnEnable()
         {
             _play.onClick.AddListener(OpenPlayersRoom);
+            _continue.onClick.AddListener(LoadGame);
             _academyButton.onClick.AddListener(EnterAcademy);
             _openSettings.onClick.AddListener(OpenSettings);
         }
+
+        private void LoadGame() => 
+            _stateMachine.Enter<LevelState, string>(_level, _currentPlayerData);
 
         private void EnterAcademy() => 
             _academy.SetActive(true);
@@ -69,33 +86,11 @@ namespace GameEnvironment.UI
 
         private void OnDestroy()
         {
-            
-            _openSettings.onClick.RemoveListener(OpenSettings);
             _play.onClick.RemoveListener(OpenPlayersRoom);
+            _continue.onClick.RemoveListener(LoadGame);
+            _academyButton.onClick.RemoveListener(EnterAcademy);
+            _openSettings.onClick.RemoveListener(OpenSettings);
         }
-
-        private void EnterGame(string sceneName, CardData cardData)
-        {
-            _progress.WorldData.IsNewGame = false;
-            _saveLoadService.SaveProgress();
-            _stateMachine.Enter<LevelState, string>(sceneName, cardData);
-        }
-
-        /*private void BuyPlayer()
-        {
-            if (_playerMoney.Crystals >= _currentData.ActivatePrice)
-            {
-                _openPlayers.Add(_currentData.EnName);
-
-                _playerMoney.RemoveCrystal(_currentData.ActivatePrice, _crystals);
-                _buyButton.gameObject.SetActive(false);
-                _play.interactable = true;
-            }
-            else
-                _warning.Show();
-        }*/
-
-       
 
         private void OpenSettings() =>
             _settings.SetActive(true);
@@ -107,6 +102,8 @@ namespace GameEnvironment.UI
         public void Load(PlayerProgress progress)
         {
             _progress = progress;
+            _level = progress.WorldData.Level;
+            _currentPlayerName = progress.WorldData.CurrentPlayer;
         }
     }
 }

@@ -8,12 +8,16 @@ namespace GameEnvironment.GameLogic.PlayerSkills
 {
     public class PlayerSkill : MonoBehaviour
     {
+        [SerializeField] private GameObject _skillDescription;
+        
         protected Player _player;
         protected Camera _camera;
         protected bool _isSkillActive;
         protected BattleHud _battleHud;
         protected DeckCreator _deckCreator;
         protected Button _skillButton;
+
+        public GameObject SkillDescription => _skillDescription;
 
         private void Start()
         {

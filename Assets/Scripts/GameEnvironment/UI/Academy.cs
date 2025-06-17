@@ -18,21 +18,20 @@ namespace GameEnvironment.UI
         [SerializeField] private GameObject _materialPrefab;
 
         private float _time;
-        private Vector3 _path;
         private float _speed = 3f;
         private float _speedModifier = 2.5f;
         private float _currentSpeed;
-
         private int _playersLeadership;
         private int _playersHandCapacity;
-        private List<CardData> _availableGuards = new List<CardData>();
+        private Vector3 _path;
         private List<string> _restoredBuildings = new List<string>();
+        private List<string> _restoredGuards = new List<string>();
 
         public PlayerMoney PlayerMoney => _playerMoney;
 
         public TMP_Text MaterialsAmount => _materialsAmount;
-
-        public List<CardData> AvailableGuards => _availableGuards;
+        
+        public List<string> RestoredGuards => _restoredGuards;
 
         public List<string> RestoredBuildings => _restoredBuildings;
 
@@ -40,11 +39,18 @@ namespace GameEnvironment.UI
         {
             _materialsAmount.text = _playerMoney.Materials.ToString();
         }
-
-        public void AddHiredGuards(List<CardData> guardDatas, string buildName)
+        
+        public void RestoreBuilding(List<CardData> guards, string buildName)
         {
-            _availableGuards.AddRange(guardDatas);
             _restoredBuildings.Add(buildName);
+
+            foreach (var guard in guards)
+            {
+                if (!_restoredGuards.Contains(guard.EnName))
+                {
+                    _restoredGuards.Add(guard.EnName);
+                }
+            }
         }
 
         public void IncreaseHandCapacity() => 
@@ -57,7 +63,7 @@ namespace GameEnvironment.UI
         {
             StartCoroutine(MoveMaterials(amount, newPos));
         }
-        
+
         private IEnumerator MoveMaterials(int amount, RectTransform newPos)
         {
             _currentSpeed = _speed;
@@ -93,7 +99,7 @@ namespace GameEnvironment.UI
         
         public void Load(PlayerProgress progress)
         {
-            _availableGuards = progress.WorldData.AvailableGuards.ToList();
+            _restoredGuards = progress.WorldData.OpenGuards.ToList();
             _restoredBuildings = progress.WorldData.RestoredBuildings.ToList();
             _playersLeadership = progress.PlayerStats.Leadership;
             _playersHandCapacity = progress.PlayerStats.HandCapacity;
@@ -101,8 +107,8 @@ namespace GameEnvironment.UI
 
         public void Save(PlayerProgress progress)
         {
-            progress.WorldData.AvailableGuards = _availableGuards.ToList();
             progress.WorldData.RestoredBuildings = _restoredBuildings.ToList();
+            progress.WorldData.OpenGuards = _restoredGuards.ToList();
             progress.PlayerStats.Leadership = _playersLeadership;
             progress.PlayerStats.HandCapacity = _playersHandCapacity;
         }

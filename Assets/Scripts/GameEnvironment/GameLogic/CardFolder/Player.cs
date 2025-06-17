@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Data;
 using GameEnvironment.GameLogic.PlayerSkills;
-using GameEnvironment.UI;
 using GameEnvironment.Units;
 using Infrastructure.Services;
 using UnityEngine;
@@ -35,24 +33,17 @@ namespace GameEnvironment.GameLogic.CardFolder
 
         public event UnityAction<int> LeadershipChanged;
 
-        protected override void Start()
-        {
-            base.Start();
-            //_health.Died += OnPlayerDie;
-            _dragController.GuardPlaced += OnGuardPlaced;
-        }
-
         private void OnDestroy()
         {
             Health.HealthChanged -= UpdateHealth;
             Health.DefenceChanged -= UpdateDefence;
-            //_health.Died -= OnPlayerDie;
-            _dragController.GuardPlaced -= OnGuardPlaced;
+            Health.Died -= OnPlayerDie;
         }
 
         public void Construct(DragController dragController)
         {
             _dragController = dragController;
+            _dragController.GuardPlaced += OnGuardPlaced;
         }
 
         public void RestoreLeadership() => 
@@ -61,11 +52,11 @@ namespace GameEnvironment.GameLogic.CardFolder
         private void OnGuardPlaced(Guard guard) => 
             Leadership--;
 
-        /*private void OnPlayerDie()
+        private void OnPlayerDie(Unit unit)
         {
             _dragController.GuardPlaced -= OnGuardPlaced;
-            _health.Died -= OnPlayerDie;
-        }*/
+            Health.Died -= OnPlayerDie;
+        }
 
         public void Load(PlayerProgress progress)
         {

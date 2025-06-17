@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058bb5fbab967f445b0eb34481014120, type: 3}
+  m_Name: DogDiamonds
+  m_EditorClassIdentifier: 
+  CardPrefab: {fileID: 2225280606753027236, guid: 1b86a4f5764e680488a1065aef7761c3, type: 3}
+  RawPosition: {fileID: 0}
+  SuitType: 3
+  SuitIcon: {fileID: 21300000, guid: 10744620940c30043a008f04445959d1, type: 3}
+  EnName: Yeoman Diamonds
+  RuName: "\u0419\u043E\u043C\u0430\u043D \u0411\u0443\u0431\u043D\u044B"
+  Damage: 1
+  Health: 6
+  ActionPoints: 3
+  UpgradePrice: 0
+  Level: 1

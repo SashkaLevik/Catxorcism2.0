@@ -57,7 +57,8 @@ namespace Infrastructure.States
 
         private void InitGameWorld()
         {
-            GameObject routMap = GameObject.FindWithTag(RoutMap); 
+            //GameObject routMap = GameObject.FindWithTag(RoutMap);
+            GameObject routMap = _gameFactory.CreateRoutMap();
             GameObject battleHud = _gameFactory.CreateBattleHud();
             BattleHud hud = battleHud.GetComponent<BattleHud>();
             GameObject playerSpawner = hud.PlayerSpawnPoint.gameObject;

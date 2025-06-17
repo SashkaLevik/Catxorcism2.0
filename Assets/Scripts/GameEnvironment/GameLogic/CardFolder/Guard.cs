@@ -11,7 +11,7 @@ namespace GameEnvironment.GameLogic.CardFolder
     public class Guard : Unit
     {
         [SerializeField] private CardData _guardUpgrade;
-        [SerializeField] private Image _suitSprite;
+        [SerializeField] private Image _suitIcon;
         [SerializeField] private Button _guardButton;
         [SerializeField] private Enemy _enemy;
         [SerializeField] private SkillCard _buffCard;
@@ -45,18 +45,27 @@ namespace GameEnvironment.GameLogic.CardFolder
         protected override void Start()
         {
             base.Start();
-            /*_suit = _cardData.SuitType;
-            _suitSprite.sprite = _cardData.SuitIcon;*/
-            ActionPoints = _cardData.ActionPoints;
+            /*ActionPoints = _cardData.ActionPoints;
             _APViewer = GetComponent<ActionPointsViewer>();
-            Health.Died += OnGuardDie;
+            Health.Died += OnGuardDie;*/
         }
 
         private void OnEnable()
         {
             _guardButton.onClick.AddListener(PassGuard);
         }
-        
+
+        public override void ConstructUnit(CardData data)
+        {
+            base.ConstructUnit(data);
+            _APViewer = GetComponent<ActionPointsViewer>();
+            Health.Died += OnGuardDie;
+            ActionPoints = data.ActionPoints;
+            _APViewer.SetAP(data);
+            _suit = data.SuitType;
+            _suitIcon.sprite = data.SuitIcon;
+        }
+
         public void AddOnField() => 
             _isOnField = true;
 
@@ -68,7 +77,7 @@ namespace GameEnvironment.GameLogic.CardFolder
             _dragController = dragController;
             _deckCreator = deckCreator;
         }
-
+        
         public void SetSlotIndex(int index) => 
             _slotIndex = index;
 

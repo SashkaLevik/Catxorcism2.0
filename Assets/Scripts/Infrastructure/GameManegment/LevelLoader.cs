@@ -12,7 +12,7 @@ namespace Infrastructure.GameManegment
         [SerializeField] private Map _map;
         
         private string _level;
-
+        private PlayerProgress _progress;
         private IGameStateMachine _stateMachine;
         private ISaveLoadService _saveLoadService;
 
@@ -30,17 +30,19 @@ namespace Infrastructure.GameManegment
         private void OnLevelLoad(string level)
         {
             _level = level;
-            //_saveLoadService.SaveProgress();
+            _saveLoadService.SaveProgress();
             _stateMachine.Enter<LevelState, string>(level, _playersRoom.PlayerData);
         }
 
         public void Load(PlayerProgress progress)
         {
+            _progress = progress;
         }
 
         public void Save(PlayerProgress progress)
         {
             progress.WorldData.Level = _level;
+            progress.WorldData.IsNewRun = false;
         }
     }
 }

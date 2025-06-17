@@ -12,7 +12,9 @@ using Random = UnityEngine.Random;
 namespace GameEnvironment.GameLogic
 {
     public class DeckCreator : MonoBehaviour, ISaveProgress
-    {
+   {
+        private const string AllCardsData = "Data/CardData";
+
         [SerializeField] private EnemySpawner _enemySpawner;
         [SerializeField] private SkillCard _skillPrefab;
         [SerializeField] private DragController _dragController;
@@ -32,22 +34,27 @@ namespace GameEnvironment.GameLogic
         private Guard _spawnedGuard;
         private PlayerProgress _progress;
         private SkillCard _currentSkill;
-        private List<CardData> _playerGuards = new List<CardData>();
-        private List<Card> _currentDeck = new List<Card>();
         private List<Guard> _fieldGuards = new List<Guard>();
+        private List<Card> _currentDeck = new List<Card>();
         private List<Card> _handCards = new List<Card>();
         private List<Card> _discardCards = new List<Card>();
+        private List<CardData> _startDeck = new List<CardData>();
+        private List<CardData> _allCards = new List<CardData>();
+        private List<string> _playerDeck = new List<string>();
 
         public Player Player => _player;
 
         public List<Card> HandCards => _handCards;
 
         public List<Guard> FieldGuards => _fieldGuards;
+        
+        private void Awake()
+        {
+            _allCards = Resources.LoadAll<CardData>(AllCardsData).ToList();
+        }
 
         private void Start()
         {
-            /*if (_progress.WorldData.IsNewRun) 
-                _playerGuards = _player.PlayerGuards.ToList();*/
             _canvas = GetComponent<Canvas>();
             _dragController.GuardPlaced += OnGuardPlaced;
             CreateDeck();
@@ -102,13 +109,17 @@ namespace GameEnvironment.GameLogic
 
         private void CreateDeck()
         {
-            foreach (var guard in _playerGuards)
+            foreach (var cardData in _allCards.Where(cardData => _playerDeck.Contains(cardData.EnName)))
+                _startDeck.Add(cardData);
+
+            foreach (var cardData in _startDeck)
             {
-                _spawnedGuard = (Guard) Instantiate(guard.CardPrefab, _playerSpawnPos);
+                _spawnedGuard = Instantiate(cardData.CardPrefab.GetComponent<Guard>(), _deckSpawnPos);
+                _spawnedGuard.ConstructUnit(cardData);
                 _spawnedGuard.GetCanvas(_canvas, _handPosition);
                 _spawnedGuard.Health.Died += OnGuardDie;
                 _currentDeck.Add(_spawnedGuard);
-                Move(_spawnedGuard, _deckSpawnPos);
+                _spawnedGuard.Flip();
             }
         }
 
@@ -221,7 +232,7 @@ namespace GameEnvironment.GameLogic
             }
         }
 
-        public void Move(Card card, RectTransform newPos)
+        private void Move(Card card, RectTransform newPos)
         {
             StartCoroutine(MoveCards(card, newPos));
         }
@@ -242,12 +253,12 @@ namespace GameEnvironment.GameLogic
         {
             _progress = progress;
             _handCapacity = progress.PlayerStats.HandCapacity;
-            _playerGuards = progress.PlayerStats.StartingGuards.ToList();
+            _playerDeck = progress.PlayerStats.PlayerDeck.ToList();
         }
 
         public void Save(PlayerProgress progress)
         {
-            //progress.PlayerStats.PlayerGuards = _playerGuards.ToList();
+            progress.PlayerStats.PlayerDeck = _playerDeck.ToList();
         }
     }
 }

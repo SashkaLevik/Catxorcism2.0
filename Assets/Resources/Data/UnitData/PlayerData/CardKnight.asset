@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058bb5fbab967f445b0eb34481014120, type: 3}
   m_Name: CardKnight
   m_EditorClassIdentifier: 
-  CardPrefab: {fileID: 3617381006276775103, guid: 39d5624807595834386146f3bb90a82d, type: 3}
+  CardPrefab: {fileID: 2225280606753027236, guid: 39d5624807595834386146f3bb90a82d, type: 3}
+  SuitType: 0
+  CardTypeID: 
   RuName: "\u0420\u044B\u0446\u0430\u0440\u044C"
   EnName: Knight
   RuDescription: "\u041C\u043E\u0436\u0435\u0442 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u044C

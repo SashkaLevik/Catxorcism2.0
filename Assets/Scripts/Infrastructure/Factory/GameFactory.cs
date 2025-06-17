@@ -45,6 +45,13 @@ namespace Infrastructure.Factory
             return battleHud;
         }
 
+        public GameObject CreateRoutMap()
+        {
+            GameObject routMap = _assetProvider.Instantiate(AssetPath.RoutMap);
+            RegisterProgressWatchers(routMap);
+            return routMap;
+        }
+        
         public GameObject CreatePlayer(CardData cardData, GameObject at)
         {
             var player = Object.Instantiate(cardData.CardPrefab, at.transform);

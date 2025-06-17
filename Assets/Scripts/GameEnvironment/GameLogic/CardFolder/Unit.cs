@@ -116,8 +116,8 @@ namespace GameEnvironment.GameLogic.CardFolder
         protected override void Start()
         {
             base.Start();
-            _defaultdamage = _cardData.Damage;
-            CurrentDamage = _defaultdamage;
+            /*_defaultdamage = _cardData.Damage;
+            CurrentDamage = _defaultdamage;*/
         }
 
         private void OnDestroy()
@@ -127,6 +127,14 @@ namespace GameEnvironment.GameLogic.CardFolder
             DamageChanged -= UpdateDamage;
         }
 
+        public virtual void ConstructUnit(CardData data)
+        {
+            _cardData = data;
+            _defaultdamage = _cardData.Damage;
+            CurrentDamage = _defaultdamage;
+            Health.SetHealth(data);
+        }
+        
         public void SetRow(BattleHud battleHud, Row row, RowCardSlot cardSlot)
         {
             _battleHud = battleHud;
