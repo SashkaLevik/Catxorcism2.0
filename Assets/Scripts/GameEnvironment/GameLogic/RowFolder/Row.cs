@@ -95,7 +95,7 @@ namespace GameEnvironment.GameLogic.RowFolder
         private void ChangeSuit(DiceFace diceFace)
         {
             _rowSuit = diceFace.SuitType;
-            _suitImage.sprite = diceFace.FaceData.SuitImage;
+            //_suitImage.sprite = diceFace.FaceData.SuitImage;
 
             foreach (var slot in _guardSlots)
             {

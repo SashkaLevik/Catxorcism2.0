@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Data;
+using GameEnvironment.GameLogic.CardFolder;
 using GameEnvironment.LevelRoutMap.RoutEventWindows;
+using GameEnvironment.UI;
 using Infrastructure.Services;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,17 +14,23 @@ namespace GameEnvironment.LevelRoutMap
 {
     public class RoutMap : MonoBehaviour, ISaveProgress
     {
+        [SerializeField] private MapMovementController _mapMover;
         [SerializeField] private List<RoutEvent> _routEvents;
         [SerializeField] private GameObject _buttonPrefab;
         [SerializeField] private GameObject _pathPrefab;
+        [SerializeField] private RectTransform _buttonContainer;
+        [SerializeField] private RectTransform _tokenStartPos;
 
         public MapData MapData;
         private int _layers = 9;
         private int _maxButtonsPerLayer = 3;
+        private int _buttonsInLayer;
         private float _xSteep = 3;
         private float _verticalSpacing = 2f;
         private float _curveHeight = 1f;
-        private float _leftMarginPercent = 0.1f;
+        private float _leftMarginPercent = 0.25f;
+        private Player _player;
+        private BattleHud _battleHud;
         private PlayerProgress _progress;
         private ISaveLoadService _saveLoadService;
         private Canvas _canvas;
@@ -31,7 +39,16 @@ namespace GameEnvironment.LevelRoutMap
         private List<EventButton> _allButtons = new List<EventButton>();
         private List<MapPath> _allPaths = new List<MapPath>();
 
+        public GameObject PlayerToken { get; private set; }
+        
+        public EventButton CurrentButton => _currentButton;
+
+        public List<EventButton> AllButtons => _allButtons;
+
         public event UnityAction BattleEntered;
+
+        public event UnityAction OnMapGenerated;
+        public event UnityAction<EventButton> OnButtonChanged; 
 
         private void Awake()
         {
@@ -43,6 +60,8 @@ namespace GameEnvironment.LevelRoutMap
         private void Start()
         {
             _camera = Camera.main;
+            _mapMover.MapMoved += OpenEvent;
+            
             if (MapData.SavedButtons.Count > 0 && MapData.CurrentButtonIndex >= 0)
                 LoadMap();
             else
@@ -50,7 +69,22 @@ namespace GameEnvironment.LevelRoutMap
                 GenerateMap();
                 if (_allButtons.Count > 0) _allButtons[0].SetReachable(true);
             }
+
+            foreach (var routEvent in _routEvents) 
+                routEvent.Closed += ShowMap;
         }
+
+        private void OnDestroy()
+        {
+            _mapMover.MapMoved -= OpenEvent;
+            
+            foreach (var routEvent in _routEvents) 
+                routEvent.Closed -= ShowMap;
+        }
+
+        private void ShowMap() => 
+            _buttonContainer.gameObject.SetActive(true);
+
 
         private void Update()
         {
@@ -60,6 +94,15 @@ namespace GameEnvironment.LevelRoutMap
             }
         }
 
+        public void Construct(Player player, BattleHud battleHud)
+        {
+            _player = player;
+            _battleHud = battleHud;
+            
+            foreach (var routEvent in _routEvents) 
+                routEvent.Construct(_player, _battleHud);
+        }
+        
         public void SetCurrentButton(EventButton button)
         {
             _currentButton = button;
@@ -67,40 +110,45 @@ namespace GameEnvironment.LevelRoutMap
 
             foreach (EventButton connected in _currentButton.ConnectedButtons) 
                 connected.SetReachable(true);
+            
+            OnButtonChanged?.Invoke(button);
         }
         
-        public void OpenEvent(EventButton targetButton)
+        private void OpenEvent(EventButton targetButton)
         {
             if (targetButton.RoutEventType == RoutEventType.Battle) 
                 BattleEntered?.Invoke();
             
             foreach (var routEvent in _routEvents.Where(routEvent => targetButton.RoutEventType == routEvent.routEventType))
+            {
                 routEvent.gameObject.SetActive(true);
-            
-            _currentButton = targetButton;
+                
+                if (routEvent.routEventType != RoutEventType.Battle) 
+                    _buttonContainer.gameObject.SetActive(false);
+            }
+
             UpdateReachableEvents();
         }
-
+        
         private void GenerateMap()
         {
             _allButtons.Clear();
             _allPaths.Clear();
 
             Vector3 leftEdge = _camera.ViewportToWorldPoint(new Vector3(_leftMarginPercent, 0.5f, 0));
-            //float xSteep = 3;//(Screen.width * 0.7f) / _layers;
             List<EventButton> previousLayerButtons = new List<EventButton>();
 
             for (int layer = 0; layer < _layers; layer++)
             {
-                int layerButtonsCount = (layer == 0 || layer == _layers - 1)
+                _buttonsInLayer = (layer == 0 || layer == _layers - 1)
                     ? 1 : Random.Range(1, _maxButtonsPerLayer + 1);
                 
                 List<EventButton> currentLayerButtons = new List<EventButton>();
 
-                for (int i = 0; i < layerButtonsCount; i++)
+                for (int i = 0; i < _buttonsInLayer; i++)
                 {
                     Vector3 position = new Vector3(leftEdge.x + (_xSteep * layer),
-                        (i - (layerButtonsCount - 1) * 0.5f) * _verticalSpacing, 0);
+                        (i - (_buttonsInLayer - 1) * 0.5f) * _verticalSpacing, 0);
 
                     EventButton button = CreateButton(position, layer, i, _layers);
                     button.Construct(this);
@@ -118,11 +166,19 @@ namespace GameEnvironment.LevelRoutMap
             }
             
             ValidateFullMapConnectivity();
+            OnMapGenerated?.Invoke();
+            CreatePlayerToken();
         }
 
+        private void CreatePlayerToken()
+        {
+            PlayerToken = Instantiate(_player.PlayerToken, _currentButton == null 
+                ? _tokenStartPos.transform.position : _currentButton.transform.position, Quaternion.identity, transform);
+        }
+        
         private EventButton CreateButton(Vector3 position, int layer, int index, int totalLayers)
         {
-            GameObject buttonObj = Instantiate(_buttonPrefab, position, Quaternion.identity, transform);
+            GameObject buttonObj = Instantiate(_buttonPrefab, position, Quaternion.identity, _buttonContainer);
             EventButton button = buttonObj.GetComponent<EventButton>();
             button.SetType(DetermineEventType(layer, totalLayers));
 
@@ -131,7 +187,7 @@ namespace GameEnvironment.LevelRoutMap
 
         private EventButton LoadSavedButton(Vector3 position, RoutEventType eventType)
         {
-            GameObject button = Instantiate(_buttonPrefab, position, Quaternion.identity, transform);
+            GameObject button = Instantiate(_buttonPrefab, position, Quaternion.identity, _buttonContainer);
             EventButton eventButton = button.GetComponent<EventButton>();
             eventButton.SetType(eventType);
             eventButton.Construct(this);
@@ -140,10 +196,19 @@ namespace GameEnvironment.LevelRoutMap
         
         private RoutEventType DetermineEventType(int layer, int totalLayers)
         {
+            int battleChance = Random.Range(0, 11);
+            
             if (layer == 0) return RoutEventType.Battle;
             if (layer == totalLayers - 1) return RoutEventType.Boss;
 
             bool isBattleLayer = (layer % 2 == 0);
+
+            if (!isBattleLayer && _buttonsInLayer > 1)
+            {
+                if (battleChance > 7)
+                    return RoutEventType.Battle;
+            }
+            
             return isBattleLayer ? RoutEventType.Battle : GetRandomEventType(layer);
         }
 
@@ -273,9 +338,9 @@ namespace GameEnvironment.LevelRoutMap
             float total = weights[0] + weights[1] + weights[2];
             float randomPoint = Random.Range(0, total);
 
-            if (randomPoint < weights[0]) return RoutEventType.FirePlace;
-            if (randomPoint < weights[0] + weights[1]) return RoutEventType.DiceSmith;
-
+            if (randomPoint < weights[0]) return RoutEventType.DiceSmith;
+            if (randomPoint < weights[0] + weights[1]) return RoutEventType.FirePlace;
+            
             return RoutEventType.TreasureBox;
         }
         
@@ -287,9 +352,9 @@ namespace GameEnvironment.LevelRoutMap
         
         private MapPath CreatePath(EventButton from, EventButton to)
         {
-            GameObject pathObj = Instantiate(_pathPrefab, transform);
+            GameObject pathObj = Instantiate(_pathPrefab, _buttonContainer);
             MapPath path = pathObj.GetComponent<MapPath>();
-            path.Initialize(from, to);
+            path.Initialize(from, to, _buttonContainer);
             _allPaths.Add(path);
             from.AddConnectedButton(to);
             return path;
@@ -308,6 +373,7 @@ namespace GameEnvironment.LevelRoutMap
         {
             _layers = MapData.CurrentLayerCount;
             Dictionary<int, EventButton> indexToButton = new Dictionary<int, EventButton>();
+            
             for (int i = 0; i < MapData.SavedButtons.Count; i++)
             {
                 EventButtonData buttonData = MapData.SavedButtons[i];
@@ -344,6 +410,8 @@ namespace GameEnvironment.LevelRoutMap
                 _currentButton = _allButtons[MapData.CurrentButtonIndex];
                 UpdateReachableEvents();
             }
+            
+            CreatePlayerToken();
         }
 
         public void Load(PlayerProgress progress)

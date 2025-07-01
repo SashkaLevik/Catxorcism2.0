@@ -11,16 +11,14 @@ namespace GameEnvironment.UI
         [SerializeField] private TMP_Text _noAP;
         [SerializeField] private TMP_Text _occupiedSlot;
         [SerializeField] private TMP_Text _fullDeckCapacity;
+        [SerializeField] private TMP_Text _noCoins;
 
         public TMP_Text WrongRowType => _wrongRowType;
-
         public TMP_Text NoLeadership => _noLeadership;
-
-        public TMP_Text NoAP => _noAP;
-
         public TMP_Text OccupiedSlot => _occupiedSlot;
-
         public TMP_Text FullDeckCapacity => _fullDeckCapacity;
+        public TMP_Text NoCoins => _noCoins;
+        public TMP_Text NoAP => _noAP;
 
         public void Show(TMP_Text text)
         {

@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Data;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,8 +10,6 @@ namespace GameEnvironment.GameLogic.DiceFolder
         [SerializeField] private float _throwForce;
         [SerializeField] private float _minRollValue;
         [SerializeField] private float _maxRollValue;
-        //[SerializeField] private DiceFaceData _faceData;
-        [SerializeField] private List<DiceFaceData> _faceDatas;
         [SerializeField] private List<DiceFace> _faces;
 
         private bool _isRolling;
@@ -20,7 +17,6 @@ namespace GameEnvironment.GameLogic.DiceFolder
         private Rigidbody _rigidbody;
         private Vector3 _startPosition;
 
-        //public DiceFaceData FaceData => _faceData;
         public bool IsRolling => _isRolling;
         public List<DiceFace> Faces => _faces;
 
@@ -31,33 +27,12 @@ namespace GameEnvironment.GameLogic.DiceFolder
             _rigidbody = GetComponent<Rigidbody>();
             _rigidbody.isKinematic = true;
             _startPosition = transform.position;
-            InitFaces();
-        }       
-
-        public void InitFaces()
-        {
-            for (int i = 0; i < _faces.Count; i++)
-            {
-                _faces[i].Init(_faceDatas[i]);
-            }
         }
-        
+
         public void Roll()
         {
             StartCoroutine(RollDice());
         }
-
-        /*public void AddFace(DiceFaceData faceData)
-        {
-            foreach (var face in _faces)
-            {
-                if (face.FaceType == AreaType.Common)
-                {
-                    face.InitDiceFace(faceData);
-                    return;
-                }
-            }
-        }*/
 
         private IEnumerator RollDice()
         {

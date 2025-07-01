@@ -94,9 +94,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9704b5b85a2043e892e6eab67161e4fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _suitType: 1
-  _faceData: {fileID: 0}
-  _material: {fileID: 0}
+  _suitType: 4
+  _suitIcon: {fileID: 21300000, guid: 4244532fe9884cd4d8ce1d2079e62432, type: 3}
+  _material: {fileID: 2100000, guid: 3702af41351dffc4eafdf345b99f5423, type: 2}
+  DiceFaceData:
+    SuitType: 0
+    SuitImage: {fileID: 0}
+    Material: {fileID: 0}
 --- !u!1 &2065160648859294114
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,8 +196,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _suitType: 1
-  _faceData: {fileID: 0}
-  _material: {fileID: 0}
+  _suitIcon: {fileID: 0}
+  _material: {fileID: 2100000, guid: d361e1c96e2d9ca4ba40d2e39cd5c53c, type: 2}
+  DiceFaceData:
+    SuitType: 0
+    SuitImage: {fileID: 0}
+    Material: {fileID: 0}
 --- !u!1 &3942594497012240858
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,9 +296,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9704b5b85a2043e892e6eab67161e4fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _suitType: 1
-  _faceData: {fileID: 0}
-  _material: {fileID: 0}
+  _suitType: 3
+  _suitIcon: {fileID: 21300000, guid: 10744620940c30043a008f04445959d1, type: 3}
+  _material: {fileID: 2100000, guid: 71a7ddefb7a0246488d3fe00b1f05022, type: 2}
+  DiceFaceData:
+    SuitType: 0
+    SuitImage: {fileID: 0}
+    Material: {fileID: 0}
 --- !u!1 &6778424829709094489
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,9 +397,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9704b5b85a2043e892e6eab67161e4fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _suitType: 1
-  _faceData: {fileID: 0}
-  _material: {fileID: 0}
+  _suitType: 2
+  _suitIcon: {fileID: 21300000, guid: 1593f82638903f1428639f5821643802, type: 3}
+  _material: {fileID: 2100000, guid: 2a55b79446b8a5640919beb444402e46, type: 2}
+  DiceFaceData:
+    SuitType: 0
+    SuitImage: {fileID: 0}
+    Material: {fileID: 0}
 --- !u!1 &6833917841600535825
 GameObject:
   m_ObjectHideFlags: 0
@@ -506,13 +522,6 @@ MonoBehaviour:
   _throwForce: 10
   _minRollValue: 50
   _maxRollValue: 200
-  _faceDatas:
-  - {fileID: 11400000, guid: 9cccb88f1a31cd245a8ad5cc0276750b, type: 2}
-  - {fileID: 11400000, guid: a0f60d2e8dfdcd04da815f2c0ee4a4b8, type: 2}
-  - {fileID: 11400000, guid: 01af2d9e94d5c7d48b1107e99fbfb8ab, type: 2}
-  - {fileID: 11400000, guid: e9c71ab37be2f924cab0cec251bea600, type: 2}
-  - {fileID: 11400000, guid: 69dda6988ecd8664eb4f05800b479da2, type: 2}
-  - {fileID: 11400000, guid: 69dda6988ecd8664eb4f05800b479da2, type: 2}
   _faces:
   - {fileID: 4056985243485523002}
   - {fileID: 5764133314441047417}
@@ -630,9 +639,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9704b5b85a2043e892e6eab67161e4fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _suitType: 1
-  _faceData: {fileID: 0}
-  _material: {fileID: 0}
+  _suitType: 5
+  _suitIcon: {fileID: 21300000, guid: 6f65b822d9a9ea846a8a0a7788ba2edc, type: 3}
+  _material: {fileID: 2100000, guid: b405ea7a8c1d007429d723e8ba88f215, type: 2}
+  DiceFaceData:
+    SuitType: 0
+    SuitImage: {fileID: 0}
+    Material: {fileID: 0}
 --- !u!1 &8573373253953133127
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,5 +741,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _suitType: 1
-  _faceData: {fileID: 0}
-  _material: {fileID: 0}
+  _suitIcon: {fileID: 0}
+  _material: {fileID: 2100000, guid: d361e1c96e2d9ca4ba40d2e39cd5c53c, type: 2}
+  DiceFaceData:
+    SuitType: 0
+    SuitImage: {fileID: 0}
+    Material: {fileID: 0}

@@ -12,12 +12,16 @@ namespace GameEnvironment.GameLogic.CardFolder
     {
         [SerializeField] private PlayerType _playerType;
         [SerializeField] private List<PlayerSkill> _playerSkills;
+        [SerializeField] private GameObject _playerToken;
 
         private int _leadership;
         private DragController _dragController;
         private PlayerProgress _progress;
 
         public int Level { get; private set; }
+
+        public GameObject PlayerToken => _playerToken;
+
         public PlayerType Type => _playerType;
         public List<PlayerSkill> PlayerSkills => _playerSkills;
 

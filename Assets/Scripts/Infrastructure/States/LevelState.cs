@@ -58,18 +58,20 @@ namespace Infrastructure.States
         private void InitGameWorld()
         {
             //GameObject routMap = GameObject.FindWithTag(RoutMap);
-            GameObject routMap = _gameFactory.CreateRoutMap();
+            GameObject routMapObj = _gameFactory.CreateRoutMap();
             GameObject battleHud = _gameFactory.CreateBattleHud();
             BattleHud hud = battleHud.GetComponent<BattleHud>();
+            RoutMap routMap = routMapObj.GetComponent<RoutMap>();
             GameObject playerSpawner = hud.PlayerSpawnPoint.gameObject;
             GameObject currentPlayer = _gameFactory.CreatePlayer(_cardData, playerSpawner);
             BattleSystem battleSystem = hud.GetComponent<BattleSystem>();
             DeckCreator deckCreator = hud.GetComponent<DeckCreator>();
             DragController dragController = hud.GetComponent<DragController>();
             Player player = currentPlayer.GetComponent<Player>();
+            routMap.Construct(player, hud);
             hud.Construct(player);
-            battleSystem.Construct(routMap.GetComponent<RoutMap>());
-            deckCreator.Construct(player.GetComponent<Player>());
+            battleSystem.Construct(routMap);
+            deckCreator.Construct(player);
             player.Construct(dragController);
             dragController.Construct(player);
 

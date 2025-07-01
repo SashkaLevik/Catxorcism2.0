@@ -1,11 +1,11 @@
-﻿using GameEnvironment.GameLogic;
+﻿using System;
+using GameEnvironment.GameLogic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Data
 {
-    [CreateAssetMenu(fileName = "DiceFaceData", menuName = "DiceFaceData")]
-    public class DiceFaceData : ScriptableObject
+    [Serializable]
+    public class DiceFaceData
     {
         public SuitType SuitType;
         public Sprite SuitImage;

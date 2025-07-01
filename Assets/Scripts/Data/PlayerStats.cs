@@ -14,8 +14,7 @@ namespace Data
         public int DefaultDeckCapacity;
         public int DefaultLeadership;
         public int DefaultHandCapacity;
-        public List<DiceFaceData> FrontDiceFaces;
-        public List<DiceFaceData> BackDiceFaces;
+        public DiceData DiceData;
         public List<string> PlayerDeck;
 
         public PlayerStats()
@@ -27,8 +26,7 @@ namespace Data
             DefaultLeadership = 3;
             DefaultHandCapacity = 3;
             DefaultDeckCapacity = 4;
-            FrontDiceFaces = new List<DiceFaceData>();
-            BackDiceFaces = new List<DiceFaceData>();
+            DiceData = new DiceData();
             PlayerDeck = new List<string>();
         }
 

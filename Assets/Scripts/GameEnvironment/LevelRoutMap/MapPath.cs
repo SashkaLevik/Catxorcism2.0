@@ -6,34 +6,45 @@ namespace GameEnvironment.LevelRoutMap
 {
     public class MapPath : MonoBehaviour
     {
-        public PathData PathData;
-        
         [SerializeField] private LineRenderer _lineRenderer;
+
+        public PathData PathData;
         public EventButton StartButton;
         public EventButton EndButton;
-        //private float _lineThickness = 0.2f;
+        private float _curveHeight = 1f;
+        private Transform _buttonContainer;
+        private Vector3[] _curvePoints;
 
-        public void Initialize(EventButton start, EventButton end)
+        public void Initialize(EventButton start, EventButton end, Transform container)
         {
-            //_lineRenderer.startWidth = _lineThickness;
-            //_lineRenderer.endWidth = _lineThickness;
-            //DrawCurvedPath(start.transform.position, end.transform.position, curveHeight);
             StartButton = start;
             EndButton = end;
-            UpdateVisuals(start, end);
+            _buttonContainer = container;
+            _lineRenderer.useWorldSpace = false;
+            GenerateCurvedPoints();
+            UpdateVisuals();
         }
 
-        private void DrawCurvedPath(Vector3 start, Vector3 end, float height)
+        public void UpdateVisuals()
         {
-            Vector3 controlPoint = (start + end) / 2 + Vector3.up * height;
-
-            _lineRenderer.positionCount = 12;
-
+            if (_curvePoints == null || _curvePoints.Length == 0) return;
+        
+            _lineRenderer.positionCount = _curvePoints.Length;
+            _lineRenderer.SetPositions(_curvePoints);
+        }
+        
+        private void GenerateCurvedPoints()
+        {
+            Vector3 startLocal = _buttonContainer.InverseTransformPoint(StartButton.transform.position);
+            Vector3 endLocal = _buttonContainer.InverseTransformPoint(EndButton.transform.position);
+        
+            Vector3 controlPoint = (startLocal + endLocal) / 2 + Vector3.up * _curveHeight;
+        
+            _curvePoints = new Vector3[12];
             for (int i = 0; i < 12; i++)
             {
                 float t = i / 11f;
-                Vector3 position = CalculateBezierPoint(t, start, controlPoint, end);
-                _lineRenderer.SetPosition(i, position);
+                _curvePoints[i] = CalculateBezierPoint(t, startLocal, controlPoint, endLocal);
             }
         }
 
@@ -42,12 +53,12 @@ namespace GameEnvironment.LevelRoutMap
             float u = 1 - t;
             return u * u * p0 + 2 * u * t * p1 + t * t * p2;
         }
-
-        private void UpdateVisuals(EventButton start, EventButton end)
+        
+        /*public void UpdateVisuals(EventButton start, EventButton end)
         {
             _lineRenderer.positionCount = 2;
             _lineRenderer.SetPosition(0, start.transform.position);
             _lineRenderer.SetPosition(1, end.transform.position);
-        }
+        }*/
     }
 }

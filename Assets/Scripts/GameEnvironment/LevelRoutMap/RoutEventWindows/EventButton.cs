@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Data;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +9,6 @@ namespace GameEnvironment.LevelRoutMap.RoutEventWindows
     public class EventButton : MonoBehaviour
     {
         public EventButtonData ButtonData;
-        public PathData PathData;
         public RoutEventType _routEventType;
         private Button _button;
         private RoutEvent _routEvent;
@@ -29,6 +29,9 @@ namespace GameEnvironment.LevelRoutMap.RoutEventWindows
             _button.interactable = false;
             _button.onClick.AddListener(OpenEvent);
         }
+
+        private void OnDestroy() => 
+            _button.onClick.RemoveListener(OpenEvent);
 
         public void Construct(RoutMap routMap) => 
             _routMap = routMap;
@@ -63,11 +66,7 @@ namespace GameEnvironment.LevelRoutMap.RoutEventWindows
 
         private void OpenEvent()
         {
-            if (_isReachable)
-            {
-                _routMap.OpenEvent(this);
-                _routMap.SetCurrentButton(this);
-            }
+            if (_isReachable) _routMap.SetCurrentButton(this);
         }
     }
 }

@@ -1013,6 +1013,7 @@ MonoBehaviour:
   _playerSkills:
   - {fileID: 6361017437644930343}
   - {fileID: 8581712089307997294}
+  _playerToken: {fileID: 1187523594918223704, guid: 4c6687618750e6f409cfb3f6b82e13ba, type: 3}
 --- !u!114 &757858309821252701
 MonoBehaviour:
   m_ObjectHideFlags: 0

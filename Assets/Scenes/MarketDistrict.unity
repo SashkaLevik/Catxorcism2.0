@@ -177,6 +177,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CloseButton: {fileID: 1950294902}
   routEventType: 2
+  _frontDice: {fileID: 0}
+  _backDice: {fileID: 0}
+  _frontDiceSlots: []
+  _backDiceSlots: []
+  _smithSlots: []
+  _diceFceButtons: []
 --- !u!114 &84187018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2903,6 +2909,11 @@ MonoBehaviour:
   - {fileID: 1793249208}
   _buttonPrefab: {fileID: 1303796557732189299, guid: 45ee1d8d3817cac46a9cd5e8a618ecd0, type: 3}
   _pathPrefab: {fileID: 6659987604173360328, guid: 3e0a15051b8e8714f967765a3921f074, type: 3}
+  MapData:
+    CurrentLayerCount: 0
+    CurrentButtonIndex: -1
+    SavedButtons: []
+    SavedPaths: []
 --- !u!1 &2109937509
 GameObject:
   m_ObjectHideFlags: 0

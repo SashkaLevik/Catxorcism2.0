@@ -35,18 +35,21 @@ namespace GameEnvironment.UI.PlayerWallet
         {
             _coins += value;
             StartCoroutine(AddTreasure(_coins, text));
+            MoneyChanged?.Invoke();
         }
 
         public void RemoveCoin(int value, TMP_Text text)
         {
             _coins -= value;
             StartCoroutine(RemoveTreasure(_coins, text));
+            MoneyChanged?.Invoke();
         }
         
         public void AddMaterials(int value, TMP_Text text)
         {
             _materials += value;
             StartCoroutine(AddTreasure(_materials, text));
+            MoneyChanged?.Invoke();
         }
         
         public void RemoveMaterials(int value, TMP_Text text)
